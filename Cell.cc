@@ -1,34 +1,48 @@
 #include "Cell.h"
 
-Cell::Cell(int x, int y, char c /* = ' ' */) : x{x}, y{x}, c{c} {}
+struct Cell::CellImpl {
+    int x;
+    int y;
+    char c;
 
-Cell::Cell() : x{0}, y{0}, c{'c'} {}
+    CellImpl() : x{0}, y{0}, c{' '} {}
+
+    CellImpl(int x, int y, char c) : x{x}, y{y}, c{c} {}
+};
+
+Cell::Cell(int x, int y, char c /* = ' ' */) : cellImpl{new CellImpl{x, y, c}} {}
+
+Cell::Cell() : cellImpl{new CellImpl{}} {}
 
 int Cell::getX() const {
-    return x;
+    return cellImpl->x;
 }
 
 void Cell::setX(int x) {
-    Cell::x = x;
+    cellImpl->x = x;
 }
 
 int Cell::getY() const {
-    return y;
+    return cellImpl->y;
 }
 
 void Cell::setY(int y) {
-    Cell::y = y;
+    cellImpl->y = y;
 }
 
 char Cell::getC() const {
-    return c;
+    return cellImpl->c;
 }
 
 void Cell::setC(char c) {
-    Cell::c = c;
+    cellImpl->c = c;
 }
 
 std::ostream &operator<<(std::ostream &os, const Cell &cell) {
-    os << cell.c;
+    os << cellImpl->c;
     return os;
+}
+
+Cell::~Cell() {
+
 }

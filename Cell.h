@@ -7,9 +7,8 @@
 
 class Cell : public Observer, Subject {
 
-    int x;
-    int y;
-    char c;
+    struct CellImpl;
+    std::unique_ptr<CellImpl> cellImpl;
 
 public:
 
@@ -30,6 +29,8 @@ public:
     void setC(char c);
 
     friend std::ostream &operator<<(std::ostream &os, const Cell &cell);
+
+    virtual ~Cell();
 
 };
 
