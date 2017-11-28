@@ -3,5 +3,5 @@ project(Test)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cc Grid.cc Grid.h)
 add_executable(Test ${SOURCE_FILES})
