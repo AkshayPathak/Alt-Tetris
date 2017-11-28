@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -14,17 +15,13 @@ class GraphicsDisplay;
 class TextDisplay;
 
 class Grid {
-    vector<vector<Cell>> board;
-    Level *level = nullptr;
-    Score *score = nullptr;
-    TextDisplay *td = nullptr;
-    GraphicsDisplay *gd = nullptr;
+    struct GridImpl;
+    unique_ptr<GridImpl> pImpl;
 public:
-    Block &nextBlock();
-    Block &currentBlock();
-    friend ostream &operator<<(ostream &, Grid &);
-    // should i create an init fucntion.. make new Textdisplay inside grid's init, or should i take in a parameterized constructor...
-    void init();
+    Block &nextBlock() noexcept;
+    Block &currentBlock() noexcept;
+    void init() noexcept;
+    friend ostream &operator<<(ostream &, Grid &) noexcept;
 };
 
 

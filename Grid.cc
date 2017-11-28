@@ -2,6 +2,14 @@
 
 using namespace std;
 
+struct Grid::GridImpl {
+    vector<vector<shared_ptr<Cell>>> board;  // not sure if this should be shared pointer
+    unique_ptr<Level> level = nullptr;
+    unique_ptr<Score> score = nullptr;
+    unique_ptr<TextDisplay> td = nullptr;
+    unique_ptr<GraphicsDisplay> gd = nullptr;
+};
+
 // Private
 void shiftBoard() {
     // need Block.h
@@ -13,20 +21,20 @@ Block &makeBlock() {
 }
 
 void setBlock() {
-    //
-}
 
+}
+//--------------------------------------------------------------------------------
 // Public
 Block &Grid::nextBlock() {
-    return <#initializer#>;
+
 }
 
 Block &Grid::currentBlock() {
-    return <#initializer#>;
+
 }
 
 ostream &operator<<(ostream &, Grid &) {
-    return <#initializer#>;
+
 }
 
 void Grid::init() {
