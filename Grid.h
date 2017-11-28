@@ -18,6 +18,7 @@ class Grid {
     struct GridImpl;
     unique_ptr<GridImpl> pImpl;
 public:
+    Grid() noexcept;
     Block &nextBlock() noexcept;
     Block &currentBlock() noexcept;
     void init() noexcept;

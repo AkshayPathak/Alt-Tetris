@@ -17,7 +17,7 @@ void shiftBoard() {
 
 // gets level to create a block, just returns reference to that block
 Block &makeBlock() {
-    // need Level
+    // TODO
 }
 
 void setBlock() {
@@ -25,6 +25,8 @@ void setBlock() {
 }
 //--------------------------------------------------------------------------------
 // Public
+Grid::Grid() :  pImpl{new GridImpl{}} {}
+
 Block &Grid::nextBlock() {
 
 }
