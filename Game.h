@@ -23,7 +23,7 @@ class Game {
     unique_ptr<Interpreter> inter;
 
 public:
-    void init(int argc, char argv[]);
+    void init(int argc, char *argv[]);
 
     // Basic Commands
     void left();
