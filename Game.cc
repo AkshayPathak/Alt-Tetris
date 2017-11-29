@@ -1,5 +1,10 @@
 #include "Game.h"
 #include "Grid.h"
+#include "Block.h"
+#include <iostream>
+#include <fstream>
+
+// #include "Level.h"
 
 using namespace std;
 
@@ -44,12 +49,16 @@ void Game::drop() {
     gameImpl->grid->currentBlock().transformDrop();
 }
 
-void Game::levelUp() {
-
+void Game::levelUp() { // Needs Level.h
+    int newLevel = gameImpl->level->getLevel() + 1;
+    newLevel = newLevel > 4 ? 4 : newLevel;
+    gameImpl->level->setLevel(newLevel);
 }
 
-void Game::levelDown() {
-
+void Game::levelDown() {  // Needs Level.h
+    int newLevel = gameImpl->level->getLevel() - 1;
+    newLevel = newLevel >= 0 ? newLevel : 0;
+    gameImpl->level->setLevel(newLevel);
 }
 
 void Game::I() {
@@ -84,7 +93,11 @@ void Game::random() {
 
 }
 
-void Game::noRandom() {
+void Game::noRandom(string inFile) {
+
+}
+
+void Game::sequence(string inFile) {
 
 }
 

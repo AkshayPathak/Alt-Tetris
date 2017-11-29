@@ -4,7 +4,7 @@
 using namespace std;
 
 void Interpreter::init(unique_ptr<Game> theGame, int argc, char argv[]) {
-    //theGame->
+
 
     string cmd;
     while(!cin.eof()) {
@@ -27,9 +27,15 @@ void Interpreter::init(unique_ptr<Game> theGame, int argc, char argv[]) {
         } else if(cmd == "leveldown") {
             theGame->levelDown();
         } else if(cmd == "norandom") {
-            theGame->noRandom();
+            string inFile;
+            cin >> inFile;
+            theGame->noRandom(inFile);
         } else if(cmd == "random") {
             theGame->random();
+        } else if(cmd == "sequence") {
+            string inFile;
+            cin >> inFile;
+            theGame->sequence(inFile);
         } else if(cmd == "I") {
             theGame->I();
         } else if(cmd == "J") {

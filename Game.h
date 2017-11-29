@@ -42,7 +42,8 @@ public:
     void Z();
     void T();
     void random();
-    void noRandom();
+    void noRandom(string inFile);
+    void sequence(string inFile);
     void restart();
     void hint();
 };
