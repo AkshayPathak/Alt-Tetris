@@ -1,6 +1,10 @@
 #include <iostream>
+#include "Game.h"
+#include "Observer.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
+
+int main(int argc, char argv[]) {
+    Game theGame;
+    theGame.init(argc,argv);
 }
