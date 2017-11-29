@@ -7,22 +7,20 @@
 
 using namespace std;
 
-class Cell;
-class Block;
-class Level;
-class Score;
-class GraphicsDisplay;
-class TextDisplay;
-
 class Grid {
-    struct GridImpl;
-    unique_ptr<GridImpl> pImpl;
+    struct gridImpl;
+    unique_ptr<gridImpl> pImpl;
 public:
-    Grid() noexcept;
-    Block &nextBlock() noexcept;
-    Block &currentBlock() noexcept;
-    void init() noexcept;
-    friend ostream &operator<<(ostream &, Grid &) noexcept;
+
+    Grid();
+
+    ~Grid();
+
+    void init();     // creates board, empties it if there is already a board, will add observers to the Cells, don't know if it should tho
+
+    friend ostream &operator<<(ostream &, Grid &);
+
+    void setBlock();
 };
 
 
