@@ -13,7 +13,7 @@ class Game;
 class Interpreter {
 
 public:
-    void init(unique_ptr<Game> theGame,int argc, char argv[]);
+    void init(unique_ptr<Game> theGame,int argc, char *argv[]);
 
 };
 

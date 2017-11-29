@@ -20,7 +20,6 @@ class Interpreter;
 class Game {
     struct GameImpl;
     unique_ptr<GameImpl> gameImpl;
-    unique_ptr<Interpreter> inter;
 
 public:
     void init(int argc, char *argv[]);

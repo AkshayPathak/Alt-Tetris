@@ -4,25 +4,23 @@
 #include <iostream>
 #include <fstream>
 
-// #include "Level.h"
-
 using namespace std;
 
 struct Game::GameImpl {
 
-
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
+    unique_ptr<Interpreter> interpreter = nullptr;
     unique_ptr<TextDisplay> td = nullptr;
     unique_ptr<GraphicsDisplay> gd = nullptr;
 
 };
 
-Game::Game(): gameImpl{new GameImpl{}}, inter{new Interpreter{}} {}
+//Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
 
 void Game::init(int argc, char *argv[]) {
-    inter->init(this,argc,argv);
+    gameImpl->interpreter->init(this, argc, argv);
 }
 
 void Game::left() {
