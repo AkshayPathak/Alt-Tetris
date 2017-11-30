@@ -22,31 +22,31 @@ struct Game::GameImpl {
 //Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
 
 void Game::init(int argc, char *argv[]) {
-    //gameImpl->interpreter->init(this, argc, argv);
+    gameImpl->interpreter->init(this, argc, argv);
 }
 
 void Game::left() {
-    //gameImpl->currentBlock.transformLeft();
+    gameImpl->grid->transformLeft();
 }
 
 void Game::right() {
-    //gameImpl->currentBlock.transformRight();
+    gameImpl->grid->transformRight();
 }
 
 void Game::clockwise() {
-    //gameImpl->currentBlock.transformClockwise();
+    gameImpl->grid->transformClockwise();
 }
 
 void Game::counterClockwise() {
-    //gameImpl->currentBlock.transformCounterClockwise();
+    gameImpl->grid->transformCounterClockwise();
 }
 
 void Game::down() {
-    //gameImpl->currentBlock.transformDown();
+    gameImpl->grid->transformDown();
 }
 
 void Game::drop() {
-    //gameImpl->currentBlock.transformDrop();
+    gameImpl->grid->transformDrop();
 }
 
 void Game::levelUp() { // Needs Level.h
@@ -113,7 +113,7 @@ void Game::createBlock() {
     //...
 }
 
-Block Game::getNextBlock() const{
+Block Game::getNextBlock() const {
     // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
     // but other classes might not
 }
