@@ -14,9 +14,6 @@ class Interpreter {
 
 public:
     void init(unique_ptr<Game> theGame,int argc, char *argv[]);
-
 };
-
-
 
 #endif //TEST_INTERPRETER_H

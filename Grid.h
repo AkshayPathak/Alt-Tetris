@@ -8,8 +8,8 @@
 using namespace std;
 
 class Grid {
-    struct gridImpl;
-    unique_ptr<gridImpl> pImpl;
+    struct GridImpl;
+    unique_ptr<GridImpl> gridImpl;
 public:
 
     Grid();
@@ -18,9 +18,21 @@ public:
 
     void init();     // creates board, empties it if there is already a board, will add observers to the Cells, don't know if it should tho
 
-    friend ostream &operator<<(ostream &, Grid &);
-
     void setBlock();
+
+    void transformLeft();
+
+    void transformRight();
+
+    void transformDown();
+
+    void transformDrop();
+
+    void transformClockwise();
+
+    void transformCounterClockwise();
+
+    friend ostream &operator<<(ostream &, Grid &);
 };
 
 

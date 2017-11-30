@@ -1,10 +1,8 @@
 #include "Interpreter.h"
 
-
 using namespace std;
 
 void Interpreter::init(unique_ptr<Game> theGame, int argc, char *argv[]) {
-
 
     string cmd;
     while(!cin.eof()) {

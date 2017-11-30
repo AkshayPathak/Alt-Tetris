@@ -8,7 +8,7 @@ class Cell;
 
 class Block {
 
-    std::vector<std::unique_ptr<Cell>> cells;
+    std::vector<std::shared_ptr<Cell>> cells;
 
     void swap(Block &other);
 

@@ -1,15 +1,19 @@
 #include "Grid.h"
 #include "Cell.h"
+#include "Block.h"
 
 using namespace std;
 
-struct Grid::gridImpl {
+struct Grid::GridImpl {
     vector<vector<shared_ptr<Cell>>> board;  // not sure if this should be shared pointer
+
+    Block currentBlock;
+
     void shiftBoard();
 };
 
 // deletes a bottom row, adds top row, changes index of every single Cell
-void Grid::gridImpl::shiftBoard() {
+void Grid::GridImpl::shiftBoard() {
     board.pop_back();
     vector<shared_ptr<Cell>> first = vector<shared_ptr<Cell>>(11);
     for(size_t i = 0, j = 0; i < 11; i++) {
@@ -29,10 +33,10 @@ void Grid::gridImpl::shiftBoard() {
 
 //--------------------------------------------------------------------------------
 // Public
-Grid::Grid() : pImpl{new gridImpl{}} {
+Grid::Grid() : gridImpl{new GridImpl{}} {
     for (size_t i = 0; i < 18; i++) {
         for (size_t j = 0; j < 11; j++) {
-            pImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
+            gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
         }
     }
 }
@@ -41,14 +45,14 @@ Grid::~Grid() = default;
 
 void Grid::init() {
     // clears the board first
-    for (size_t i = 0; i < pImpl->board.size(); i++) {
-        pImpl->board.at(i).clear();
+    for (size_t i = 0; i < gridImpl->board.size(); i++) {
+        gridImpl->board.at(i).clear();
     }
 
     // constructs empty board
     for (size_t i = 0; i < 18; i++) {
         for (size_t j = 0; j < 11; j++) {
-            pImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
+            gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
         }
     }
 
@@ -63,4 +67,29 @@ ostream &operator<<(ostream &, Grid &) {
 
 void Grid::setBlock() {
 // not really sure about this method
+}
+
+void Grid::transformLeft() {
+    // TODO Make a copy and perform transformation on that
+    gridImpl->currentBlock.transformLeft();
+}
+
+void Grid::transformRight() {
+    gridImpl->currentBlock.transformRight();
+}
+
+void Grid::transformDown() {
+    gridImpl->currentBlock.transformDown();
+}
+
+void Grid::transformDrop() {
+    gridImpl->currentBlock.transformDrop();
+}
+
+void Grid::transformClockwise() {
+    gridImpl->currentBlock.transformClockwise();
+}
+
+void Grid::transformCounterClockwise() {
+    gridImpl->currentBlock.transformCounterClockwise();
 }

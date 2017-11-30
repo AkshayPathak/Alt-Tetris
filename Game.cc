@@ -15,6 +15,8 @@ struct Game::GameImpl {
     unique_ptr<TextDisplay> td = nullptr;
     unique_ptr<GraphicsDisplay> gd = nullptr;
 
+    Block nextBlock;
+
 };
 
 //Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
@@ -24,27 +26,27 @@ void Game::init(int argc, char *argv[]) {
 }
 
 void Game::left() {
-    gameImpl->grid->currentBlock().transformLeft();
+    gameImpl->currentBlock.transformLeft();
 }
 
 void Game::right() {
-    gameImpl->grid->currentBlock().transformRight();
+    gameImpl->currentBlock.transformRight();
 }
 
 void Game::clockwise() {
-    gameImpl->grid->currentBlock().transformClockwise();
+    gameImpl->currentBlock.transformClockwise();
 }
 
 void Game::counterClockwise() {
-    gameImpl->grid->currentBlock().transformCounterClockwise();
+    gameImpl->currentBlock.transformCounterClockwise();
 }
 
 void Game::down() {
-    gameImpl->grid->currentBlock().transformDown();
+    gameImpl->currentBlock.transformDown();
 }
 
 void Game::drop() {
-    gameImpl->grid->currentBlock().transformDrop();
+    gameImpl->currentBlock.transformDrop();
 }
 
 void Game::levelUp() { // Needs Level.h

@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "Cell.h"
 
 void Block::swap(Block &other) {
     using std::swap;
@@ -21,7 +22,9 @@ Block &Block::operator=(Block &&other) noexcept {
 }
 
 void Block::transformLeft() {
-    // TODO: Implement this
+    for (auto &cell : cells) {
+        cell->getX();
+    }
 }
 
 void Block::transformRight() {
@@ -31,11 +34,6 @@ void Block::transformRight() {
 void Block::transformDown() {
     // TODO: Implement this
 }
-
-void Block::transformDrop() {
-    // TODO: Implement this
-}
-
 
 void Block::transformClockwise() {
     // TODO: Implement this
