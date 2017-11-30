@@ -2,6 +2,7 @@
 #include "Cell.h"
 #include "Block.h"
 #include "Game.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -19,53 +20,61 @@ struct Grid::GridImpl {
 //--------------------------------------------------------------------------------
 // Public
 // ctor
-// TODO: CHECK THE CTOR AND INIT FUNCTIONS
 Grid::Grid(shared_ptr<Game> game, int x = 11, int y = 18) : gridImpl{new GridImpl{game, x, y}} {
     // makes the board
-    for (size_t i = 0; i < y; i++) {
-        for (size_t j = 0; j < x; j++) {
+    for (int i = 0; i < y; i++) {
+        for (int j = 0; j < x; j++) {
             gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
         }
     }
-    // gets the first current block
-    gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    gridImpl->game->createBlock();      // creates Game's next block
 }
 
 Grid::~Grid() = default;
 
 void Grid::init() {
     // clears the board first
-    for (size_t i = 0; i < gridImpl->board.size(); i++) {
+    for (int i = 0; i < gridImpl->board.size(); i++) {
         gridImpl->board.at(i).clear();
     }
 
     // constructs empty board
-    for (size_t i = 0; i < gridImpl->y; i++) {
-        for (size_t j = 0; j < gridImpl->x; j++) {
+    for (int i = 0; i < gridImpl->y; i++) {
+        for (int j = 0; j < gridImpl->x; j++) {
             gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
         }
     }
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     gridImpl->game->createBlock();      // creates Game's next block
+    notifyObservers();
 }
 
-// ONLY DROP CALLS THIS METHOD RIGHT NOW, maybe should make it private
+// only drop calls this
 void Grid::setBlock() {
     // puts currentBlock on the board
-    for (size_t i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
+    for (int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
         int x = gridImpl->currentBlock.getCells().at(i)->getX();
         int y = gridImpl->currentBlock.getCells().at(i)->getY();
         char c = gridImpl->currentBlock.getCells().at(i)->getC();
         gridImpl->board.at(y).at(x)->setC(c);
     }
-
-    if (fullBoard()) shiftBoard();    // maybe change to full row
-
     notifyObservers();
+
+    // getting a vector of x values
+    vector<int> y_values(gridImpl->currentBlock.getCells().size());
+    for (int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
+        y_values.at(i) = gridImpl->currentBlock.getCells().at(i)->getY();
+    }
+    sort(y_values.begin(), y_values.end());
+    y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
+
+    for(int i = 0; i < y_values.size(); i++) {
+        if (fullRow(y_values.at(i))) shiftBoard(y_values.at(i));
+    }
+
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     gridImpl->game->createBlock();      // creates Game's next block
+    notifyObservers();
 }
 
 void Grid::transformLeft() {
@@ -139,22 +148,36 @@ void Grid::transformCounterClockwise() {
 }
 
 
-
+/* 1. will drop as many times as it can
+ * 2. setpiece when can no longer drop-->already calls fullRow, which calls shiftBoard
+ */
 void Grid::transformDrop() {
-    // TODO: IMPLEMENT
+    bool keepDropping = true;
+    while(keepDropping) {
+        Block copy = gridImpl->currentBlock;
+        copy.transformDown();
+        if (invalidInput(copy)) keepDropping = false;
+        if (overlap(copy)) keepDropping = false;
+        gridImpl->currentBlock = copy;
+        notifyObservers();
+    }
+    setBlock();
 }
 
-
-
-
 //Private
-//TODO: IMPLEMENT
-bool Grid::fullBoard() const {
-    return false;
+// row is an index
+bool Grid::fullRow(int row) const {
+    for(int i = 0; i < gridImpl->x; i++) {
+        // if it is space, then there is an empty character there
+        if (gridImpl->board.at(row).at(i)->getC() == ' ') {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool Grid::invalidInput(const Block &copy) {
-    for (size_t i = 0; i < copy.getCells().size(); i++) {
+    for (int i = 0; i < copy.getCells().size(); i++) {
         int x = copy.getCells().at(i)->getX();
         int y = copy.getCells().at(i)->getY();
         if (x < 0) return true;
@@ -166,7 +189,7 @@ bool Grid::invalidInput(const Block &copy) {
 }
 
 bool Grid::overlap(const Block &copy) {
-    for (size_t i = 0; i < copy.getCells().size(); i++) {
+    for (int i = 0; i < copy.getCells().size(); i++) {
         int x = copy.getCells().at(i)->getX();
         int y = copy.getCells().at(i)->getY();
         if (gridImpl->board.at(y).at(x)->getC() != ' ') return true;
@@ -175,23 +198,26 @@ bool Grid::overlap(const Block &copy) {
 }
 
 
-// TODO: make it for any row that is completely filled, not just the bottom
-// deletes a bottom row, adds top row, changes index of every single Cell
-void Grid::shiftBoard() {
-    gridImpl->board.pop_back();
-    vector<shared_ptr<Cell>> first = vector<shared_ptr<Cell>>(11);
-    for(size_t i = 0, j = 0; i < 11; i++) {
+
+// calls notifyObservers --- SHOULDN'T ---- just call at the end of all the deletions
+// deletes a row, adds top row, changes index of every single Cell up until deleted row
+void Grid::shiftBoard(int row) {
+    // delete the row that is full
+    gridImpl->board.erase(gridImpl->board.begin() + row - 1);
+
+    // changes all the indexes until hits row
+    for (int i = 1; i < row; i++) {
+        for (int j = 0; j < gridImpl->x; j++) {
+            gridImpl->board.at(i).at(j)->setY(gridImpl->board.at(i).at(j)->getY() + 1);
+        }
+    }
+
+    // adds in first top row of new empty Cells
+    vector<shared_ptr<Cell>> first = vector<shared_ptr<Cell>>(gridImpl->x);
+    for(int i = 0, j = 0; i < gridImpl->x; i++) {
         first.at(i) = make_shared(new Cell(i, j));
     }
     gridImpl->board.insert(gridImpl->board.begin(), first);
-
-    // switching every cell after the first row
-    for (size_t i = 1; i < 18; i++) {
-        for (size_t j = 0; j < 11; j++) {
-            gridImpl->board.at(i).at(j)->setX(j);
-            gridImpl->board.at(i).at(j)->setY(i);
-        }
-    }
 }
 
 
