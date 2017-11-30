@@ -117,3 +117,7 @@ Block Game::getNextBlock() const {
     // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
     // but other classes might not
 }
+
+void Game::initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled) {
+    // TODO
+}
