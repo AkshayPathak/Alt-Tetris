@@ -40,9 +40,9 @@ private:
 
     bool overlap(const Block &);
 
-    bool fullBoard() const;
+    bool fullRow(int row) const;
 
-    void shiftBoard();
+    void shiftBoard(int row);
 };
 
 #endif
