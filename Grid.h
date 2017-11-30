@@ -6,7 +6,6 @@
 #include <memory>
 #include "Subject.h"
 
-
 using namespace std;
 
 class Game;

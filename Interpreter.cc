@@ -1,57 +1,92 @@
+#include <sstream>
 #include "Interpreter.h"
 
 using namespace std;
 
-void Interpreter::init(unique_ptr<Game> theGame, int argc, char *argv[]) {
+void Interpreter::init(shared_ptr<Game> game, int argc, char *argv[]) {
 
+    int level = 0;
+    int seed = 123;
+    bool graphicsEnabled = true;
+    string scriptFileName = "sequence.txt";
+
+    for (int i = 1; i < argc; i++) {
+        istringstream iss{argv[i]};
+
+        string commandName;
+        iss >> commandName;
+
+        if (commandName == "-text") {
+            graphicsEnabled = false;
+        } else if (commandName == "-seed") {
+            istringstream seedIss{argv[i + 1]};
+            iss >> seed;
+            i++;
+        } else if (commandName == "-scriptfile") {
+            istringstream scriptFileIss{argv[i + 1]};
+            iss >> scriptFileName;
+            i++;
+        } else if (commandName == "-startlevel") {
+            istringstream startLevelIss{argv[i + 1]};
+            iss >> level;
+            i++;
+        }
+    }
+
+//    vecto
+
+    // Init the game given the command line args
+//    game->initGame(level, seed, , graphicsEnabled);
+
+    // Start the command interpreter
     string cmd;
     while(!cin.eof()) {
         cin >> cmd;
 
         if(cmd == "left") {
-            theGame->left();
+            game->left();
         } else if(cmd == "right") {
-            theGame->right();
+            game->right();
         } else if(cmd == "down") {
-            theGame->down();
+            game->down();
         } else if(cmd == "clockwise") {
-            theGame->clockwise();
+            game->clockwise();
         } else if(cmd == "counterclockwise") {
-            theGame->counterClockwise();
+            game->counterClockwise();
         } else if(cmd == "drop") {
-            theGame->drop();
+            game->drop();
         } else if(cmd == "levelup") {
-            theGame->levelUp();
+            game->levelUp();
         } else if(cmd == "leveldown") {
-            theGame->levelDown();
+            game->levelDown();
         } else if(cmd == "norandom") {
             string inFile;
             cin >> inFile;
-            theGame->noRandom(inFile);
+            game->noRandom(inFile);
         } else if(cmd == "random") {
-            theGame->random();
+            game->random();
         } else if(cmd == "sequence") {
             string inFile;
             cin >> inFile;
-            theGame->sequence(inFile);
+            game->sequence(inFile);
         } else if(cmd == "I") {
-            theGame->I();
+            game->I();
         } else if(cmd == "J") {
-            theGame->J();
+            game->J();
         } else if(cmd == "L") {
-            theGame->L();
+            game->L();
         } else if(cmd == "O") {
-            theGame->O();
+            game->O();
         } else if(cmd == "S") {
-            theGame->S();
+            game->S();
         } else if(cmd == "Z") {
-            theGame->Z();
+            game->Z();
         } else if(cmd == "T") {
-            theGame->T();
+            game->T();
         } else if(cmd == "restart") {
-            theGame->restart();
+            game->restart();
         } else if(cmd == "hint") {
-            theGame->hint();
+            game->hint();
         }
     }
 }

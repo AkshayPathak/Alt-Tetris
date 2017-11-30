@@ -2,5 +2,5 @@
 
 int main(int argc, char *argv[]) {
     Game theGame;
-    theGame.init(argc, argv);
+    theGame.initInterpreter(argc, argv);
 }

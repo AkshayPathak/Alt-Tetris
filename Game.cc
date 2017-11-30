@@ -21,7 +21,7 @@ struct Game::GameImpl {
 
 //Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
 
-void Game::init(int argc, char *argv[]) {
+void Game::initInterpreter(int argc, char **argv) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
