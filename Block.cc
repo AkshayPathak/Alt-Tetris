@@ -23,16 +23,20 @@ Block &Block::operator=(Block &&other) noexcept {
 
 void Block::transformLeft() {
     for (auto &cell : cells) {
-        cell->getX();
+        cell->setX(cell->getX() - 1);
     }
 }
 
 void Block::transformRight() {
-    // TODO: Implement this
+    for (auto &cell : cells) {
+        cell->setX(cell->getX() + 1);
+    }
 }
 
 void Block::transformDown() {
-    // TODO: Implement this
+    for (auto &cell : cells) {
+        cell->setY(cell->getY() + 1);
+    }
 }
 
 void Block::transformClockwise() {
@@ -41,7 +45,6 @@ void Block::transformClockwise() {
 
 void Block::transformCounterClockwise() {
     // TODO: Implement this
-
 }
 
 std::vector<std::shared_ptr<Cell>> Block::getCells() const{

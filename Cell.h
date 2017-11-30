@@ -5,7 +5,7 @@
 #include "Observer.h"
 #include "Subject.h"
 
-class Cell : public Observer, Subject {
+class Cell {
 
     struct CellImpl;
     std::unique_ptr<CellImpl> cellImpl;
