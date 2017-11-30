@@ -43,3 +43,7 @@ void Block::transformCounterClockwise() {
     // TODO: Implement this
 
 }
+
+std::vector<std::shared_ptr<Cell>> Block::getCells() const{
+    return cells;
+}

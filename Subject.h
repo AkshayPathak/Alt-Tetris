@@ -17,7 +17,7 @@ public:
 
     void detach(std::shared_ptr<Observer>);
 
-    void notifyObserver();
+    void notifyObservers();
 
     virtual ~Subject() = 0;
 

@@ -22,43 +22,43 @@ struct Game::GameImpl {
 //Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
 
 void Game::init(int argc, char *argv[]) {
-    gameImpl->interpreter->init(this, argc, argv);
+    //gameImpl->interpreter->init(this, argc, argv);
 }
 
 void Game::left() {
-    gameImpl->currentBlock.transformLeft();
+    //gameImpl->currentBlock.transformLeft();
 }
 
 void Game::right() {
-    gameImpl->currentBlock.transformRight();
+    //gameImpl->currentBlock.transformRight();
 }
 
 void Game::clockwise() {
-    gameImpl->currentBlock.transformClockwise();
+    //gameImpl->currentBlock.transformClockwise();
 }
 
 void Game::counterClockwise() {
-    gameImpl->currentBlock.transformCounterClockwise();
+    //gameImpl->currentBlock.transformCounterClockwise();
 }
 
 void Game::down() {
-    gameImpl->currentBlock.transformDown();
+    //gameImpl->currentBlock.transformDown();
 }
 
 void Game::drop() {
-    gameImpl->currentBlock.transformDrop();
+    //gameImpl->currentBlock.transformDrop();
 }
 
 void Game::levelUp() { // Needs Level.h
-    int newLevel = gameImpl->level->getLevel() + 1;
-    newLevel = newLevel > 4 ? 4 : newLevel;
-    gameImpl->level->setLevel(newLevel);
+    //int newLevel = gameImpl->level->getLevel() + 1;
+    //newLevel = newLevel > 4 ? 4 : newLevel;
+    //gameImpl->level->setLevel(newLevel);
 }
 
 void Game::levelDown() {  // Needs Level.h
-    int newLevel = gameImpl->level->getLevel() - 1;
-    newLevel = newLevel >= 0 ? newLevel : 0;
-    gameImpl->level->setLevel(newLevel);
+    //int newLevel = gameImpl->level->getLevel() - 1;
+    //newLevel = newLevel >= 0 ? newLevel : 0;
+    //gameImpl->level->setLevel(newLevel);
 }
 
 void Game::I() {
@@ -107,4 +107,13 @@ void Game::restart() {
 
 void Game::hint() {
 
+}
+
+void Game::createBlock() {
+    //...
+}
+
+Block Game::getNextBlock() const{
+    // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
+    // but other classes might not
 }

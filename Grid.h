@@ -4,19 +4,24 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "Subject.h"
+
 
 using namespace std;
 
-class Grid {
+class Game;
+class Block;
+
+class Grid : public Subject{
     struct GridImpl;
     unique_ptr<GridImpl> gridImpl;
 public:
 
-    Grid();
+    Grid(shared_ptr<Game> game, int x = 11, int y = 18);
 
     ~Grid();
 
-    void init();     // creates board, empties it if there is already a board, will add observers to the Cells, don't know if it should tho
+    void init();     // call when want to clear board
 
     void setBlock();
 
@@ -31,10 +36,14 @@ public:
     void transformClockwise();
 
     void transformCounterClockwise();
+private:
+    bool invalidInput(const Block &);
 
-    friend ostream &operator<<(ostream &, Grid &);
+    bool overlap(const Block &);
+
+    bool fullBoard() const;
+
+    void shiftBoard();
 };
-
-
 
 #endif

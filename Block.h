@@ -22,6 +22,10 @@ public:
 
     Block &operator=(Block &&other);
 
+
+    // getter
+    std::vector<std::shared_ptr<Cell>> getCells() const;
+
     void transformLeft();
 
     void transformRight();
