@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Game.h"
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ struct Grid::GridImpl {
 //--------------------------------------------------------------------------------
 // Public
 // ctor
-Grid::Grid(Game *game, int x, int y) : gridImpl{new GridImpl{game, x, y}} {
+Grid::Grid(Game *game, int x, int y) : gridImpl{make_unique<GridImpl>(game, x, y)} {
     // makes the board
     for (int i = 0; i < y; i++) {
         for (int j = 0; j < x; j++) {
