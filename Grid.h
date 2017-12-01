@@ -13,6 +13,7 @@ class Block;
 
 class Grid : public Subject{
     struct GridImpl;
+
     unique_ptr<GridImpl> gridImpl;
 public:
 
