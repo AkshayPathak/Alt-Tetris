@@ -16,7 +16,7 @@ Block &Block::operator=(const Block &other) {
     return *this;
 }
 
-Block &Block::operator=(Block &&other) noexcept {
+Block &Block::operator=(Block &&other) {
     swap(other);
     return *this;
 }

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void Interpreter::init(shared_ptr<Game> game, int argc, char *argv[]) {
+void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     int level = 0;
     int seed = 123;

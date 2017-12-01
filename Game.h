@@ -22,6 +22,8 @@ class Game {
     unique_ptr<GameImpl> gameImpl;
 
 public:
+    Game();
+
     void initInterpreter(int argc, char *argv[]);
 
     void initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled);
@@ -53,6 +55,8 @@ public:
     void sequence(string inFile);
     void restart();
     void hint();
+
+    virtual ~Game();
 };
 
 #endif //TEST_GAME_H

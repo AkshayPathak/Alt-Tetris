@@ -32,8 +32,6 @@ public:
 
     void transformDown();
 
-    void transformDrop();
-
     void transformClockwise();
 
     void transformCounterClockwise();

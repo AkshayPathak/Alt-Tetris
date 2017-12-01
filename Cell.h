@@ -30,7 +30,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Cell &cell);
 
-    virtual ~Cell();
+    ~Cell();
 
 };
 

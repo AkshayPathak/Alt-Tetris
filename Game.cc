@@ -9,19 +9,18 @@ using namespace std;
 struct Game::GameImpl {
 
     unique_ptr<Grid> grid = nullptr;
-    unique_ptr<Level> level = nullptr;
-    unique_ptr<Score> score = nullptr;
+//    unique_ptr<Level> level = nullptr;
+//    unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = nullptr;
-    unique_ptr<TextDisplay> td = nullptr;
-    unique_ptr<GraphicsDisplay> gd = nullptr;
+//    unique_ptr<TextDisplay> td = nullptr;
+//    unique_ptr<GraphicsDisplay> gd = nullptr;
 
     Block nextBlock;
 
 };
 
-//Game::Game(): gameImpl{new GameImpl{}}, interpreter{new Interpreter{}} {}
 
-void Game::initInterpreter(int argc, char **argv) {
+void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
@@ -121,3 +120,9 @@ Block Game::getNextBlock() const {
 void Game::initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled) {
     // TODO
 }
+
+Game::~Game() {
+
+}
+
+Game::Game() {}
