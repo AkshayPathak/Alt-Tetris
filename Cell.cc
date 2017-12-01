@@ -39,7 +39,7 @@ void Cell::setC(char c) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Cell &cell) {
-    os << cellImpl->c;
+    os << cell.cellImpl->c;
     return os;
 }
 

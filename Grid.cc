@@ -3,28 +3,29 @@
 #include "Block.h"
 #include "Game.h"
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
 struct Grid::GridImpl {
-    shared_ptr<Game> game;
+    Game * game;
     vector<vector<shared_ptr<Cell>>> board;
     int x;
     int y;
     Block currentBlock;
 
     // Methods
-    GridImpl(shared_ptr<Game> game, int x, int y) :game{game}, x{x}, y{y} {};
+    GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y} {};
 };
 
 //--------------------------------------------------------------------------------
 // Public
 // ctor
-Grid::Grid(shared_ptr<Game> game, int x = 11, int y = 18) : gridImpl{new GridImpl{game, x, y}} {
+Grid::Grid(Game *game, int x, int y) : gridImpl{make_unique<GridImpl>(game, x, y)} {
     // makes the board
     for (int i = 0; i < y; i++) {
         for (int j = 0; j < x; j++) {
-            gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
+            gridImpl->board.at(i).emplace_back(make_shared<Cell>(i, j));
         }
     }
 }
@@ -40,7 +41,7 @@ void Grid::init() {
     // constructs empty board
     for (int i = 0; i < gridImpl->y; i++) {
         for (int j = 0; j < gridImpl->x; j++) {
-            gridImpl->board.at(i).emplace_back(make_shared(new Cell(i,j)));
+            gridImpl->board.at(i).emplace_back(make_shared<Cell>(i, j));
         }
     }
 
@@ -215,7 +216,7 @@ void Grid::shiftBoard(int row) {
     // adds in first top row of new empty Cells
     vector<shared_ptr<Cell>> first = vector<shared_ptr<Cell>>(gridImpl->x);
     for(int i = 0, j = 0; i < gridImpl->x; i++) {
-        first.at(i) = make_shared(new Cell(i, j));
+        first.at(i) = make_shared<Cell>(i, j);
     }
     gridImpl->board.insert(gridImpl->board.begin(), first);
 }

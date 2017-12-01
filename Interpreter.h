@@ -13,7 +13,7 @@ class Game;
 class Interpreter {
 
 public:
-    void init(shared_ptr<Game> game,int argc, char *argv[]);
+    void init(Game *game, int argc, char *argv[]);
 };
 
 #endif //TEST_INTERPRETER_H
