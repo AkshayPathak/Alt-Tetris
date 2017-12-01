@@ -9,13 +9,14 @@ using namespace std;
 
 struct Grid::GridImpl {
     Game * game;
-    vector<vector<shared_ptr<Cell>>> board;
     int x;
     int y;
+    vector<vector<shared_ptr<Cell>>> board;
     Block currentBlock;
 
     // Methods
-    GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y} {};
+    GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y},
+        board{vector<vector<shared_ptr<Cell>>>(y)} {};
 };
 
 //--------------------------------------------------------------------------------
@@ -198,9 +199,6 @@ bool Grid::overlap(const Block &copy) {
     return false;
 }
 
-
-
-// calls notifyObservers --- SHOULDN'T ---- just call at the end of all the deletions
 // deletes a row, adds top row, changes index of every single Cell up until deleted row
 void Grid::shiftBoard(int row) {
     // delete the row that is full
