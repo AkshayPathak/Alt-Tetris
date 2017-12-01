@@ -28,10 +28,8 @@ public:
 
     void initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled);
 
-    // STANLEY added these methods... gonna have to fix them and implement, these blocks should be on heap, right now copying around on stack
     void createBlock();
 
-    // gives it to grid
     Block getNextBlock() const;    // cant be reference or else pointer to the stack
 
     // Basic Commands

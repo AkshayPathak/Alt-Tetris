@@ -2,6 +2,6 @@
 #include <memory>
 
 int main(int argc, char *argv[]) {
-    shared_ptr<Game> game = make_shared<Game>(new Game);
+    unique_ptr<Game> game = make_unique<Game>();
     game->initInterpreter(argc, argv);
 }

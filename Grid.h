@@ -16,7 +16,7 @@ class Grid : public Subject{
     unique_ptr<GridImpl> gridImpl;
 public:
 
-    Grid(shared_ptr<Game> game, int x = 11, int y = 18);
+    Grid(Game *game, int x = 11, int y = 18);
 
     ~Grid();
 

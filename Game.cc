@@ -24,6 +24,12 @@ void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
+void Game::initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled) {
+    // making grid and interpreter
+    gameImpl->grid = make_unique<Grid>(this);
+    gameImpl->grid->init();
+}
+
 void Game::left() {
     gameImpl->grid->transformLeft();
 }
@@ -115,10 +121,6 @@ void Game::createBlock() {
 Block Game::getNextBlock() const {
     // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
     // but other classes might not
-}
-
-void Game::initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled) {
-    // TODO
 }
 
 Game::~Game() {
