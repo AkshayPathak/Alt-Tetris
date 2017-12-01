@@ -26,7 +26,7 @@ public:
 
     void initInterpreter(int argc, char *argv[]);
 
-    void initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled);
+    void initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled);
 
     void createBlock();
 

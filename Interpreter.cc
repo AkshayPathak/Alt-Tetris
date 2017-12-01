@@ -33,10 +33,8 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
         }
     }
 
-//    vecto
-
     // Init the game given the command line args
-//    game->initGame(level, seed, , graphicsEnabled);
+    game->initGame(level, seed, /*vector<>(4),*/ graphicsEnabled);
 
     // Start the command interpreter
     string cmd;
