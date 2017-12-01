@@ -5,6 +5,7 @@
 #include <memory>
 
 class Cell;
+struct Posn;
 
 class Block {
 
@@ -32,9 +33,13 @@ public:
 
     void transformDown();
 
-    void transformDrop();
-
     void transformClockwise();
+
+    // For transform Clockwise
+    Posn lowerLeft();
+
+    // For transform Clockwise
+    Posn upperRight();
 
     void transformCounterClockwise();
 };
