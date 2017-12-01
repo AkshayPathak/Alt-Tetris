@@ -20,6 +20,8 @@ public:
     virtual ~TextDisplay() = default; // virtual dtor
 
     virtual void notify() override;
+
+
 };
 
 

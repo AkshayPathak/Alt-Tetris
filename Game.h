@@ -56,7 +56,15 @@ public:
     // Getters and setter
     Block getNextBlock() const;    // cant be reference or else pointer to the stack
 
-    friend class TextDisplay;
+    //friend class TextDisplay;
+    // getters and setters used by textdisplay
+    int getLevel();
+    int getScore();
+    int getHiScore();
+    int getWidth();
+    int getHeight();
+    Block getCurrentBlock();
+    vector<vector<shared_ptr<Cell>>> *getBoard();
 
     virtual ~Game();
 };
