@@ -5,33 +5,9 @@ using namespace std;
 
 void Interpreter::init(Game *game, int argc, char *argv[]) {
 
-    int level = 0;
-    int seed = 123;
-    bool graphicsEnabled = true;
-    string scriptFileName = "sequence.txt";
+    interpretCommandLineArgs(argc, argv);
 
-    for (int i = 1; i < argc; i++) {
-        istringstream iss{argv[i]};
-
-        string commandName;
-        iss >> commandName;
-
-        if (commandName == "-text") {
-            graphicsEnabled = false;
-        } else if (commandName == "-seed") {
-            istringstream seedIss{argv[i + 1]};
-            iss >> seed;
-            i++;
-        } else if (commandName == "-scriptfile") {
-            istringstream scriptFileIss{argv[i + 1]};
-            iss >> scriptFileName;
-            i++;
-        } else if (commandName == "-startlevel") {
-            istringstream startLevelIss{argv[i + 1]};
-            iss >> level;
-            i++;
-        }
-    }
+    if (level)
 
     // Init the game given the command line args
     game->initGame(level, seed, /*vector<>(4),*/ graphicsEnabled);
@@ -85,6 +61,54 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
             game->restart();
         } else if(cmd == "hint") {
             game->hint();
+        }
+    }
+}
+
+void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
+    for (int i = 1; i < argc; i++) {
+        istringstream iss{argv[i]};
+
+        string commandName;
+        iss >> commandName;
+
+        if (commandName == "-text") {
+            graphicsEnabled = false;
+        } else if (commandName == "-seed") {
+            try {
+                istringstream seedIss{argv[i + 1]};
+                if (seedIss >> seed) {
+                    i++;
+                } else {
+                    cerr << "Usage for the command line option is: -seed [int]. Skipping." << endl;
+                }
+            } catch (const logic_error &e) {
+                cerr << "Usage for the command line option is: -seed [int]. Skipping." << endl;
+            }
+        } else if (commandName == "-scriptfile") {
+            try {
+                istringstream scriptFileIss{argv[i + 1]};
+                if (scriptFileIss >> scriptFileName) {
+                    i++;
+                } else {
+                    cerr << "Usage for the command line option is: -scriptfile [filename]. Skipping." << endl;
+                }
+            } catch (const logic_error &e) {
+                cerr << "Usage for the command line option is: -scriptfile [filename]. Skipping." << endl;
+            }
+        } else if (commandName == "-startlevel") {
+            try {
+                istringstream startLevelIss{argv[i + 1]};
+                if (startLevelIss >> level) {
+                    i++;
+                } else {
+                    cerr << "Usage for the command line option is: -startlevel [int]. Skipping." << endl;
+                }
+            } catch (const logic_error &e) {
+                cerr << "Usage for the command line option is: -startlevel [int]. Skipping." << endl;
+            }
+        } else {
+            cerr << "Invalid command line option " << commandName << endl;
         }
     }
 }
