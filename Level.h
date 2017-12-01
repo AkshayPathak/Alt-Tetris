@@ -6,12 +6,11 @@
 #include "Block.h"
 
 class Level {
-    struct LevelImpl;
-    std::unique_ptr<LevelImpl> levelImpl;
 public:
-    Block &makeBlock();
-    int getLevel();
-    int setLevel(int newLevel);
+    virtual ~Level()=0;
+    virtual Block &makeBlock()=0;
+    virtual int getLevel()=0;
+    void setLevel(int newLevel);
 };
 
 #endif //TEST_LEVEL_H
