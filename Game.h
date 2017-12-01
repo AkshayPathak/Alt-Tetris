@@ -55,8 +55,8 @@ public:
 
     // Getters and setter
     Block getNextBlock() const;    // cant be reference or else pointer to the stack
-    Grid* getGrid();
-    Level *getLevel();
+
+    friend class TextDisplay;
 
     virtual ~Game();
 };
