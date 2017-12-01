@@ -132,3 +132,13 @@ Block Game::getNextBlock() const {
 Game::~Game() {
 
 }
+
+Grid *Game::getGrid() {
+    return gameImpl->grid.get();
+}
+
+Level *Game::getLevel() {
+    return gameImpl->level.get();
+}
+
+

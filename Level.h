@@ -12,5 +12,4 @@ public:
     int setLevel(int newLevel);
 };
 
-
 #endif //TEST_LEVEL_H

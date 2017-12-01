@@ -30,10 +30,9 @@ public:
 
     void createBlock();
 
-    Block getNextBlock() const;    // cant be reference or else pointer to the stack
-
     // Basic Commands
     void left();
+
     void right();
     void clockwise();
     void counterClockwise();
@@ -53,6 +52,11 @@ public:
     void sequence(string inFile);
     void restart();
     void hint();
+
+    // Getters and setter
+    Block getNextBlock() const;    // cant be reference or else pointer to the stack
+    Grid* getGrid();
+    Level *getLevel();
 
     virtual ~Game();
 };

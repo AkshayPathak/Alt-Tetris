@@ -7,8 +7,6 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     interpretCommandLineArgs(argc, argv);
 
-    if (level)
-
     // Init the game given the command line args
     game->initGame(level, seed, /*vector<>(4),*/ graphicsEnabled);
 
