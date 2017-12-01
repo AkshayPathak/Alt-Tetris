@@ -11,7 +11,7 @@ struct Game::GameImpl {
     unique_ptr<Grid> grid = nullptr;
 //    unique_ptr<Level> level = nullptr;
 //    unique_ptr<Score> score = nullptr;
-    unique_ptr<Interpreter> interpreter = nullptr;
+    unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
 //    unique_ptr<TextDisplay> td = nullptr;
 //    unique_ptr<GraphicsDisplay> gd = nullptr;
 
@@ -19,6 +19,7 @@ struct Game::GameImpl {
 
 };
 
+Game::Game() : gameImpl{make_unique<GameImpl>()} {}
 
 void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
@@ -126,5 +127,3 @@ Block Game::getNextBlock() const {
 Game::~Game() {
 
 }
-
-Game::Game() {}
