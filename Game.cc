@@ -25,7 +25,7 @@ void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, vector<shared_ptr<Block>> blocksSequence, bool graphicalEnabled) {
+void Game::initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled) {
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
     gameImpl->grid->init();
