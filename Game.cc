@@ -26,15 +26,12 @@ void Game::initInterpreter(int argc, char *argv[]) {
 
 void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
 
-    cout << "Init game hit!" << endl;
-
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
     // TODO: Implement different levels that you start with
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
-    cout << "First block init hit!" << endl;
     gameImpl->td = make_shared<TextDisplay>(this);
     gameImpl->grid->attach(gameImpl->td);    // attaching observers
     //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
