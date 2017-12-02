@@ -45,7 +45,8 @@ void TextDisplay::notify() {
                     break;
                 }
             }
-            if (pb == false) cout << (*board).at(i).at(j)->getC();
+            if (pb == false) cout << '?';
+            //if (pb == false) cout << (*board).at(i).at(j)->getC();
         }
         cout << endl;
     }
