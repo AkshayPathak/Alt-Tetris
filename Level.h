@@ -4,12 +4,23 @@
 #include <iostream>
 #include "Block.h"
 
+using  namespace std;
+
 class Level {
-    int lvl;
+
+
 public:
-    Block &makeBlock();
-    int getLevel();
-    int setLevel(int newLevel);
+    virtual Block makeBlock() = 0;
+
+    vector<vector<shared_ptr<Cell>>> makeIBlock();
+    vector<vector<shared_ptr<Cell>>> makeJBlock();
+    vector<vector<shared_ptr<Cell>>> makeLBlock();
+    vector<vector<shared_ptr<Cell>>> makeOBlock();
+    vector<vector<shared_ptr<Cell>>> makeSBlock();
+    vector<vector<shared_ptr<Cell>>> makeZBlock();
+    vector<vector<shared_ptr<Cell>>> makeTBlock();
+
+    virtual ~Level();
 };
 
 #endif //TEST_LEVEL_H

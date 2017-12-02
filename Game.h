@@ -12,6 +12,7 @@ class Grid;
 class Cell;
 class Block;
 class Level;
+class Level0;
 class Score;
 class GraphicsDisplay;
 class TextDisplay;
@@ -26,7 +27,7 @@ public:
 
     void initInterpreter(int argc, char *argv[]);
 
-    void initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled);
+    void initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled);
 
     void createBlock();
 
@@ -47,9 +48,6 @@ public:
     void S();
     void Z();
     void T();
-    void random();
-    void noRandom(string inFile);
-    void sequence(string inFile);
     void restart();
     void hint();
 

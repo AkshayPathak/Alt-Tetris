@@ -1,4 +1,5 @@
 #include <sstream>
+#include <fstream>
 #include "Interpreter.h"
 
 using namespace std;
@@ -7,8 +8,11 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     interpretCommandLineArgs(argc, argv);
 
+    if (level == 0) {
+        parseSequenceFile();
+    }
     // Init the game given the command line args
-    game->initGame(level, seed, /*vector<>(4),*/ graphicsEnabled);
+    game->initGame(level, seed, blockSequence, graphicsEnabled);
 
     // Start the command interpreter
     string cmd;
@@ -108,5 +112,14 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
         } else {
             cerr << "Invalid command line option " << commandName << endl;
         }
+    }
+}
+
+void Interpreter::parseSequenceFile() {
+    ifstream inFile{scriptFileName};
+
+    char block;
+    while (inFile >> block) {
+        blockSequence.emplace_back(block);
     }
 }

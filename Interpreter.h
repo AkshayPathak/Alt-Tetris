@@ -16,8 +16,11 @@ class Interpreter {
     int seed = 123;
     bool graphicsEnabled = true;
     string scriptFileName = "sequence.txt";
+    vector<char> blockSequence;
 
     void interpretCommandLineArgs(int argc, char *const *argv);
+
+    void parseSequenceFile();
 
 public:
 

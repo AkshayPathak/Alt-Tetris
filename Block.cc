@@ -8,7 +8,7 @@ void Block::swap(Block &other) {
 
 Block::Block() {}
 
-Block::Block(const Block &other) : cells{other.cells} {}
+Block::Block(std::initializer_list<std::vector<std::vector<std::shared_ptr<Cell>>>> other) : cells{other.cells} {}
 
 Block &Block::operator=(const Block &other) {
     Block b{other};
@@ -108,3 +108,5 @@ void Block::transformCounterClockwise() {
 std::vector<std::shared_ptr<Cell>> Block::getCells() const{
     return cells;
 }
+
+Block::Block(std::vector<std::shared_ptr<Cell>> cells) : cells(cells) {}
