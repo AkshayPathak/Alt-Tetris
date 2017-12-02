@@ -69,3 +69,7 @@ void TextDisplay::notify() {
         cout << endl;
     }
 }
+
+TextDisplay::~TextDisplay() {
+
+}

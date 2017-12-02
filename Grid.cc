@@ -218,4 +218,20 @@ void Grid::shiftBoard(int row) {
     gridImpl->board.insert(gridImpl->board.begin(), first);
 }
 
+int Grid::getWidth() {
+    return gridImpl->x;
+}
+
+int Grid::getHeight() {
+    return gridImpl->y;
+}
+
+Block Grid::getBlock() {
+    return gridImpl->currentBlock;
+}
+
+vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
+    return &(gridImpl->board);
+}
+
 

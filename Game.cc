@@ -14,7 +14,7 @@ struct Game::GameImpl {
     unique_ptr<Level> level = nullptr;
     //unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
-    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
+//    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
 //    shared_ptr<Observer> gd = nullptr;
 
     Block nextBlock;
@@ -33,11 +33,11 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
     gameImpl->grid->init();             // good that this is after make block
 
-    gameImpl->td = make_shared<TextDisplay>(this);
+//    gameImpl->td = make_shared<TextDisplay>(this);
     //make gd here too
 
 
-    gameImpl->grid->attach(gameImpl->td);    // attaching observers
+//    gameImpl->grid->attach(gameImpl->td);    // attaching observers
     //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
 
 }
