@@ -2,6 +2,7 @@
 #include "Grid.h"
 #include "Block.h"
 #include "Level.h"
+#include "Level0.h"
 #include <iostream>
 #include <fstream>
 
@@ -26,10 +27,12 @@ void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled) {
+void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
+    gameImpl->level = make_unique<Level0>(blocksSequence);
+    getNextBlock() = gameImpl->level->makeBlock();
     // SHOULD ATTACH OBSERVERS HERE... assuming game already has SHARED pointers to td and gd
     gameImpl->grid->attach(gameImpl->td);
     gameImpl->grid->attach(gameImpl->gd);
@@ -101,18 +104,6 @@ void Game::T() {
 
 }
 
-void Game::random() {
-
-}
-
-void Game::noRandom(string inFile) {
-
-}
-
-void Game::sequence(string inFile) {
-
-}
-
 void Game::restart() {
 
 }
@@ -122,12 +113,11 @@ void Game::hint() {
 }
 
 void Game::createBlock() {
-    //...
+    gameImpl->nextBlock = gameImpl->level->makeBlock();
 }
 
 Block Game::getNextBlock() const {
-    // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
-    // but other classes might not
+    return gameImpl->nextBlock;
 }
 
 Game::~Game() {
