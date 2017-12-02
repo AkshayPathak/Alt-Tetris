@@ -10,9 +10,10 @@
 using namespace std;
 
 class Game;
+
 class Block;
 
-class Grid : public Subject{
+class Grid : public Subject {
     struct GridImpl;
 
     unique_ptr<GridImpl> gridImpl;
@@ -40,9 +41,13 @@ public:
 
     // needed by td and gd
     int getWidth();
+
     int getHeight();
+
     Block getBlock();
+
     vector<vector<shared_ptr<Cell>>> *getBoard();
+
 private:
     bool invalidInput(const Block &);
 
@@ -51,6 +56,8 @@ private:
     bool fullRow(int row) const;
 
     void shiftBoard(int row);
+
+    void printBoard();
 };
 
 #endif

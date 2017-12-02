@@ -45,6 +45,8 @@ void Grid::init() {
         }
     }
 
+    printBoard();
+
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     gridImpl->game->createBlock();      // creates Game's next block
     notifyObservers();
@@ -232,6 +234,15 @@ Block Grid::getBlock() {
 
 vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
     return &(gridImpl->board);
+}
+
+void Grid::printBoard() {
+    for (auto &i : gridImpl->board) {
+        for (auto &j : i) {
+            cout << '8' << " ";
+        }
+        cout << endl;
+    }
 }
 
 
