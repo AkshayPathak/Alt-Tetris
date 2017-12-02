@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "Level0.h"
 
 Block Level0::makeBlock() {

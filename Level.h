@@ -2,12 +2,12 @@
 #define TEST_LEVEL_H
 
 #include <iostream>
+#include <memory>
 #include "Block.h"
 
 using  namespace std;
 
 class Level {
-
 
 public:
     virtual Block makeBlock() = 0;
@@ -21,6 +21,7 @@ public:
     vector<vector<shared_ptr<Cell>>> makeTBlock();
 
     virtual ~Level();
+
 };
 
 #endif //TEST_LEVEL_H

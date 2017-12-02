@@ -79,5 +79,3 @@ vector<vector<shared_ptr<Cell>>> Level::makeTBlock() {
 
     return cells;
 }
-
-
