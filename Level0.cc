@@ -1,22 +1,22 @@
 #include "Level0.h"
 
-Block Level0::makeBlock() {
+shared_ptr<Block> Level0::makeBlock() {
 
     switch (fileSequence.at(position)) {
         case 'I':
-            return Block{makeIBlock()};
+            return make_shared<Block>(makeIBlock());
         case 'J':
-            return Block{makeJBlock()};
+            return make_shared<Block>(makeJBlock());
         case 'L':
-            return Block{makeLBlock()};
+            return make_shared<Block>(makeLBlock());
         case 'O':
-            return Block{makeOBlock()};
+            return make_shared<Block>(makeOBlock());
         case 'S':
-            return Block{makeSBlock()};
+            return make_shared<Block>(makeSBlock());
         case 'Z':
-            return Block{makeZBlock()};
+            return make_shared<Block>(makeZBlock());
         case 'T':
-            return Block{makeTBlock()};
+            return make_shared<Block>(makeTBlock());
     }
 
 

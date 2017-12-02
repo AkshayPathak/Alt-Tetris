@@ -10,7 +10,7 @@ using  namespace std;
 class Level {
 
 public:
-    virtual Block makeBlock() = 0;
+    virtual shared_ptr<Block> makeBlock() = 0;
 
     vector<shared_ptr<Cell>> makeIBlock();
     vector<shared_ptr<Cell>> makeJBlock();

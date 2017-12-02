@@ -1,6 +1,6 @@
 #include "Level1.h"
 
-Block Level1::makeBlock() {
+shared_ptr<Block> Level1::makeBlock() {
 
 }
 

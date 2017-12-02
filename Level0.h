@@ -16,7 +16,7 @@ public:
 
     int getLevel() override;
 
-    Block makeBlock() override;
+    shared_ptr<Block> makeBlock() override;
 
     ~Level0() override;
 

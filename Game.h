@@ -53,7 +53,7 @@ public:
     void hint();
 
     // Getters and setter
-    Block getNextBlock() const;    // cant be reference or else pointer to the stack
+    shared_ptr<Block> getNextBlock() const;    // cant be reference or else pointer to the stack
 
     //friend class TextDisplay;
     // getters and setters used by textdisplay
@@ -62,7 +62,7 @@ public:
     int getHiScore();
     int getWidth();
     int getHeight();
-    Block getCurrentBlock();
+    shared_ptr<Block> getCurrentBlock();
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
     virtual ~Game();

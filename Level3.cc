@@ -9,7 +9,7 @@ Level3::~Level3() {
 
 };
 
-Block Level3::makeBlock() {
+shared_ptr<Block> Level3::makeBlock() {
 
 }
 

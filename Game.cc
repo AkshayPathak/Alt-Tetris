@@ -17,7 +17,7 @@ struct Game::GameImpl {
     shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
 //    shared_ptr<Observer> gd = nullptr;
 
-    Block nextBlock;
+    shared_ptr<Block> nextBlock;
 };
 
 void Game::initInterpreter(int argc, char *argv[]) {
@@ -122,7 +122,7 @@ void Game::createBlock() {
     gameImpl->nextBlock = gameImpl->level->makeBlock();
 }
 
-Block Game::getNextBlock() const {
+shared_ptr<Block> Game::getNextBlock() const {
     return gameImpl->nextBlock;
 }
 
@@ -153,7 +153,7 @@ int Game::getHeight() {
     return gameImpl->grid->getHeight();
 }
 
-Block Game::getCurrentBlock() {
+shared_ptr<Block> Game::getCurrentBlock() {
     return gameImpl->grid->getBlock();
 }
 
