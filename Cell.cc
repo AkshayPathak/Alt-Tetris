@@ -1,4 +1,7 @@
 #include "Cell.h"
+#include <memory>
+
+using namespace std;
 
 struct Cell::CellImpl {
     int x;
@@ -48,8 +51,8 @@ Cell::~Cell() {
 }
 
 // copy ctor
-Cell::Cell(const Cell &c) {
-    setY(c.getY());
+Cell::Cell(const Cell &c) : cellImpl{make_unique<CellImpl>()} {
     setX(c.getX());
+    setY(c.getY());
     setC(c.getC());
 }
