@@ -48,7 +48,11 @@ void Grid::init() {
     printBoard();
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
+    for(int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
+        gridImpl->currentBlock.getCells().at(i)->setY(gridImpl->currentBlock.getCells().at(i)->getY() + 3);
+    }
     gridImpl->game->createBlock();      // creates Game's next block
+    // changing the block so that textdisplay can print it correctly
     notifyObservers();
 }
 
