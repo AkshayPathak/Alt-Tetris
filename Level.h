@@ -20,6 +20,7 @@ public:
     vector<vector<shared_ptr<Cell>>> makeZBlock();
     vector<vector<shared_ptr<Cell>>> makeTBlock();
 
+    virtual int getLevel() = 0;
     virtual ~Level();
 
 };

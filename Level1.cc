@@ -2,11 +2,11 @@
 
 
 
-Block &makeBlock() override {
+Block Level1::makeBlock() override {
 
 }
 
 
-int getLevel() override {
+int Level1::getLevel() override {
     return 1;
 }

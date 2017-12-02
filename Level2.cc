@@ -4,7 +4,7 @@ Level2::Level2() = default;
 
 Level2::~Level2() = default;
 
-Block &Level2::makeBlock() override {
+Block Level2::makeBlock() override {
 
 }
 

@@ -7,7 +7,7 @@ class Block;
 
 class Level1: public Level {
 public:
-    Block &makeBlock() override;
+    Block makeBlock() override;
     int getLevel() override;
 };
 

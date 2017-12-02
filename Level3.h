@@ -9,7 +9,7 @@ class Level3: public Level {
 public:
     Level3();
     ~Level3();
-    Block &makeBlock() override;
+    Block makeBlock() override;
     int getLevel() override;
 };
 
