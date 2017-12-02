@@ -42,8 +42,6 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
 
     //make gd here too
 
-
-
 }
 
 void Game::left() {

@@ -40,12 +40,12 @@ void TextDisplay::notify() {
             for (int k = 0; k < b.getCells().size(); k++) {
                 if ((b.getCells().at(k)->getX() == j) && b.getCells().at(k)->getY() == i) {
                     cout << b.getCells().at(k)->getC();
-                    b.getCells().erase(b.getCells().begin() + k);
+//                    b.getCells().erase(b.getCells().begin() + k);
                     pb = true;
                     break;
                 }
             }
-            if (pb == false) cout << '?';
+            if (pb == false) cout << '_';
             //if (pb == false) cout << (*board).at(i).at(j)->getC();
         }
         cout << endl;
@@ -54,13 +54,13 @@ void TextDisplay::notify() {
     cout << "-----------" << endl;
     cout << "Next:" << endl;
     Block next = Block(textDisplayImpl->game->getNextBlock()->getCells());
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 2; i++) {
         for(int j = 0; j < 4; j++) {
             bool pb = false;
             for (int k = 0; k < next.getCells().size(); k++) {
                 if (next.getCells().at(k)->getX() == j && next.getCells().at(k)->getY() == i) {
                     cout << next.getCells().at(k)->getC();
-                    next.getCells().erase(next.getCells().begin() +k);
+//                    next.getCells().erase(next.getCells().begin() +k);
                     pb = true;
                     break;
                 }

@@ -8,10 +8,10 @@ Level::~Level() {
 vector<shared_ptr<Cell>> Level::makeIBlock() {
     vector<shared_ptr<Cell>> cells;
 
-    cells.emplace_back(make_shared<Cell>(0, 3, 'I'));
-    cells.emplace_back(make_shared<Cell>(1, 3, 'I'));
-    cells.emplace_back(make_shared<Cell>(2, 3, 'I'));
-    cells.emplace_back(make_shared<Cell>(3, 3, 'I'));
+    cells.emplace_back(make_shared<Cell>(0, 0, 'I'));
+    cells.emplace_back(make_shared<Cell>(1, 0, 'I'));
+    cells.emplace_back(make_shared<Cell>(2, 0, 'I'));
+    cells.emplace_back(make_shared<Cell>(3, 0, 'I'));
 
     return cells;
 }
