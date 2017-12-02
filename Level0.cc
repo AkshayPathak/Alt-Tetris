@@ -2,24 +2,34 @@
 
 shared_ptr<Block> Level0::makeBlock() {
 
+    shared_ptr<Block> block;
+
     switch (fileSequence.at(position)) {
         case 'I':
-            return make_shared<Block>(makeIBlock());
+            block = make_shared<Block>(makeIBlock());
+            break;
         case 'J':
-            return make_shared<Block>(makeJBlock());
+            block = make_shared<Block>(makeJBlock());
+            break;
         case 'L':
-            return make_shared<Block>(makeLBlock());
+            block = make_shared<Block>(makeLBlock());
+            break;
         case 'O':
-            return make_shared<Block>(makeOBlock());
+            block = make_shared<Block>(makeOBlock());
+            break;
         case 'S':
-            return make_shared<Block>(makeSBlock());
+            block = make_shared<Block>(makeSBlock());
+            break;
         case 'Z':
-            return make_shared<Block>(makeZBlock());
+            block = make_shared<Block>(makeZBlock());
+            break;
         case 'T':
-            return make_shared<Block>(makeTBlock());
+            block = make_shared<Block>(makeTBlock());
+            break;
     }
 
-
+    position++;
+    return block;
 
 }
 
