@@ -30,7 +30,7 @@ void TextDisplay::notify() {
     cout << "-----------" << endl;
 
     // all the blocks are being copied around
-    Block b = textDisplayImpl->game->getCurrentBlock();
+    Block b = Block(textDisplayImpl->game->getCurrentBlock()->getCells());
     vector<vector<shared_ptr<Cell>>> *board = textDisplayImpl->game->getBoard();
 
     // actually prints the board...         TODO: when the blocks are created, their indices should start at x = 3;
@@ -52,7 +52,7 @@ void TextDisplay::notify() {
 
     cout << "-----------" << endl;
     cout << "Next:" << endl;
-    Block next = textDisplayImpl->game->getNextBlock();
+    Block next = Block(textDisplayImpl->game->getNextBlock()->getCells());
     for (int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
             bool pb = false;
