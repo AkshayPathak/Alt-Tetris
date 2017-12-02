@@ -11,7 +11,7 @@ struct Grid::GridImpl {
     int x;
     int y;
     vector<vector<shared_ptr<Cell>>> board;
-    Block currentBlock;
+    shared_ptr<Block> currentBlock;
 
     // Methods
     GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y},
@@ -48,8 +48,8 @@ void Grid::init() {
     printBoard();
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    for(int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
-        gridImpl->currentBlock.getCells().at(i)->setY(gridImpl->currentBlock.getCells().at(i)->getY() + 3);
+    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        gridImpl->currentBlock->getCells().at(i)->setY(gridImpl->currentBlock->getCells().at(i)->getY() + 3);
     }
     gridImpl->game->createBlock();      // creates Game's next block
     // changing the block so that textdisplay can print it correctly
@@ -59,18 +59,18 @@ void Grid::init() {
 // only drop calls this
 void Grid::setBlock() {
     // puts currentBlock on the board
-    for (int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
-        int x = gridImpl->currentBlock.getCells().at(i)->getX();
-        int y = gridImpl->currentBlock.getCells().at(i)->getY();
-        char c = gridImpl->currentBlock.getCells().at(i)->getC();
+    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        int x = gridImpl->currentBlock->getCells().at(i)->getX();
+        int y = gridImpl->currentBlock->getCells().at(i)->getY();
+        char c = gridImpl->currentBlock->getCells().at(i)->getC();
         gridImpl->board.at(y).at(x)->setC(c);
     }
     notifyObservers();
 
     // getting a vector of x values
-    vector<int> y_values(gridImpl->currentBlock.getCells().size());
-    for (int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
-        y_values.at(i) = gridImpl->currentBlock.getCells().at(i)->getY();
+    vector<int> y_values(gridImpl->currentBlock->getCells().size());
+    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        y_values.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
     }
     sort(y_values.begin(), y_values.end());
     y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
@@ -85,7 +85,7 @@ void Grid::setBlock() {
 }
 
 void Grid::transformLeft() {
-    Block copy = gridImpl->currentBlock;    // block has big 5
+    Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformLeft();
 
     // checking for invalid input
@@ -94,12 +94,12 @@ void Grid::transformLeft() {
     // checking if overlapping with anything
     if (overlap(copy)) return;
 
-    gridImpl->currentBlock = copy;
+    gridImpl->currentBlock = make_shared<Block>(Block(copy));
     notifyObservers();
 }
 
 void Grid::transformRight() {
-    Block copy = gridImpl->currentBlock;
+    Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformRight();
 
     // checking for invalid input
@@ -108,12 +108,12 @@ void Grid::transformRight() {
     // checking if overlapping with anything
     if (overlap(copy)) return;
 
-    gridImpl->currentBlock = copy;
+    gridImpl->currentBlock = make_shared<Block>(Block(copy));
     notifyObservers();
 }
 
 void Grid::transformDown() {
-    Block copy = gridImpl->currentBlock;
+    Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformDown();
 
     // checking for invalid input
@@ -122,12 +122,12 @@ void Grid::transformDown() {
     // checking if overlapping with anything
     if (overlap(copy)) return;
 
-    gridImpl->currentBlock = copy;
+    gridImpl->currentBlock = make_shared<Block>(Block(copy));
     notifyObservers();
 }
 
 void Grid::transformClockwise() {
-    Block copy = gridImpl->currentBlock;
+    Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformClockwise();
 
     // checking for invalid input
@@ -136,12 +136,12 @@ void Grid::transformClockwise() {
     // checking if overlapping with anything
     if (overlap(copy)) return;
 
-    gridImpl->currentBlock = copy;
+    gridImpl->currentBlock = make_shared<Block>(Block(copy));
     notifyObservers();
 }
 
 void Grid::transformCounterClockwise() {
-    Block copy = gridImpl->currentBlock;
+    Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformCounterClockwise();
 
     // checking for invalid input
@@ -150,7 +150,7 @@ void Grid::transformCounterClockwise() {
     // checking if overlapping with anything
     if (overlap(copy)) return;
 
-    gridImpl->currentBlock = copy;
+    gridImpl->currentBlock = make_shared<Block>(Block(copy));
     notifyObservers();
 }
 
@@ -161,11 +161,11 @@ void Grid::transformCounterClockwise() {
 void Grid::transformDrop() {
     bool keepDropping = true;
     while(keepDropping) {
-        Block copy = gridImpl->currentBlock;
+        Block copy = Block(gridImpl->currentBlock->getCells());
         copy.transformDown();
         if (invalidInput(copy)) keepDropping = false;
         if (overlap(copy)) keepDropping = false;
-        gridImpl->currentBlock = copy;
+        gridImpl->currentBlock = make_shared<Block>(Block(copy));
         notifyObservers();
     }
     setBlock();
@@ -232,7 +232,7 @@ int Grid::getHeight() {
     return gridImpl->y;
 }
 
-Block Grid::getBlock() {
+shared_ptr<Block> Grid::getBlock() {
     return gridImpl->currentBlock;
 }
 

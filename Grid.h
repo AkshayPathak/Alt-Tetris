@@ -44,7 +44,7 @@ public:
 
     int getHeight();
 
-    Block getBlock();
+    shared_ptr<Block> getBlock();
 
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
