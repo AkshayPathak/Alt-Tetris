@@ -31,11 +31,15 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
     // TODO: Implement different levels that you start with
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
+    gameImpl->grid->init();             // good that this is after make block
+
+    gameImpl->td = make_shared<TextDisplay>(this);
+    //make gd here too
+
 
     gameImpl->grid->attach(gameImpl->td);    // attaching observers
-    gameImpl->grid->attach(gameImpl->gd);      // attaching observers
+    //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
 
-    gameImpl->grid->init();             // good that this is after make block
 }
 
 void Game::left() {
