@@ -57,7 +57,7 @@ private:
 
     void shiftBoard(int row);
 
-    void printBoard();
+//    void printBoard();
 };
 
 #endif

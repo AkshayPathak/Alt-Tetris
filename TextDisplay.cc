@@ -11,7 +11,7 @@ struct TextDisplay::TextDisplayImpl{
     Game *game;
 
     //ctor
-    TextDisplayImpl(Game *game) : game{game} {};
+    explicit TextDisplayImpl(Game *game) : game{game} {};
 
 };
 
@@ -45,7 +45,7 @@ void TextDisplay::notify() {
                     break;
                 }
             }
-            if (pb == false) cout << '_';
+            if (!pb) cout << '_';
             //if (pb == false) cout << (*board).at(i).at(j)->getC();
         }
         cout << endl;
@@ -65,7 +65,7 @@ void TextDisplay::notify() {
                     break;
                 }
             }
-            if (pb == false) cout << ' ';
+            if (!pb) cout << ' ';
         }
         cout << endl;
     }

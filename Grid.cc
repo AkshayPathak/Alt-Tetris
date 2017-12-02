@@ -45,7 +45,7 @@ void Grid::init() {
         }
     }
 
-    printBoard();
+//    printBoard();
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
@@ -240,13 +240,13 @@ vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
     return &(gridImpl->board);
 }
 
-void Grid::printBoard() {
-    for (auto &i : gridImpl->board) {
-        for (auto &j : i) {
-            cout << '8' << " ";
-        }
-        cout << endl;
-    }
-}
+//void Grid::printBoard() {
+//    for (auto &i : gridImpl->board) {
+//        for (auto &j : i) {
+//            cout << '8' << " ";
+//        }
+//        cout << endl;
+//    }
+//}
 
 

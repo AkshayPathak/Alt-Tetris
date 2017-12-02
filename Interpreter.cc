@@ -69,6 +69,8 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
             game->restart();
         } else if(cmd == "hint") {
             game->hint();
+        } else {
+            cout << "Invalid command" << endl;
         }
     }
 }
