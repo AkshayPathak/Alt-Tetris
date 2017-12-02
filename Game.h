@@ -12,7 +12,6 @@ class Grid;
 class Cell;
 class Block;
 class Level;
-class Level0;
 class Score;
 class GraphicsDisplay;
 class TextDisplay;
@@ -27,7 +26,7 @@ public:
 
     void initInterpreter(int argc, char *argv[]);
 
-    void initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled);
+    void initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled);
 
     void createBlock();
 
@@ -48,13 +47,24 @@ public:
     void S();
     void Z();
     void T();
+    void random();
+    void noRandom(string inFile);
+    void sequence(string inFile);
     void restart();
     void hint();
 
     // Getters and setter
     Block getNextBlock() const;    // cant be reference or else pointer to the stack
 
-    friend class TextDisplay;
+    //friend class TextDisplay;
+    // getters and setters used by textdisplay
+    int getLevel();
+    int getScore();
+    int getHiScore();
+    int getWidth();
+    int getHeight();
+    Block getCurrentBlock();
+    vector<vector<shared_ptr<Cell>>> *getBoard();
 
     virtual ~Game();
 };

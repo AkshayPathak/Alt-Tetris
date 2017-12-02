@@ -1,12 +1,13 @@
 #include "Game.h"
 #include "Grid.h"
 #include "Block.h"
-#include "Level0.h"
+#include "Level.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 struct Game::GameImpl {
-
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
@@ -16,6 +17,7 @@ struct Game::GameImpl {
 
     Block nextBlock;
     // TODO: grid is already dealt with through initGame, but maybe need constructor for interpreter, td and gd for sure (level score)?
+    GameImpl() : grid{nullptr} {}; //???
 };
 
 Game::Game() : gameImpl{make_unique<GameImpl>()} {}
@@ -24,12 +26,10 @@ void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
+void Game::initGame(int level, int seed, /*vector<shared_ptr<Block>> blocksSequence,*/ bool graphicalEnabled) {
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
-    gameImpl->level = make_unique<Level0>(blocksSequence);
-    getNextBlock() = gameImpl->level->makeBlock();
     // SHOULD ATTACH OBSERVERS HERE... assuming game already has SHARED pointers to td and gd
     gameImpl->grid->attach(gameImpl->td);
     gameImpl->grid->attach(gameImpl->gd);
@@ -101,6 +101,18 @@ void Game::T() {
 
 }
 
+void Game::random() {
+
+}
+
+void Game::noRandom(string inFile) {
+
+}
+
+void Game::sequence(string inFile) {
+
+}
+
 void Game::restart() {
 
 }
@@ -110,15 +122,46 @@ void Game::hint() {
 }
 
 void Game::createBlock() {
-    gameImpl->nextBlock = gameImpl->level->makeBlock();
+    //...
 }
 
 Block Game::getNextBlock() const {
-    return gameImpl->nextBlock;
+    // shouldn't replace nextblock in here because it won't know if other classes use it, currently it does cause grid will always take it
+    // but other classes might not
 }
 
 Game::~Game() {
 
 }
+// THE 5 GETTERS I GUESS... STILL DUNNO WHY FRIEND DOESNT WORK
+
+int Game::getLevel() {
+    return gameImpl->level->getLevel();
+}
+
+int Game::getScore() {
+    // return gameImpl->score->getScore(); TODO: Make the score class
+}
+
+int Game::getHiScore() {
+    //return gameImpl->score->getHiScore();      TODO: Make the score class
+}
+
+int Game::getWidth() {
+    return gameImpl->grid->getWidth();
+}
+
+int Game::getHeight() {
+    return gameImpl->grid->getHeight();
+}
+
+Block Game::getCurrentBlock() {
+    return gameImpl->grid->getBlock();
+}
+
+vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
+    return gameImpl->grid->getBoard();
+}
+
 
 
