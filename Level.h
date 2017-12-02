@@ -12,13 +12,13 @@ class Level {
 public:
     virtual Block makeBlock() = 0;
 
-    vector<vector<shared_ptr<Cell>>> makeIBlock();
-    vector<vector<shared_ptr<Cell>>> makeJBlock();
-    vector<vector<shared_ptr<Cell>>> makeLBlock();
-    vector<vector<shared_ptr<Cell>>> makeOBlock();
-    vector<vector<shared_ptr<Cell>>> makeSBlock();
-    vector<vector<shared_ptr<Cell>>> makeZBlock();
-    vector<vector<shared_ptr<Cell>>> makeTBlock();
+    vector<shared_ptr<Cell>> makeIBlock();
+    vector<shared_ptr<Cell>> makeJBlock();
+    vector<shared_ptr<Cell>> makeLBlock();
+    vector<shared_ptr<Cell>> makeOBlock();
+    vector<shared_ptr<Cell>> makeSBlock();
+    vector<shared_ptr<Cell>> makeZBlock();
+    vector<shared_ptr<Cell>> makeTBlock();
 
     virtual int getLevel() = 0;
     virtual ~Level();

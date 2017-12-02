@@ -14,6 +14,8 @@ public:
 
     explicit Level0(vector<char> fileSequence);
 
+    int getLevel() override;
+
     Block makeBlock() override;
 
     ~Level0() override;

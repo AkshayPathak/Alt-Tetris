@@ -14,6 +14,8 @@ public:
 
     Cell(int x, int y, char c = ' ');
 
+    Cell(const Cell &);
+
     Cell();
 
     int getX() const;

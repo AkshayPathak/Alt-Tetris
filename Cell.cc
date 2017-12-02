@@ -10,9 +10,9 @@ struct Cell::CellImpl {
     CellImpl(int x, int y, char c) : x{x}, y{y}, c{c} {}
 };
 
-Cell::Cell(int x, int y, char c /* = ' ' */) : cellImpl{new CellImpl{x, y, c}} {}
+Cell::Cell(int x, int y, char c /* = ' ' */) : cellImpl{std::make_unique<CellImpl>(x, y, c)} {}
 
-Cell::Cell() : cellImpl{new CellImpl{}} {}
+Cell::Cell() : cellImpl{std::make_unique<CellImpl>()} {}
 
 int Cell::getX() const {
     return cellImpl->x;
@@ -45,4 +45,11 @@ std::ostream &operator<<(std::ostream &os, const Cell &cell) {
 
 Cell::~Cell() {
 
+}
+
+// copy ctor
+Cell::Cell(const Cell &c) {
+    setY(c.getY());
+    setX(c.getX());
+    setC(c.getC());
 }

@@ -38,13 +38,13 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
         } else if(cmd == "norandom") {
             string inFile;
             cin >> inFile;
-            game->noRandom(inFile);
+            //game->noRandom(inFile);    TODO: ...
         } else if(cmd == "random") {
-            game->random();
+            //game->random();              TODO: ...
         } else if(cmd == "sequence") {
             string inFile;
             cin >> inFile;
-            game->sequence(inFile);
+            //game->sequence(inFile);      TODO: ...
         } else if(cmd == "I") {
             game->I();
         } else if(cmd == "J") {

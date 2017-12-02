@@ -17,9 +17,9 @@ public:
 
     Block();
 
-    explicit Block(std::vector<std::shared_ptr<Cell>> cells);
+    Block(const Block &b);
 
-    Block(std::vector<std::vector<std::shared_ptr<Cell>>> other);
+    explicit Block(std::vector<std::shared_ptr<Cell>> cells);
 
     Block &operator=(const Block &other);
 

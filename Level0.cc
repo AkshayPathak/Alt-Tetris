@@ -21,7 +21,10 @@ Block Level0::makeBlock() {
 
 }
 
-Level0::~Level0() {
-}
+Level0::~Level0() {}
 
-Level0::Level0(vector<char> fileSequence) : fileSequence(fileSequence) {}
+Level0::Level0(vector<char> fileSequence) : fileSequence{fileSequence} {}
+
+int Level0::getLevel() {
+    return 0;
+}
