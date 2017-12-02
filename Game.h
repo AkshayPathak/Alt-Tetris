@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Interpreter.h"
+#include "Block.h"
 
 using namespace std;
 
@@ -23,6 +24,8 @@ class Game {
     unique_ptr<GameImpl> gameImpl;
 
 public:
+
+    Game();
 
     void initInterpreter(int argc, char *argv[]);
 

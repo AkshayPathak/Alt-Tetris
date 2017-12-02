@@ -15,7 +15,7 @@ struct Game::GameImpl {
     //unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
     shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
-    shared_ptr<Observer> gd = nullptr;
+//    shared_ptr<Observer> gd = nullptr;
 
     Block nextBlock;
 };
@@ -153,6 +153,10 @@ Block Game::getCurrentBlock() {
 
 vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
+}
+
+Game::Game() : gameImpl(make_unique<GameImpl>()) {
+
 }
 
 

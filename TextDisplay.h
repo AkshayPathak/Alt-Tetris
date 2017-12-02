@@ -9,7 +9,7 @@ using namespace std;
 class Game;
 
 // attach to the board... i don't think it can attach itself...
-class TextDisplay : public Observer{
+class TextDisplay : public Observer {
     struct TextDisplayImpl;
 
     unique_ptr<TextDisplayImpl> textDisplayImpl;
@@ -17,7 +17,7 @@ class TextDisplay : public Observer{
 public:
     TextDisplay(Game *game);
 
-    virtual ~TextDisplay() = default; // virtual dtor
+    virtual ~TextDisplay(); // virtual dtor
 
     virtual void notify() override;
 

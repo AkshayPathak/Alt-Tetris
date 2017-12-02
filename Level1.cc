@@ -1,7 +1,5 @@
 #include "Level1.h"
 
-
-
 Block Level1::makeBlock() override {
 
 }
