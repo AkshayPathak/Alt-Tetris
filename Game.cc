@@ -14,23 +14,11 @@ struct Game::GameImpl {
     unique_ptr<Level> level = nullptr;
     //unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
-    shared_ptr<Observer> td;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
+    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
     shared_ptr<Observer> gd = nullptr;
 
     Block nextBlock;
-    // TODO: grid is already dealt with through initGame, but maybe need constructor for interpreter, td and gd for sure (level score)?
-    GameImpl(Game *game) {
-        // grid is dealt with in initGame
-        // interpreter already done
-        // score nullptr for now
-        // level?
-        td = make_shared<TextDisplay>(game);
-        // gd nullptr for now
-
-    }
 };
-
-Game::Game() : gameImpl{make_unique<GameImpl>(this)} {}
 
 void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
@@ -40,6 +28,7 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
+    // TODO: Implement different levels that you start with
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
 

@@ -23,7 +23,6 @@ class Game {
     unique_ptr<GameImpl> gameImpl;
 
 public:
-    Game();
 
     void initInterpreter(int argc, char *argv[]);
 
@@ -33,7 +32,6 @@ public:
 
     // Basic Commands
     void left();
-
     void right();
     void clockwise();
     void counterClockwise();
