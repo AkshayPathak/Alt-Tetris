@@ -9,7 +9,13 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
     interpretCommandLineArgs(argc, argv);
 
     if (level == 0) {
-        parseSequenceFile();
+//        parseSequenceFile();
+        blockSequence.emplace_back('I');
+        blockSequence.emplace_back('J');
+        blockSequence.emplace_back('S');
+        blockSequence.emplace_back('Z');
+        blockSequence.emplace_back('T');
+        blockSequence.emplace_back('O');
     }
     // Init the game given the command line args
     game->initGame(level, seed, blockSequence, graphicsEnabled);

@@ -14,7 +14,7 @@ struct Game::GameImpl {
     unique_ptr<Level> level = nullptr;
     //unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
-//    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
+    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
 //    shared_ptr<Observer> gd = nullptr;
 
     Block nextBlock;
@@ -25,19 +25,23 @@ void Game::initInterpreter(int argc, char *argv[]) {
 }
 
 void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
+
+    cout << "Init game hit!" << endl;
+
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
     // TODO: Implement different levels that you start with
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
+    cout << "First block init hit!" << endl;
     gameImpl->grid->init();             // good that this is after make block
 
-//    gameImpl->td = make_shared<TextDisplay>(this);
+    gameImpl->td = make_shared<TextDisplay>(this);
     //make gd here too
 
 
-//    gameImpl->grid->attach(gameImpl->td);    // attaching observers
+    gameImpl->grid->attach(gameImpl->td);    // attaching observers
     //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
 
 }
