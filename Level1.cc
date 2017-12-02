@@ -1,10 +1,10 @@
 #include "Level1.h"
 
-Block Level1::makeBlock() override {
+Block Level1::makeBlock() {
 
 }
 
 
-int Level1::getLevel() override {
+int Level1::getLevel() {
     return 1;
 }

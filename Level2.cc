@@ -1,15 +1,20 @@
 #include "Level2.h"
 
-Level2::Level2() = default;
+Level2::Level2() {
 
-Level2::~Level2() = default;
+};
 
-Block Level2::makeBlock() override {
+Level2::~Level2() {
+
+};
+
+
+Block Level2::makeBlock() {
 
 }
 
 
-int Level2::getLevel() override {
+int Level2::getLevel() {
     return 2;
 }
 

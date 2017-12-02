@@ -1,16 +1,20 @@
 #include "Level4.h"
 
-Level4::Level4() = default;
+Level4::Level4() {
 
-Level4::~Level4() = default;
+};
+
+Level4::~Level4() {
+
+};
 
 
-Block Level4::makeBlock() override {
+Block Level4::makeBlock() {
 
 }
 
 
-int Level4::getLevel() override {
+int Level4::getLevel() {
     return 4;
 }
 
