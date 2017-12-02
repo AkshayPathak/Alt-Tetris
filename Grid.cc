@@ -46,10 +46,6 @@ void Grid::init() {
     }
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    // changing the block so that textdisplay can print it correctly
-    for(int i = 0; i < gridImpl->currentBlock.getCells().size(); i++) {
-        gridImpl->currentBlock.getCells().at(i)->setY(gridImpl->currentBlock.getCells().at(i)->getY() + 3);
-    }
     gridImpl->game->createBlock();      // creates Game's next block
     notifyObservers();
 }
@@ -169,22 +165,6 @@ void Grid::transformDrop() {
     setBlock();
 }
 
-int Grid::getWidth() {
-    return gridImpl->x;
-}
-
-int Grid::getHeight() {
-    return gridImpl->y;
-}
-
-Block Grid::getBlock() {
-    return gridImpl->currentBlock;
-}
-
-vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
-    return &(gridImpl->board);
-}
-
 //Private
 // row is an index
 bool Grid::fullRow(int row) const {
@@ -201,7 +181,7 @@ bool Grid::invalidInput(const Block &copy) {
     for (int i = 0; i < copy.getCells().size(); i++) {
         int x = copy.getCells().at(i)->getX();
         int y = copy.getCells().at(i)->getY();
-        if (x < 0) return true;      //-3 because adding 3 in textdisplay
+        if (x < 0) return true;
         if (x >= gridImpl->x) return true;
         if (y < 0) return true;
         if (y >= gridImpl->y) return true;
@@ -237,10 +217,5 @@ void Grid::shiftBoard(int row) {
     }
     gridImpl->board.insert(gridImpl->board.begin(), first);
 }
-
-
-
-
-
 
 

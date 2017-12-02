@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include "Subject.h"
-#include "Cell.h"
 
 using namespace std;
 
@@ -37,12 +36,6 @@ public:
     void transformClockwise();
 
     void transformCounterClockwise();
-
-    // needed by td and gd
-    int getWidth();
-    int getHeight();
-    Block getBlock();
-    vector<vector<shared_ptr<Cell>>> *getBoard();
 private:
     bool invalidInput(const Block &);
 

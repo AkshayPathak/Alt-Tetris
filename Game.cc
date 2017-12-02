@@ -1,13 +1,13 @@
 #include "Game.h"
 #include "Grid.h"
 #include "Block.h"
-#include "Level.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
 struct Game::GameImpl {
+
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
@@ -17,7 +17,6 @@ struct Game::GameImpl {
 
     Block nextBlock;
     // TODO: grid is already dealt with through initGame, but maybe need constructor for interpreter, td and gd for sure (level score)?
-    GameImpl() : grid{nullptr} {}; //???
 };
 
 Game::Game() : gameImpl{make_unique<GameImpl>()} {}
@@ -133,35 +132,5 @@ Block Game::getNextBlock() const {
 Game::~Game() {
 
 }
-// THE 5 GETTERS I GUESS... STILL DUNNO WHY FRIEND DOESNT WORK
-
-int Game::getLevel() {
-    return gameImpl->level->getLevel();
-}
-
-int Game::getScore() {
-    // return gameImpl->score->getScore(); TODO: Make the score class
-}
-
-int Game::getHiScore() {
-    //return gameImpl->score->getHiScore();      TODO: Make the score class
-}
-
-int Game::getWidth() {
-    return gameImpl->grid->getWidth();
-}
-
-int Game::getHeight() {
-    return gameImpl->grid->getHeight();
-}
-
-Block Game::getCurrentBlock() {
-    return gameImpl->grid->getBlock();
-}
-
-vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
-    return gameImpl->grid->getBoard();
-}
-
 
 
