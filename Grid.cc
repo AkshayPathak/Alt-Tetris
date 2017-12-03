@@ -195,25 +195,25 @@ void Grid::setBlock() {
     if (restart) gridImpl->game->restart();
 
     // getting a vector of x values
-    vector<int> y_values(gridImpl->currentBlock->getCells().size());
+    vector<int> yValues(gridImpl->currentBlock->getCells().size());
     for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-        y_values.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
+        yValues.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
     }
-    sort(y_values.begin(), y_values.end());
-    y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
+    sort(yValues.begin(), yValues.end());
+    yValues.erase(unique( yValues.begin(), yValues.end()), yValues.end());
 
 //    int numLinesErased = 0;
-//    for(int i = 0; i < y_values.size(); i++) {
-//        if (fullRow(y_values.at(i)) == true) {
-//            shiftBoard(y_values.at(i));
+//    for(int i = 0; i < yValues.size(); i++) {
+//        if (fullRow(yValues.at(i)) == true) {
+//            shiftBoard(yValues.at(i));
 //            numLinesErased++;
 //        }
 //    }
 //    gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
     int numLinesErased = 0;
-    for(int i = 0; i < y_values.size(); i++) {
-        if (fullRow(y_values.at(i)) == true) {
-            shiftBoard(y_values.at(i));
+    for(int i = 0; i < yValues.size(); i++) {
+        if (fullRow(yValues.at(i))) {
+            shiftBoard(yValues.at(i));
             numLinesErased++;
         }
     }
