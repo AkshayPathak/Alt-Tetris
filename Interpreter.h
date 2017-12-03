@@ -18,9 +18,17 @@ class Interpreter {
     string scriptFileName = "sequence.txt";
     vector<char> blockSequence;
 
+    typedef void (Game::*GameFunction)();
+
     void interpretCommandLineArgs(int argc, char *const *argv);
 
     void parseSequenceFile();
+
+    int getMultiplier(string &cmd);
+
+    void multiplierFunction(Game *game, int multiplier, GameFunction function);
+
+    string matchCommand(const string &cmd);
 
 public:
 
