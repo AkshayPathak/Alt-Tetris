@@ -14,14 +14,14 @@ class TextDisplay : public Observer {
 
     unique_ptr<TextDisplayImpl> textDisplayImpl;
 
+    void printTitle();
 public:
+
     explicit TextDisplay(Game *game);
 
     virtual ~TextDisplay(); // virtual dtor
 
     void notify() override;
-
-
 };
 
 #endif //TEST_TEXTDISPLAY_H

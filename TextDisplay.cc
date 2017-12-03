@@ -23,11 +23,13 @@ TextDisplay::TextDisplay(Game *game) :
 // maybe cause raw pointer to unique pointer???
 
 void TextDisplay::notify() {
+    printTitle();
+
     // Print the top 3 rows
     cout << "Level:" << std::right << std::setw(7) << textDisplayImpl->game->getLevel() << endl;
     cout << "Score:" << std::right << std::setw(7) << textDisplayImpl->game->getScore() << endl;
     cout << "Hi Score:" << std::right << std::setw(4) << textDisplayImpl->game->getHiScore() << endl;
-    cout << "-----------" << endl;
+    cout << "-------------" << endl;
 
     // all the blocks are being copied around
     Block b = Block(textDisplayImpl->game->getCurrentBlock()->getCells());
@@ -35,6 +37,7 @@ void TextDisplay::notify() {
 
     // actually prints the board...         TODO: when the blocks are created, their indices should start at x = 3;
     for (int i = 0; i < textDisplayImpl->game->getHeight(); i++) {
+        cout << "|";
         for (int j = 0; j < textDisplayImpl->game->getWidth(); j++) {
             bool pb = false;
             for (int k = 0; k < b.getCells().size(); k++) {
@@ -45,13 +48,13 @@ void TextDisplay::notify() {
                     break;
                 }
             }
-            if (!pb) cout << '_';
+            if (!pb) cout << '.';
             //if (pb == false) cout << (*board).at(i).at(j)->getC();
         }
-        cout << endl;
+        cout << "|" << endl;
     }
 
-    cout << "-----------" << endl;
+    cout << "-------------" << endl;
     cout << "Next:" << endl;
     Block next = Block(textDisplayImpl->game->getNextBlock()->getCells());
     for (int i = 0; i < 2; i++) {
@@ -73,4 +76,16 @@ void TextDisplay::notify() {
 
 TextDisplay::~TextDisplay() {
 
+}
+
+void TextDisplay::printTitle() {
+    cout << " _______           _______  ______   _______ _________ _______ \n"
+            "(  ___  )|\\     /|(  ___  )(  __  \\ (  ____ )\\__   __/(  ____ \\\n"
+            "| (   ) || )   ( || (   ) || (  \\  )| (    )|   ) (   | (    \\/\n"
+            "| |   | || |   | || (___) || |   ) || (____)|   | |   | (_____ \n"
+            "| |   | || |   | ||  ___  || |   | ||     __)   | |   (_____  )\n"
+            "| | /\\| || |   | || (   ) || |   ) || (\\ (      | |         ) |\n"
+            "| (_\\ \\ || (___) || )   ( || (__/  )| ) \\ \\_____) (___/\\____) |\n"
+            "(____\\/_)(_______)|/     \\|(______/ |/   \\__/\\_______/\\_______)\n"
+         << endl;
 }
