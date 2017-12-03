@@ -5,14 +5,18 @@
 
 class Block;
 
-class Level3: public Level {
-public:
-    Level3();
-    ~Level3() override;
-    shared_ptr<Block> makeBlock() override;
-    int getLevel() override;
-};
+class Level3 : public Level {
 
+public:
+
+    Level3(const vector<char> &blockSequence);
+
+    shared_ptr<Block> makeBlock() override;
+
+    int getLevel() override;
+
+    ~Level3() override;
+};
 
 
 #endif //TEST_LEVEL3_H

@@ -61,15 +61,9 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
         } else if (cmd == "leveldown") {
             multiplierFunction(game, multiplier, &Game::levelDown);
         } else if (cmd == "norandom") {
-            string inFile;
-            cin >> inFile;
-            //game->noRandom(inFile);    TODO: ...
+            game->random(true);
         } else if (cmd == "random") {
-            //game->random();              TODO: ...
-        } else if (cmd == "sequence") {
-            string inFile;
-            cin >> inFile;
-            //game->sequence(inFile);      TODO: ...
+            game->random(false);
         } else if (cmd == "I") {
             game->I();
         } else if (cmd == "J") {

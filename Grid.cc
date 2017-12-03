@@ -54,7 +54,7 @@ void Grid::init() {
     notifyObservers();
 }
 
-void Grid::transformLeft() {
+void Grid::transformLeft(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformLeft();
 
@@ -65,10 +65,15 @@ void Grid::transformLeft() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
-    notifyObservers();
+
+    if (performHeavy) {
+        transformDown();
+    } else {
+        notifyObservers();
+    }
 }
 
-void Grid::transformRight() {
+void Grid::transformRight(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformRight();
 
@@ -79,7 +84,12 @@ void Grid::transformRight() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
-    notifyObservers();
+
+    if (performHeavy) {
+        transformDown();
+    } else {
+        notifyObservers();
+    }
 }
 
 void Grid::transformDown() {
@@ -93,10 +103,9 @@ void Grid::transformDown() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
-    notifyObservers();
 }
 
-void Grid::transformClockwise() {
+void Grid::transformClockwise(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformClockwise();
 
@@ -107,10 +116,15 @@ void Grid::transformClockwise() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
-    notifyObservers();
+
+    if (performHeavy) {
+        transformDown();
+    } else {
+        notifyObservers();
+    }
 }
 
-void Grid::transformCounterClockwise() {
+void Grid::transformCounterClockwise(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformCounterClockwise();
 
@@ -121,7 +135,12 @@ void Grid::transformCounterClockwise() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
-    notifyObservers();
+
+    if (performHeavy) {
+        transformDown();
+    } else {
+        notifyObservers();
+    }
 }
 
 

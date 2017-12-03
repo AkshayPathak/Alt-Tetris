@@ -27,17 +27,17 @@ public:
 
     void setBlock();
 
-    void transformLeft();
+    void transformLeft(bool performHeavy = false);
 
-    void transformRight();
+    void transformRight(bool performHeavy = false);
 
     void transformDown();
 
     void transformDrop();
 
-    void transformClockwise();
+    void transformClockwise(bool performHeavy = false);
 
-    void transformCounterClockwise();
+    void transformCounterClockwise(bool performHeavy = false);
 
     // needed by td and gd
     int getWidth();

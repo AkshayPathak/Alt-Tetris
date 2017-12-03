@@ -23,16 +23,18 @@ class Game {
     struct GameImpl;
     unique_ptr<GameImpl> gameImpl;
 
+    // Getters and setter
+    void switchLevel(int newLevel);
+
 public:
 
     Game();
 
     void initInterpreter(int argc, char *argv[]);
 
-    void initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled);
+    void initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled);
 
     void createBlock();
-
     // Basic Commands
     void left();
     void right();
@@ -50,11 +52,11 @@ public:
     void Z();
     void T();
     void restart();
+    void random(bool noRandom);
+
     void hint();
 
-    // Getters and setter
     shared_ptr<Block> getNextBlock() const;    // cant be reference or else pointer to the stack
-
     //friend class TextDisplay;
     // getters and setters used by textdisplay
     int getLevel();
@@ -64,9 +66,12 @@ public:
     int getHeight();
     void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
     shared_ptr<Block> getCurrentBlock();
+
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
     virtual ~Game();
+
+    bool checkHeavy();
 };
 
 #endif //TEST_GAME_H

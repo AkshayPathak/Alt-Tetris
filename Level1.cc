@@ -1,7 +1,13 @@
 #include "Level1.h"
-
+#include "Level.h"
+#include "Level1.h"
 
 shared_ptr<Block> Level1::makeBlock() {
+
+    if (isNoRandom()) {
+        return makeSequenceBlock();
+    }
+
     shared_ptr<Block> block;
 
     int num = std::rand() % 12;
@@ -29,6 +35,7 @@ int Level1::getLevel() {
     return 1;
 }
 
-Level1::Level1() = default;
+Level1::Level1(const vector<char> &blockSequence) : Level{blockSequence} {}
 
-Level1::~Level1() = default;
+Level1::~Level1() {}
+

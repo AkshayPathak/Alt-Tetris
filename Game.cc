@@ -5,6 +5,10 @@
 #include "Level0.h"
 #include "Score.h"
 #include "TextDisplay.h"
+#include "Level2.h"
+#include "Level3.h"
+#include "Level4.h"
+#include "Level1.h"
 #include <iostream>
 #include <fstream>
 
@@ -15,48 +19,63 @@ struct Game::GameImpl {
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
-    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
+    shared_ptr<Observer> td = nullptr;
 //    shared_ptr<Observer> gd = nullptr;
 
     shared_ptr<Block> nextBlock;
+    vector<char> blockSequence;
 };
 
 void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
+void Game::initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled) {
+
+    gameImpl->blockSequence = blocksSequence;
 
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
-    // TODO: Implement different levels that you start with
+    // Create the score object
     gameImpl->score = make_unique<Score>();
-    gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
+
+    // Make the appropriate level
+    switchLevel(level);
+
+    // Create the first next block
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
+
+    // Create the text display
     gameImpl->td = make_shared<TextDisplay>(this);
+
+    // Attach observers
     gameImpl->grid->attach(gameImpl->td);    // attaching observers
     //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
+
+    // Create the grid with empty cells
     gameImpl->grid->init();             // good that this is after make block
 
-    //make gd here too
+    if (graphicalEnabled) {
+        //make gd here too
+    }
 
 }
 
 void Game::left() {
-    gameImpl->grid->transformLeft();
+    gameImpl->grid->transformLeft(checkHeavy());
 }
 
 void Game::right() {
-    gameImpl->grid->transformRight();
+    gameImpl->grid->transformRight(checkHeavy());
 }
 
 void Game::clockwise() {
-    gameImpl->grid->transformClockwise();
+    gameImpl->grid->transformClockwise(checkHeavy());
 }
 
 void Game::counterClockwise() {
-    gameImpl->grid->transformCounterClockwise();
+    gameImpl->grid->transformCounterClockwise(checkHeavy());
 }
 
 void Game::down() {
@@ -67,16 +86,36 @@ void Game::drop() {
     gameImpl->grid->transformDrop();
 }
 
+bool Game::checkHeavy() {
+    return gameImpl->level->getLevel() >= 3;
+}
+
 void Game::levelUp() { // Needs Level.h
-    //int newLevel = gameImpl->level->getLevel() + 1;
-    //newLevel = newLevel > 4 ? 4 : newLevel;
-    //gameImpl->level->setLevel(newLevel);
+    switchLevel(gameImpl->level->getLevel() + 1);
 }
 
 void Game::levelDown() {  // Needs Level.h
-    //int newLevel = gameImpl->level->getLevel() - 1;
-    //newLevel = newLevel >= 0 ? newLevel : 0;
-    //gameImpl->level->setLevel(newLevel);
+    switchLevel(gameImpl->level->getLevel() - 1);
+}
+
+void Game::switchLevel(int newLevel) {
+    switch (newLevel) {
+        case 0:
+            gameImpl->level = make_unique<Level0>(gameImpl->blockSequence);
+            break;
+        case 1:
+            gameImpl->level = make_unique<Level1>(gameImpl->blockSequence);
+            break;
+        case 2:
+            gameImpl->level = make_unique<Level2>(gameImpl->blockSequence);
+            break;
+        case 3:
+            gameImpl->level = make_unique<Level3>(gameImpl->blockSequence);
+            break;
+        case 4:
+            gameImpl->level = make_unique<Level4>(gameImpl->blockSequence);
+    }
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::I() {
@@ -151,17 +190,23 @@ void Game::hint() {
 // TODO
 }
 
+/**
+ * Sets block sequence to either randomly generate or take from sequence file
+ * @param noRandom True to make from sequence file, false for random
+ */
+void Game::random(bool noRandom) {
+    gameImpl->level->setNoRandom(noRandom);
+}
+
 void Game::createBlock() {
     gameImpl->nextBlock = gameImpl->level->makeBlock();
 }
-
 shared_ptr<Block> Game::getNextBlock() const {
     return gameImpl->nextBlock;
 }
 
-Game::~Game() {
+Game::~Game() {}
 
-}
 // THE 5 GETTERS I GUESS... STILL DUNNO WHY FRIEND DOESNT WORK
 
 int Game::getLevel() {
@@ -188,9 +233,11 @@ shared_ptr<Block> Game::getCurrentBlock() {
     return gameImpl->grid->getBlock();
 }
 
+
 vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
 }
+
 
 void Game::incrementPointsByLinesDeleted(int numberOfLinesDeleted) {
     gameImpl->score->updateScore((numberOfLinesDeleted + gameImpl->level->getLevel()) *
