@@ -56,3 +56,26 @@ Cell::Cell(const Cell &c) : cellImpl{make_unique<CellImpl>()} {
     setY(c.getY());
     setC(c.getC());
 }
+
+// for Graphics
+void Cell::draw(unique_ptr<Xwindow> w, int x, int y,int width, int height) {
+    if (cellImpl->c == ' ') {
+        w->fillRectangle(x, y, width, height, Xwindow::Black);
+    } else if (cellImpl->c == 'I') {
+        w->fillRectangle(x, y, width, height, Xwindow::Red);
+    } else if (cellImpl->c == 'J') {
+        w->fillRectangle(x, y, width, height, Xwindow::Green);
+    } else if (cellImpl->c == 'L') {
+        w->fillRectangle(x, y, width, height, Xwindow::Blue);
+    } else if (cellImpl->c == 'O') {
+        w->fillRectangle(x, y, width, height, Xwindow::Cyan);
+    } else if (cellImpl->c == 'Z') {
+        w->fillRectangle(x, y, width, height, Xwindow::Yellow);
+    } else if (cellImpl->c == 'S') {
+        w->fillRectangle(x, y, width, height, Xwindow::Magenta);
+    } else if (cellImpl->c == 'T') {
+        w->fillRectangle(x, y, width, height, Xwindow::Orange);
+    }
+}
+
+// undraw function?

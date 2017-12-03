@@ -5,6 +5,7 @@
 #include "Level0.h"
 #include "Score.h"
 #include "TextDisplay.h"
+#include "GraphicsDisplay.h"
 #include <iostream>
 #include <fstream>
 
@@ -16,7 +17,7 @@ struct Game::GameImpl {
     unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
     shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
-//    shared_ptr<Observer> gd = nullptr;
+    shared_ptr<Observer> gd = nullptr;
 
     shared_ptr<Block> nextBlock;
 };
@@ -34,12 +35,16 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
     gameImpl->score = make_unique<Score>();
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
+
     gameImpl->td = make_shared<TextDisplay>(this);
     gameImpl->grid->attach(gameImpl->td);    // attaching observers
-    //gameImpl->grid->attach(gameImpl->gd);      // attaching observers
-    gameImpl->grid->init();             // good that this is after make block
 
-    //make gd here too
+    if (graphicalEnabled) {
+        gameImpl->gd = make_shared<GraphicsDisplay>(this);                      // TODO: logic for whether or not we even need Graphicsdisplay
+        gameImpl->grid->attach(gameImpl->gd);
+    }
+
+    gameImpl->grid->init();             // good that this is after make block
 
 }
 

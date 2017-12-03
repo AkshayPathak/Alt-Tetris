@@ -4,6 +4,10 @@
 #include <ostream>
 #include "Observer.h"
 #include "Subject.h"
+#include "window.h"
+#include <memory>
+
+
 
 class Cell {
 
@@ -29,6 +33,10 @@ public:
     char getC() const;
 
     void setC(char c);
+
+    void draw(std::unique_ptr<Xwindow> w, int x, int y, int width, int height);
+
+    // undraw function??
 
     friend std::ostream &operator<<(std::ostream &os, const Cell &cell);
 
