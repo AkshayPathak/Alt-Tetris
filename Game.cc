@@ -192,5 +192,10 @@ vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
 }
 
+void Game::incrementPointsByLinesDeleted(int numberOfLinesDeleted) {
+    gameImpl->score->updateScore((numberOfLinesDeleted + gameImpl->level->getLevel()) *
+                                 (numberOfLinesDeleted + gameImpl->level->getLevel()));
+}
+
 Game::Game() : gameImpl(make_unique<GameImpl>()) {}
 

@@ -202,9 +202,22 @@ void Grid::setBlock() {
     sort(y_values.begin(), y_values.end());
     y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
 
+//    int numLinesErased = 0;
+//    for(int i = 0; i < y_values.size(); i++) {
+//        if (fullRow(y_values.at(i)) == true) {
+//            shiftBoard(y_values.at(i));
+//            numLinesErased++;
+//        }
+//    }
+//    gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
+    int numLinesErased = 0;
     for(int i = 0; i < y_values.size(); i++) {
-        if (fullRow(y_values.at(i)) == true) shiftBoard(y_values.at(i));
+        if (fullRow(y_values.at(i)) == true) {
+            shiftBoard(y_values.at(i));
+            numLinesErased++;
+        }
     }
+    gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     numDown(3);
