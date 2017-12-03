@@ -158,6 +158,11 @@ public:
     shared_ptr<Block> getNextBlock() const;
 
     /**
+     * Get a block that is 1x1
+     */
+    shared_ptr<Block> getABlock();
+
+    /**
      * Get the board
      */
     vector<vector<shared_ptr<Cell>>> *getBoard();
