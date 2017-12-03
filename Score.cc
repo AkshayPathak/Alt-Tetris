@@ -8,7 +8,7 @@ struct Score::ScoreImpl {
     explicit ScoreImpl(std::shared_ptr<Level>): level{level}, hiScore{0}, currentScore{0} {}
 };
 
-Score::Score(std::shared_ptr<Level> level): scoreImpl{std::make_unique<ScoreImpl>} {}
+//Score::Score(std::shared_ptr<Level> level): scoreImpl{std::make_unique<ScoreImpl>} {}
 
 int Score::getHiScore() {
     return scoreImpl->hiScore;

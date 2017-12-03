@@ -78,31 +78,32 @@ void Game::levelDown() {  // Needs Level.h
 }
 
 void Game::I() {
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeIBlock()));
 
 }
 
 void Game::J() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeJBlock()));
 }
 
 void Game::S() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeSBlock()));
 }
 
 void Game::Z() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeZBlock()));
 }
 
 void Game::L() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeLBlock()));
 }
 
 void Game::O() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeOBlock()));
 }
 
 void Game::T() {
-
+    gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeTBlock()));
 }
 
 void Game::restart() {
@@ -156,9 +157,4 @@ vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
 }
 
-Game::Game() : gameImpl(make_unique<GameImpl>()) {
-
-}
-
-
-
+Game::Game() : gameImpl(make_unique<GameImpl>()) {}
