@@ -50,6 +50,10 @@ public:
 
     void setCurrentBlock(shared_ptr<Block> newBlock);
 
+    void numDown(int n);
+
+    void numRight(int n);
+
 private:
     bool invalidInput(const Block &);
 
@@ -60,6 +64,7 @@ private:
     void shiftBoard(int row);
 
 //    void printBoard();
+
 };
 
 #endif

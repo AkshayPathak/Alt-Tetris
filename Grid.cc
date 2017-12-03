@@ -48,9 +48,7 @@ void Grid::init() {
 //    printBoard();
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-        gridImpl->currentBlock->getCells().at(i)->setY(gridImpl->currentBlock->getCells().at(i)->getY() + 3);
-    }
+    numDown(3);
     gridImpl->game->createBlock();      // creates Game's next block
     // changing the block so that textdisplay can print it correctly
     notifyObservers();
@@ -186,14 +184,15 @@ bool Grid::overlap(const Block &copy) {
 // only drop calls this
 void Grid::setBlock() {
     // puts currentBlock on the board
+    bool restart = false;
     for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
         int x = gridImpl->currentBlock->getCells().at(i)->getX();
         int y = gridImpl->currentBlock->getCells().at(i)->getY();
+        if (y <= 3) restart = true;
         char c = gridImpl->currentBlock->getCells().at(i)->getC();
         gridImpl->board.at(y).at(x)->setC(c);
     }
-
-    //notifyObservers();   // prints it right after setting it on the board...
+    if (restart) gridImpl->game->restart();
 
     // getting a vector of x values
     vector<int> y_values(gridImpl->currentBlock->getCells().size());
@@ -208,11 +207,11 @@ void Grid::setBlock() {
     }
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-        gridImpl->currentBlock->getCells().at(i)->setY(gridImpl->currentBlock->getCells().at(i)->getY() + 3);
-    }
-
+    numDown(3);
     gridImpl->game->createBlock();      // creates Game's next block
+
+    if (overlap(*(gridImpl->currentBlock))) gridImpl->game->restart();
+
     notifyObservers();     // prints with the piece at the bottom
 }
 
@@ -264,7 +263,29 @@ vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
 
 void Grid::setCurrentBlock(shared_ptr<Block> newBlock) {
     gridImpl->currentBlock = newBlock;
-    notifyObservers();
+    numDown(3);
+    //notifyObservers();
 }
+
+void Grid::numDown(int n) {
+    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        gridImpl->currentBlock->getCells().at(i)->setY(gridImpl->currentBlock->getCells().at(i)->getY() + n);
+    }
+}
+
+void Grid::numRight(int n) {
+    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        gridImpl->currentBlock->getCells().at(i)->setX(gridImpl->currentBlock->getCells().at(i)->getX() + n);
+    }
+}
+
+//void Grid::numRight(int n) {
+//    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+//        cout << i << endl;
+//        cout << "old coords: " << gridImpl->currentBlock->getCells().at(0)->getX() << ", " << gridImpl->currentBlock->getCells().at(0)->getY() << endl;
+//        gridImpl->currentBlock->getCells().at(i)->setX(gridImpl->currentBlock->getCells().at(i)->getX() + n);
+//        cout << "new coords: " << gridImpl->currentBlock->getCells().at(0)->getX() << ", " << gridImpl->currentBlock->getCells().at(0)->getY() << endl;
+//    }
+//}
 
 

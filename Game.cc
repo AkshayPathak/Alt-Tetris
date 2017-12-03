@@ -78,40 +78,75 @@ void Game::levelDown() {  // Needs Level.h
 }
 
 void Game::I() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeIBlock()));
-
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::J() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeJBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::S() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeSBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::Z() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeZBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::L() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeLBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::O() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeOBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::T() {
+    int rightShift = (gameImpl->grid->getBlock()->getCells().at(0)->getX());
+    int downShift = (gameImpl->grid->getBlock()->getCells().at(0)->getY())-3;
     gameImpl->grid->setCurrentBlock(make_shared<Block>(gameImpl->level->makeTBlock()));
+    gameImpl->grid->numDown(downShift);
+    gameImpl->grid->numRight(rightShift);
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::restart() {
-
+    //gameImpl->score->
+    gameImpl->grid->init();
 }
 
 void Game::hint() {
-
+// TODO
 }
 
 void Game::createBlock() {
@@ -158,3 +193,4 @@ vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
 }
 
 Game::Game() : gameImpl(make_unique<GameImpl>()) {}
+
