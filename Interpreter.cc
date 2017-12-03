@@ -22,53 +22,53 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     // Start the command interpreter
     string cmd;
-    while(!cin.eof()) {
-        cin >> cmd;
-
-        if(cmd == "left") {
+    while (cout << "Enter a command: " && cin >> cmd) {
+        if (cmd == "left") {
             game->left();
-        } else if(cmd == "right") {
+        } else if (cmd == "right") {
             game->right();
-        } else if(cmd == "down") {
+        } else if (cmd == "down") {
             game->down();
-        } else if(cmd == "clockwise") {
+        } else if (cmd == "clockwise") {
             game->clockwise();
-        } else if(cmd == "counterclockwise") {
+        } else if (cmd == "counterclockwise") {
             game->counterClockwise();
-        } else if(cmd == "drop") {
+        } else if (cmd == "drop") {
             game->drop();
-        } else if(cmd == "levelup") {
+        } else if (cmd == "levelup") {
             game->levelUp();
-        } else if(cmd == "leveldown") {
+        } else if (cmd == "leveldown") {
             game->levelDown();
-        } else if(cmd == "norandom") {
+        } else if (cmd == "norandom") {
             string inFile;
             cin >> inFile;
             //game->noRandom(inFile);    TODO: ...
-        } else if(cmd == "random") {
+        } else if (cmd == "random") {
             //game->random();              TODO: ...
         } else if (cmd == "sequence") {
             string inFile;
             cin >> inFile;
             //game->sequence(inFile);      TODO: ...
-        } else if(cmd == "I") {
+        } else if (cmd == "I") {
             game->I();
-        } else if(cmd == "J") {
+        } else if (cmd == "J") {
             game->J();
-        } else if(cmd == "L") {
+        } else if (cmd == "L") {
             game->L();
-        } else if(cmd == "O") {
+        } else if (cmd == "O") {
             game->O();
-        } else if(cmd == "S") {
+        } else if (cmd == "S") {
             game->S();
-        } else if(cmd == "Z") {
+        } else if (cmd == "Z") {
             game->Z();
-        } else if(cmd == "T") {
+        } else if (cmd == "T") {
             game->T();
-        } else if(cmd == "restart") {
+        } else if (cmd == "restart") {
             game->restart();
-        } else if(cmd == "hint") {
+        } else if (cmd == "hint") {
             game->hint();
+        } else if (cmd == "quit") {
+            break;
         } else {
             cout << "Invalid command" << endl;
         }
@@ -126,8 +126,8 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
 void Interpreter::parseSequenceFile() {
     ifstream inFile{scriptFileName};
 
-    char block;
-    while (inFile >> block) {
-        blockSequence.emplace_back(block);
+    char blockName;
+    while (inFile >> blockName) {
+        blockSequence.emplace_back(blockName);
     }
 }
