@@ -58,7 +58,7 @@ Cell::Cell(const Cell &c) : cellImpl{make_unique<CellImpl>()} {
 }
 
 // for Graphics
-void Cell::draw(unique_ptr<Xwindow> w, int x, int y,int width, int height) {
+void Cell::draw(shared_ptr<Xwindow> w, int x, int y,int width, int height) {
     if (cellImpl->c == ' ') {
         w->fillRectangle(x, y, width, height, Xwindow::Black);
     } else if (cellImpl->c == 'I') {

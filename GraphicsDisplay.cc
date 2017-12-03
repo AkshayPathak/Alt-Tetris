@@ -7,10 +7,10 @@ using namespace std;
 
 struct GraphicsDisplay::GraphicsDisplayImpl {
     Game *game;
-    unique_ptr<Xwindow> xw;
+    shared_ptr<Xwindow> xw;
 
     // ctor
-    GraphicsDisplayImpl(Game * game) : game{game}, xw{make_unique<Xwindow>()} {}
+    GraphicsDisplayImpl(Game * game) : game{game}, xw{make_shared<Xwindow>()} {}
 };
 
 GraphicsDisplay::GraphicsDisplay(Game *game)

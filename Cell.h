@@ -34,7 +34,7 @@ public:
 
     void setC(char c);
 
-    void draw(std::unique_ptr<Xwindow> w, int x, int y, int width, int height);
+    void draw(std::shared_ptr<Xwindow> w, int x, int y, int width, int height);
 
     // undraw function??
 
