@@ -215,14 +215,6 @@ void Grid::setBlock() {
     sort(yValues.begin(), yValues.end());
     yValues.erase(unique( yValues.begin(), yValues.end()), yValues.end());
 
-//    int numLinesErased = 0;
-//    for(int i = 0; i < yValues.size(); i++) {
-//        if (fullRow(yValues.at(i)) == true) {
-//            shiftBoard(yValues.at(i));
-//            numLinesErased++;
-//        }
-//    }
-//    gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
     int numLinesErased = 0;
     for(int i = 0; i < yValues.size(); i++) {
         if (fullRow(yValues.at(i))) {
