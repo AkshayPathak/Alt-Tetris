@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Level.h"
 #include "Level0.h"
+#include "Score.h"
 #include "TextDisplay.h"
 #include <iostream>
 #include <fstream>
@@ -12,7 +13,7 @@ using namespace std;
 struct Game::GameImpl {
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
-    //unique_ptr<Score> score = nullptr;
+    unique_ptr<Score> score = nullptr;
     unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
     shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
 //    shared_ptr<Observer> gd = nullptr;
@@ -30,6 +31,7 @@ void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graph
     gameImpl->grid = make_unique<Grid>(this);
 
     // TODO: Implement different levels that you start with
+    gameImpl->score = make_unique<Score>();
     gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
     gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
     gameImpl->td = make_shared<TextDisplay>(this);
@@ -141,7 +143,7 @@ void Game::T() {
 }
 
 void Game::restart() {
-    //gameImpl->score->
+    gameImpl->score->resetScore();
     gameImpl->grid->init();
 }
 
@@ -167,13 +169,11 @@ int Game::getLevel() {
 }
 
 int Game::getScore() {
-    // return gameImpl->score->getScore(); TODO: Make the score class
-    return 0;
+     return gameImpl->score->getScore();
 }
 
 int Game::getHiScore() {
-    //return gameImpl->score->getHiScore();      TODO: Make the score class
-    return 0;
+    return gameImpl->score->getHiScore();
 }
 
 int Game::getWidth() {

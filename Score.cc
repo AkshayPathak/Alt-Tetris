@@ -24,3 +24,9 @@ void Score::updateScore(int increment) {
     scoreImpl->currentScore += increment;
     if(scoreImpl->currentScore > scoreImpl->hiScore) scoreImpl->hiScore = scoreImpl->currentScore;
 }
+
+void Score::resetScore() {
+    scoreImpl->currentScore = 0;
+}
+
+
