@@ -217,7 +217,7 @@ void Grid::setBlock() {
             numLinesErased++;
         }
     }
-    gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
+    if (numLinesErased!= 0) gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
 
     gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
     numDown(3);
