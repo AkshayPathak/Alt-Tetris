@@ -2,6 +2,10 @@
 
 shared_ptr<Block> Level0::makeBlock() {
 
+    if (position == fileSequence.size()) {
+        position = 0;
+    }
+
     shared_ptr<Block> block;
 
     switch (fileSequence.at(position)) {

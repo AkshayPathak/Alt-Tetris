@@ -20,6 +20,8 @@ public:
 
     void updateScore(int increment);
 
+    void resetScore();
+
 };
 
 #endif //TEST_SCORE_H

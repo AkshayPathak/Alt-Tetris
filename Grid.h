@@ -50,16 +50,21 @@ public:
 
     void setCurrentBlock(shared_ptr<Block> newBlock);
 
+    void numDown(int n);
+
+    void numRight(int n);
+
 private:
     bool invalidInput(const Block &);
 
     bool overlap(const Block &);
 
-    bool fullRow(int row) const;
+    bool fullRow(int row) ;
 
     void shiftBoard(int row);
 
 //    void printBoard();
+
 };
 
 #endif

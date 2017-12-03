@@ -62,6 +62,7 @@ public:
     int getHiScore();
     int getWidth();
     int getHeight();
+    void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
     shared_ptr<Block> getCurrentBlock();
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
