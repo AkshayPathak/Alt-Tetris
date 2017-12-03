@@ -103,6 +103,7 @@ void Grid::transformDown() {
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
+    notifyObservers();
 }
 
 void Grid::transformClockwise(bool performHeavy /* = false */) {

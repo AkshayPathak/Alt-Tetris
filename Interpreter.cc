@@ -9,8 +9,10 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     interpretCommandLineArgs(argc, argv);
 
+    // TODO: Enable this
+//    parseSequenceFile();
+
     if (level == 0) {
-//        parseSequenceFile();
         blockSequence.emplace_back('I');
         blockSequence.emplace_back('J');
         blockSequence.emplace_back('S');
