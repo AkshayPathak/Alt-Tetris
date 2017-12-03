@@ -22,7 +22,7 @@ vector<shared_ptr<Cell>> Level::makeJBlock() {
     cells.emplace_back(make_shared<Cell>(0, 1, 'J'));
     cells.emplace_back(make_shared<Cell>(1, 1, 'J'));
     cells.emplace_back(make_shared<Cell>(2, 1, 'J'));
-    cells.emplace_back(make_shared<Cell>(1, 0, 'J'));
+    cells.emplace_back(make_shared<Cell>(2, 0, 'J'));
 
     return cells;
 }

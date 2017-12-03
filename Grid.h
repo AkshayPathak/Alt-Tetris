@@ -48,6 +48,8 @@ public:
 
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
+    void setCurrentBlock(shared_ptr<Block> newBlock);
+
 private:
     bool invalidInput(const Block &);
 
@@ -57,7 +59,7 @@ private:
 
     void shiftBoard(int row);
 
-    void printBoard();
+//    void printBoard();
 };
 
 #endif

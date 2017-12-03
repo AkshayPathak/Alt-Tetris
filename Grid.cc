@@ -253,13 +253,18 @@ vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
     return &(gridImpl->board);
 }
 
-void Grid::printBoard() {
-    for (auto &i : gridImpl->board) {
-        for (auto &j : i) {
-            cout << j->getC();
-        }
-        cout << endl;
-    }
+//void Grid::printBoard() {
+//    for (auto &i : gridImpl->board) {
+//        for (auto &j : i) {
+//            cout << j->getC();
+//        }
+//        cout << endl;
+//    }
+//}
+
+void Grid::setCurrentBlock(shared_ptr<Block> newBlock) {
+    gridImpl->currentBlock = newBlock;
+    notifyObservers();
 }
 
 
