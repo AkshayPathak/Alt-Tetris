@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "Cell.h"
+#include <iostream>
 
 void Block::swap(Block &other) {
     using std::swap;
@@ -96,7 +97,13 @@ void Block::transformClockwise() {
         cells.at(i)->setX(bottomLeft.x + oldY - bottomLeft.y);
         cells.at(i)->setY(bottomLeft.y - oldX + topRight.x);
     }
+    int shift_up = topRight.y - upperRight().y;
+    for(int i=0; i < len; ++i) {
+        cells.at(i)->setY(cells.at(i)->getY()+shift_up);
+        //std::cout << "(" << cells.at(i)->getX() << "," << cells.at(i)->getY() << ")" << std::endl;
+    }
 }
+
 
 void Block::transformCounterClockwise() {
     transformClockwise();
