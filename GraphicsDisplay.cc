@@ -10,15 +10,11 @@ struct GraphicsDisplay::GraphicsDisplayImpl {
     Game *game;
     shared_ptr<Xwindow> xw;
 
-    // ctor
-    GraphicsDisplayImpl(Game * game) : game{game}, xw{make_shared<Xwindow>()} {}
+    explicit GraphicsDisplayImpl(Game *game) : game{game}, xw{make_shared<Xwindow>()} {}
 };
 
 GraphicsDisplay::GraphicsDisplay(Game *game)
         : graphicsDisplayImpl{make_unique<GraphicsDisplayImpl>(game)} {}
-
-GraphicsDisplay::~GraphicsDisplay() {}
-
 
 // the print function
 void GraphicsDisplay::notify() {
@@ -26,35 +22,42 @@ void GraphicsDisplay::notify() {
     int yMultiplier = 25;
     int xMultiplier = 25;
 
-    graphicsDisplayImpl->xw->drawBigString(60, 100, "Quadris");
 
     stringstream lvl;
     stringstream score;
     stringstream hiScore;
+
     lvl << "Level: " << graphicsDisplayImpl->game->getLevel();
     score << "Score: " << graphicsDisplayImpl->game->getScore();
     hiScore << "Hi Score: " << graphicsDisplayImpl->game->getHiScore();
+
+
+    graphicsDisplayImpl->xw->drawBigString(60, 100, "Quadris");
+
+    graphicsDisplayImpl->xw->fillRectangle(0, 100, 225, 100, Xwindow::White);
 
     graphicsDisplayImpl->xw->drawString(70, 125, lvl.str());
     graphicsDisplayImpl->xw->drawString(70, 150, score.str());
     graphicsDisplayImpl->xw->drawString(70, 175, hiScore.str());
 
-    graphicsDisplayImpl->xw->drawBigString(30, 300, "Next Block: ", Xwindow::Black);
 
+    graphicsDisplayImpl->xw->drawBigString(30, 300, "Next Block: ", Xwindow::Black);
 
     shared_ptr<Block> bb = graphicsDisplayImpl->game->getNextBlock();
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 4; j++) {
             bool printBlock = false;
-            for(int k = 0; k < bb->getCells().size(); k++) {
+            for (int k = 0; k < bb->getCells().size(); k++) {
                 if (bb->getCells().at(k)->getX() == j && bb->getCells().at(k)->getY() == i) {
-                    bb->getCells().at(k)->draw(graphicsDisplayImpl->xw, j*xMultiplier + 60, i*yMultiplier + 350, xMultiplier-1, yMultiplier-1);
+                    bb->getCells().at(k)->draw(graphicsDisplayImpl->xw, j * xMultiplier + 60, i * yMultiplier + 350,
+                                               xMultiplier - 1, yMultiplier - 1);
                     printBlock = true;
                     break;
                 }
             }
             if (!printBlock) {
-                graphicsDisplayImpl->xw->fillRectangle(j*xMultiplier + 60, i*yMultiplier + 350, xMultiplier-1, yMultiplier-1, Xwindow::White);
+                graphicsDisplayImpl->xw->fillRectangle(j * xMultiplier + 60, i * yMultiplier + 350, xMultiplier - 1,
+                                                       yMultiplier - 1, Xwindow::White);
             }
 
         }
@@ -62,7 +65,7 @@ void GraphicsDisplay::notify() {
 
     graphicsDisplayImpl->xw->fillRectangle(225, 0, 275, 500, Xwindow::Black);
 
-     //prints the board
+    // Prints the board
     Block b = Block(graphicsDisplayImpl->game->getCurrentBlock()->getCells());
     vector<vector<shared_ptr<Cell>>> *board = graphicsDisplayImpl->game->getBoard();
 
@@ -71,22 +74,18 @@ void GraphicsDisplay::notify() {
             bool printBlock = false;
             for (int k = 0; k < b.getCells().size(); k++) {
                 if (b.getCells().at(k)->getX() == j && b.getCells().at(k)->getY() == i) {
-                    b.getCells().at(k)->draw(graphicsDisplayImpl->xw, (j*xMultiplier) + 225, (i*yMultiplier) + 50, xMultiplier-1, yMultiplier-1);
+                    b.getCells().at(k)->draw(graphicsDisplayImpl->xw, (j * xMultiplier) + 225, (i * yMultiplier) + 50,
+                                             xMultiplier - 1, yMultiplier - 1);
                     printBlock = true;
                     break;
                 }
             }
             if (!printBlock) {
-                (*board).at(i).at(j)->draw(graphicsDisplayImpl->xw, (j*xMultiplier) + 225, (i*yMultiplier) + 50, xMultiplier - 1, yMultiplier -1);
+                (*board).at(i).at(j)->draw(graphicsDisplayImpl->xw, (j * xMultiplier) + 225, (i * yMultiplier) + 50,
+                                           xMultiplier - 1, yMultiplier - 1);
             }
         }
     }
-
-
-
 }
 
-
-
-
-
+GraphicsDisplay::~GraphicsDisplay() {}

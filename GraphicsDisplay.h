@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 class Game;
 
 class GraphicsDisplay : public Observer {
