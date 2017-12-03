@@ -2,9 +2,8 @@
 #define TEST_SCORE_H
 
 #include <memory>
-#include "Level.h"
 
-class Level;
+
 
 class Score {
     struct ScoreImpl;
@@ -12,13 +11,14 @@ class Score {
     std::unique_ptr<ScoreImpl> scoreImpl;
 
 public:
-    explicit Score(std::shared_ptr<Level> level);
+    Score();
+    ~Score();
 
     int getHiScore();
 
-    int getCurrentScore();
+    int getScore();
 
-    void updateScore();
+    void updateScore(int increment);
 
 };
 
