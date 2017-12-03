@@ -4,6 +4,15 @@
 
 using namespace std;
 
+struct Interpreter::InterpreterImpl {
+    int level = 0;
+    int seed = 123;
+    bool graphicsEnabled = true;
+    string scriptFileName = "sequence.txt";
+    vector<char> blockSequence;
+};
+
+Interpreter::Interpreter() : interpreterImpl{make_unique<InterpreterImpl>()} {}
 
 void Interpreter::init(Game *game, int argc, char *argv[]) {
 
@@ -12,16 +21,17 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
     // TODO: Enable this
 //    parseSequenceFile();
 
-    if (level == 0) {
-        blockSequence.emplace_back('I');
-        blockSequence.emplace_back('J');
-        blockSequence.emplace_back('S');
-        blockSequence.emplace_back('Z');
-        blockSequence.emplace_back('T');
-        blockSequence.emplace_back('O');
+    if (interpreterImpl->level == 0) {
+        interpreterImpl->blockSequence.emplace_back('I');
+        interpreterImpl->blockSequence.emplace_back('J');
+        interpreterImpl->blockSequence.emplace_back('S');
+        interpreterImpl->blockSequence.emplace_back('Z');
+        interpreterImpl->blockSequence.emplace_back('T');
+        interpreterImpl->blockSequence.emplace_back('O');
     }
     // Init the game given the command line args
-    game->initGame(level, seed, blockSequence, graphicsEnabled);
+    game->initGame(interpreterImpl->level, interpreterImpl->seed,
+                   interpreterImpl->blockSequence, interpreterImpl->graphicsEnabled);
 
     // Start the command interpreter
     string cmd;
@@ -100,11 +110,11 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
         iss >> commandName;
 
         if (commandName == "-text") {
-            graphicsEnabled = false;
+            interpreterImpl->graphicsEnabled = false;
         } else if (commandName == "-seed") {
             try {
                 istringstream seedIss{argv[i + 1]};
-                if (seedIss >> seed) {
+                if (seedIss >> interpreterImpl->seed) {
                     i++;
                 } else {
                     cerr << "Usage for the command line option is: -seed [int]. Skipping." << endl;
@@ -115,7 +125,7 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
         } else if (commandName == "-scriptfile") {
             try {
                 istringstream scriptFileIss{argv[i + 1]};
-                if (scriptFileIss >> scriptFileName) {
+                if (scriptFileIss >> interpreterImpl->scriptFileName) {
                     i++;
                 } else {
                     cerr << "Usage for the command line option is: -scriptfile [filename]. Skipping." << endl;
@@ -126,7 +136,7 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
         } else if (commandName == "-startlevel") {
             try {
                 istringstream startLevelIss{argv[i + 1]};
-                if (startLevelIss >> level) {
+                if (startLevelIss >> interpreterImpl->level) {
                     i++;
                 } else {
                     cerr << "Usage for the command line option is: -startlevel [int]. Skipping." << endl;
@@ -141,11 +151,11 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
 }
 
 void Interpreter::parseSequenceFile() {
-    ifstream inFile{scriptFileName};
+    ifstream inFile{interpreterImpl->scriptFileName};
 
     char blockName;
     while (inFile >> blockName) {
-        blockSequence.emplace_back(blockName);
+        interpreterImpl->blockSequence.emplace_back(blockName);
     }
 }
 
@@ -217,4 +227,6 @@ string Interpreter::matchCommand(const string &cmd) {
 
     return "ambiguous";
 }
+
+Interpreter::~Interpreter() {}
 

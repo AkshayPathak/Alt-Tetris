@@ -9,9 +9,8 @@ using namespace std;
 
 class Level {
 
-    vector<char> blockSequence;
-    int blockPosition = 0;
-    bool noRandom = true;
+    struct LevelImpl;
+    unique_ptr<LevelImpl> levelImpl;
 
 public:
 

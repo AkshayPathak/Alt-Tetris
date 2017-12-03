@@ -7,11 +7,8 @@ void Block::swap(Block &other) {
     swap(cells, other.cells);
 }
 
-Block::Block() {}
-
-
 Block &Block::operator=(const Block &other) {
-    Block b{other};    // TODO: can't make this cause block doesn't have a copy constructor... so referencing deleted function
+    Block b{other};
     swap(b);
     return *this;
 }
@@ -115,8 +112,6 @@ std::vector<std::shared_ptr<Cell>> Block::getCells() const{
     return cells;
 }
 
-// TODO: you didn't have copy ctors in cell... AND... you would be getting a copy of the pointers not the values
-// sort of copy ctor... not another block tho
 Block::Block(std::vector<std::shared_ptr<Cell>> c) {
     cells = std::vector<std::shared_ptr<Cell>>(c.size());
     for(int i = 0; i < c.size(); i++) {
@@ -124,10 +119,11 @@ Block::Block(std::vector<std::shared_ptr<Cell>> c) {
     }
 }
 
-// copy ctor i wrote this before... dunno if still need
 Block::Block(const Block &b) {
     cells = std::vector<std::shared_ptr<Cell>>(b.getCells().size());
     for(int i = 0; i < b.getCells().size(); i++) {
         cells.at(i) = std::make_shared<Cell>(*(b.getCells().at(i)));
     }
 }
+
+Block::Block() {}

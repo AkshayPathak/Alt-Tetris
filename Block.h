@@ -13,6 +13,12 @@ class Block {
 
     void swap(Block &other);
 
+    // For transform Clockwise
+    Posn lowerLeft();
+
+    // For transform Clockwise
+    Posn upperRight();
+
 public:
 
     Block();
@@ -25,25 +31,35 @@ public:
 
     Block &operator=(Block &&other);
 
-
-    // getter
-    std::vector<std::shared_ptr<Cell>> getCells() const;
-
+    /**
+     * Transforms all the cells associated with the block one unit left
+     */
     void transformLeft();
 
+    /**
+     * Transforms all the cells associated with the block one unit right
+     */
     void transformRight();
 
+    /**
+     * Transforms all the cells associated with the block one unit down
+     */
     void transformDown();
 
+    /**
+     * Transforms all the cells associated with the block 90 degrees clockwise
+     */
     void transformClockwise();
 
-    // For transform Clockwise
-    Posn lowerLeft();
-
-    // For transform Clockwise
-    Posn upperRight();
-
+    /**
+     * Transforms all the cells associated with the block 90 degrees counterclockwise
+     */
     void transformCounterClockwise();
+
+    /**
+     * Get all the cells associated with the block
+     */
+    std::vector<std::shared_ptr<Cell>> getCells() const;
 };
 
 

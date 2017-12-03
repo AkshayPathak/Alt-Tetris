@@ -1,7 +1,15 @@
 #include "Level.h"
 #include "Cell.h"
 
-Level::Level(const vector<char> &blockSequence) : blockSequence(blockSequence) {}
+struct Level::LevelImpl {
+    vector<char> blockSequence;
+    int blockPosition = 0;
+    bool noRandom = true;
+
+    LevelImpl(const vector<char> &blockSequence) : blockSequence(blockSequence) {}
+};
+
+Level::Level(const vector<char> &blockSequence) : levelImpl{make_unique<LevelImpl>(blockSequence)} {}
 
 vector<shared_ptr<Cell>> Level::makeIBlock() {
     vector<shared_ptr<Cell>> cells;
@@ -80,21 +88,21 @@ vector<shared_ptr<Cell>> Level::makeTBlock() {
 }
 
 void Level::setNoRandom(bool noRandom) {
-    Level::noRandom = noRandom;
+    levelImpl->noRandom = noRandom;
 }
 
 bool Level::isNoRandom() const {
-    return noRandom;
+    return levelImpl->noRandom;
 }
 
 shared_ptr<Block> Level::makeSequenceBlock() {
-    if (blockPosition == blockSequence.size()) {
-        blockPosition = 0;
+    if (levelImpl->blockPosition == levelImpl->blockSequence.size()) {
+        levelImpl->blockPosition = 0;
     }
 
     shared_ptr<Block> block;
 
-    switch (blockSequence.at(blockPosition)) {
+    switch (levelImpl->blockSequence.at(levelImpl->blockPosition)) {
         case 'I':
             block = make_shared<Block>(makeIBlock());
             break;
@@ -118,7 +126,7 @@ shared_ptr<Block> Level::makeSequenceBlock() {
             break;
     }
 
-    blockPosition++;
+    levelImpl->blockPosition++;
     return block;
 }
 

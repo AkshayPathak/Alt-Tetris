@@ -13,55 +13,51 @@ struct Grid::GridImpl {
     vector<vector<shared_ptr<Cell>>> board;
     shared_ptr<Block> currentBlock;
 
-    // Methods
     GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y},
         board{vector<vector<shared_ptr<Cell>>>(y)} {};
 };
 
-//--------------------------------------------------------------------------------
-// Public
-// ctor
 Grid::Grid(Game *game, int x, int y) : gridImpl{make_unique<GridImpl>(game, x, y)} {
-    // makes the board
+    // Make the board
     for (int i = 0; i < y; i++) {
         for (int j = 0; j < x; j++) {
             gridImpl->board.at(i).emplace_back(make_shared<Cell>(i, j));
         }
     }
 }
-
-Grid::~Grid() = default;
-
 void Grid::init() {
-    // clears the board first
+    // Clears the board first
     for (int i = 0; i < gridImpl->board.size(); i++) {
         gridImpl->board.at(i).clear();
     }
 
-    // constructs empty board
+    // Constructs empty board
     for (int i = 0; i < gridImpl->y; i++) {
         for (int j = 0; j < gridImpl->x; j++) {
             gridImpl->board.at(i).emplace_back(make_shared<Cell>(i, j));
         }
     }
 
-//    printBoard();
-
-    gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
+    // Getting the next block from Game
+    gridImpl->currentBlock = gridImpl->game->getNextBlock();
     numDown(3);
-    gridImpl->game->createBlock();      // creates Game's next block
-    // changing the block so that textdisplay can print it correctly
+
+    // Creates Game's next block
+    gridImpl->game->createBlock();
+
+    // Changing the block so that textdisplay can print it correctly
     notifyObservers();
 }
+
 
 void Grid::transformLeft(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformLeft();
 
-    // checking for invalid input
+    // Checking for invalid input
     if (invalidInput(copy)) return;
 
-    // checking if overlapping with anything
+    // Checking if overlapping with anything
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
@@ -77,10 +73,10 @@ void Grid::transformRight(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformRight();
 
-    // checking for invalid input
+    // Checking for invalid input
     if (invalidInput(copy)) return;
 
-    // checking if overlapping with anything
+    // Checking if overlapping with anything
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
@@ -96,10 +92,10 @@ void Grid::transformDown() {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformDown();
 
-    // checking for invalid input
+    // Checking for invalid input
     if (invalidInput(copy)) return;
 
-    // checking if overlapping with anything
+    // Checking if overlapping with anything
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
@@ -110,10 +106,10 @@ void Grid::transformClockwise(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformClockwise();
 
-    // checking for invalid input
+    // Checking for invalid input
     if (invalidInput(copy)) return;
 
-    // checking if overlapping with anything
+    // Checking if overlapping with anything
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
@@ -129,10 +125,10 @@ void Grid::transformCounterClockwise(bool performHeavy /* = false */) {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformCounterClockwise();
 
-    // checking for invalid input
+    // Checking for invalid input
     if (invalidInput(copy)) return;
 
-    // checking if overlapping with anything
+    // Checking if overlapping with anything
     if (overlap(copy)) return;
 
     gridImpl->currentBlock = make_shared<Block>(Block(copy));
@@ -143,7 +139,6 @@ void Grid::transformCounterClockwise(bool performHeavy /* = false */) {
         notifyObservers();
     }
 }
-
 
 /* 1. will drop as many times as it can
  * 2. setpiece when can no longer drop-->already calls fullRow, which calls shiftBoard
@@ -166,9 +161,8 @@ void Grid::transformDrop() {
     setBlock();
 }
 
-//Private
-// row is an index
 bool Grid::fullRow(int row) {
+    // Row is an index on the board
     bool value = true;
     for(int i = 0; i < gridImpl->x; i++) {
         // if it is space, then there is an empty character there
@@ -201,9 +195,8 @@ bool Grid::overlap(const Block &copy) {
     return false;
 }
 
-// only drop calls this
 void Grid::setBlock() {
-    // puts currentBlock on the board
+    // Puts currentBlock on the board
     bool restart = false;
     for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
         int x = gridImpl->currentBlock->getCells().at(i)->getX();
@@ -214,7 +207,7 @@ void Grid::setBlock() {
     }
     if (restart) gridImpl->game->restart();
 
-    // getting a vector of x values
+    // Get a vector of x values
     vector<int> yValues(gridImpl->currentBlock->getCells().size());
     for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
         yValues.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
@@ -239,29 +232,32 @@ void Grid::setBlock() {
     }
     if (numLinesErased!= 0) gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
 
-    gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
+    // Get the next block from Game
+    gridImpl->currentBlock = gridImpl->game->getNextBlock();
     numDown(3);
-    gridImpl->game->createBlock();      // creates Game's next block
+    // Make Game's next block
+    gridImpl->game->createBlock();
 
     if (overlap(*(gridImpl->currentBlock))) gridImpl->game->restart();
 
-    notifyObservers();     // prints with the piece at the bottom
+    // Print with the piece at the bottom
+    notifyObservers();
 }
 
-// deletes a row, adds top row, changes index of every single Cell up until deleted row
 void Grid::shiftBoard(int row) {
+    // Deletes a row, adds top row, changes index of every single Cell up until deleted row
 
-    // delete the row that is full
+    // Delete the row that is full
     gridImpl->board.erase(gridImpl->board.begin() + row);
 
-    // changes all the indexes until hits row
+    // Changes all the indexes until hits row
     for (int i = 1; i < row; i++) {
         for (int j = 0; j < gridImpl->x; j++) {
             gridImpl->board.at(i).at(j)->setY(gridImpl->board.at(i).at(j)->getY() + 1);
         }
     }
 
-    // adds in first top row of new empty Cells
+    // Adds in first top row of new empty Cells
     vector<shared_ptr<Cell>> first = vector<shared_ptr<Cell>>(gridImpl->x);
     for(int i = 0, j = 0; i < gridImpl->x; i++) {
         first.at(i) = make_shared<Cell>(i, j);
@@ -285,19 +281,9 @@ vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
     return &(gridImpl->board);
 }
 
-//void Grid::printBoard() {
-//    for (auto &i : gridImpl->board) {
-//        for (auto &j : i) {
-//            cout << j->getC();
-//        }
-//        cout << endl;
-//    }
-//}
-
 void Grid::setCurrentBlock(shared_ptr<Block> newBlock) {
     gridImpl->currentBlock = newBlock;
     numDown(3);
-    //notifyObservers();
 }
 
 void Grid::numDown(int n) {
@@ -312,13 +298,4 @@ void Grid::numRight(int n) {
     }
 }
 
-//void Grid::numRight(int n) {
-//    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-//        cout << i << endl;
-//        cout << "old coords: " << gridImpl->currentBlock->getCells().at(0)->getX() << ", " << gridImpl->currentBlock->getCells().at(0)->getY() << endl;
-//        gridImpl->currentBlock->getCells().at(i)->setX(gridImpl->currentBlock->getCells().at(i)->getX() + n);
-//        cout << "new coords: " << gridImpl->currentBlock->getCells().at(0)->getX() << ", " << gridImpl->currentBlock->getCells().at(0)->getY() << endl;
-//    }
-//}
-
-
+Grid::~Grid() {};

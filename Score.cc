@@ -9,7 +9,6 @@ struct Score::ScoreImpl {
 
 Score::Score(): scoreImpl{std::make_unique<ScoreImpl>()} {}
 
-Score::~Score() {};
 
 int Score::getHiScore() {
     return scoreImpl->hiScore;
@@ -29,4 +28,5 @@ void Score::resetScore() {
     scoreImpl->currentScore = 0;
 }
 
+Score::~Score() {};
 
