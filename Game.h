@@ -53,8 +53,9 @@ public:
      * @param seed The seed for the random number generator
      * @param blocksSequence The sequence of blocks from the file
      * @param graphicalEnabled True if graphical UI should be shown
+     * @param highscore The highscore that was read from the saved file
      */
-    void initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled);
+    void initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled, int highscore);
 
     void createBlock();
     // Basic Commands

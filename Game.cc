@@ -35,7 +35,10 @@ void Game::initInterpreter(int argc, char *argv[]) {
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled) {
+void Game::initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled, int highscore) {
+
+    // Seed the random number generator
+    srand(seed);
 
     gameImpl->blockSequence = blocksSequence;
 
@@ -44,6 +47,7 @@ void Game::initGame(int level, int seed, const vector<char> &blocksSequence, boo
 
     // Create the score object
     gameImpl->score = make_unique<Score>();
+    gameImpl->score->setHiScore(highscore);
 
     // Make the appropriate level
     switchLevel(level);
@@ -54,9 +58,10 @@ void Game::initGame(int level, int seed, const vector<char> &blocksSequence, boo
     // Create the text display
     gameImpl->td = make_shared<TextDisplay>(this);
 
-    // Attach observers
+    // Attach TextDisplay as an observer to Grid
     gameImpl->grid->attach(gameImpl->td);
 
+    // If graphicsDisplay should be enabled, create it and add as an observer to Grid
     if (graphicalEnabled) {
         gameImpl->gd = make_shared<GraphicsDisplay>(this);
         gameImpl->grid->attach(gameImpl->gd);

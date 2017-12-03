@@ -53,6 +53,16 @@ class Interpreter {
      */
     string matchCommand(const string &cmd);
 
+    /**
+     * Reads from the hiscore.txt file (if it exists) to get the persistent high score.
+     */
+    void parseHighScoreFile();
+
+    /**
+     * Saves the current high score to a persistent file called hiscore.txt
+     */
+    void saveHighScoreFile(int score);
+
 public:
 
     Interpreter();

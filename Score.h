@@ -17,6 +17,13 @@ public:
     int getHiScore();
 
     /**
+     * Set the highscore
+     */
+    void setHiScore(int hiScore);
+
+    ~Score();
+
+    /**
      * Get the current score
      */
     int getScore();
@@ -30,8 +37,6 @@ public:
      * Reset the current score to 0
      */
     void resetScore();
-
-    ~Score();
 
 };
 

@@ -7,8 +7,10 @@ using namespace std;
 struct Interpreter::InterpreterImpl {
     int level = 0;
     int seed = 123;
+    int highscore = 0;
     bool graphicsEnabled = true;
     string scriptFileName = "sequence.txt";
+    string highScoreFileName = "hiscore.txt";
     vector<char> blockSequence;
 };
 
@@ -18,20 +20,14 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
 
     interpretCommandLineArgs(argc, argv);
 
-    // TODO: Enable this
-//    parseSequenceFile();
+    parseSequenceFile();
 
-    if (interpreterImpl->level == 0) {
-        interpreterImpl->blockSequence.emplace_back('I');
-        interpreterImpl->blockSequence.emplace_back('J');
-        interpreterImpl->blockSequence.emplace_back('S');
-        interpreterImpl->blockSequence.emplace_back('Z');
-        interpreterImpl->blockSequence.emplace_back('T');
-        interpreterImpl->blockSequence.emplace_back('O');
-    }
+    parseHighScoreFile();
+
     // Init the game given the command line args
     game->initGame(interpreterImpl->level, interpreterImpl->seed,
-                   interpreterImpl->blockSequence, interpreterImpl->graphicsEnabled);
+                   interpreterImpl->blockSequence, interpreterImpl->graphicsEnabled,
+                   interpreterImpl->highscore);
 
     // Start the command interpreter
     string cmd;
@@ -100,6 +96,9 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
             cout << "Invalid command" << endl;
         }
     }
+
+    // Save high score file
+    saveHighScoreFile(game->getHiScore());
 }
 
 void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
@@ -144,6 +143,17 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
             } catch (const logic_error &e) {
                 cerr << "Usage for the command line option is: -startlevel [int]. Skipping." << endl;
             }
+        } else if (commandName == "-highscorefile") {
+            try {
+                istringstream startLevelIss{argv[i + 1]};
+                if (startLevelIss >> interpreterImpl->highScoreFileName) {
+                    i++;
+                } else {
+                    cerr << "Usage for the command line option is: -highscorefile [string]. Skipping." << endl;
+                }
+            } catch (const logic_error &e) {
+                cerr << "Usage for the command line option is: -highscorefile [string]. Skipping." << endl;
+            }
         } else {
             cerr << "Invalid command line option " << commandName << endl;
         }
@@ -153,10 +163,50 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
 void Interpreter::parseSequenceFile() {
     ifstream inFile{interpreterImpl->scriptFileName};
 
-    char blockName;
-    while (inFile >> blockName) {
-        interpreterImpl->blockSequence.emplace_back(blockName);
+    // If the file is readable, read from it
+    if (inFile.good()) {
+        char blockName;
+        while (inFile >> blockName) {
+            interpreterImpl->blockSequence.emplace_back(blockName);
+        }
+    } else {
+        cout << "Error reading from sequence file. Using default list." << endl;
+
+        // Otherwise default to the following list
+        interpreterImpl->blockSequence.emplace_back('I');
+        interpreterImpl->blockSequence.emplace_back('J');
+        interpreterImpl->blockSequence.emplace_back('S');
+        interpreterImpl->blockSequence.emplace_back('Z');
+        interpreterImpl->blockSequence.emplace_back('T');
+        interpreterImpl->blockSequence.emplace_back('O');
     }
+}
+
+void Interpreter::parseHighScoreFile() {
+    ifstream inFile{interpreterImpl->highScoreFileName};
+
+    if (inFile.good()) {
+        int highscore;
+        if (inFile >> highscore) {
+            interpreterImpl->highscore = highscore;
+        } else {
+            cout << "Could not read highscore file, skipping." << endl;
+        }
+    } else {
+        cout << "Could not read highscore file, skipping." << endl;
+    }
+}
+
+void Interpreter::saveHighScoreFile(int score) {
+    ofstream outfile{interpreterImpl->highScoreFileName};
+
+    if (outfile.good()) {
+        outfile << score << endl;
+        outfile.close();
+    } else {
+        cout << "Could not save highscore. Skipping." << endl;
+    }
+
 }
 
 int Interpreter::getMultiplier(string &cmd) {
@@ -229,4 +279,5 @@ string Interpreter::matchCommand(const string &cmd) {
 }
 
 Interpreter::~Interpreter() {}
+
 
