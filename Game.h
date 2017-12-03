@@ -123,49 +123,41 @@ public:
 
     /**
      * Get the current level
-     * @return
      */
     int getLevel();
 
     /**
      * Get the current score
-     * @return
      */
     int getScore();
 
     /**
      * Get the current Hi Score
-     * @return
      */
     int getHiScore();
 
     /**
      * Get the width of the board
-     * @return
      */
     int getWidth();
 
     /**
      * Get the height of the board
-     * @return
      */
     int getHeight();
 
     /**
      * Get the current block that is being played
-     * @return
      */
     shared_ptr<Block> getCurrentBlock();
 
     /**
      * Get the next block
-     * @return
      */
     shared_ptr<Block> getNextBlock() const;
 
     /**
      * Get the board
-     * @return
      */
     vector<vector<shared_ptr<Cell>>> *getBoard();
 

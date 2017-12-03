@@ -3,10 +3,6 @@
 
 Level::Level(const vector<char> &blockSequence) : blockSequence(blockSequence) {}
 
-Level::~Level() {
-
-}
-
 vector<shared_ptr<Cell>> Level::makeIBlock() {
     vector<shared_ptr<Cell>> cells;
 
@@ -125,3 +121,5 @@ shared_ptr<Block> Level::makeSequenceBlock() {
     blockPosition++;
     return block;
 }
+
+Level::~Level() {}
