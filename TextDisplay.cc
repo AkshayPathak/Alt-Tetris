@@ -10,17 +10,11 @@ using namespace std;
 struct TextDisplay::TextDisplayImpl{
     Game *game;
 
-    //ctor
     explicit TextDisplayImpl(Game *game) : game{game} {};
-
 };
 
 TextDisplay::TextDisplay(Game *game) :
         textDisplayImpl{make_unique<TextDisplayImpl>(game)} {}
-
-// basically acts as the print function.. cause it is observing the Grid
-
-// maybe cause raw pointer to unique pointer???
 
 void TextDisplay::notify() {
     printTitle();
@@ -34,7 +28,7 @@ void TextDisplay::notify() {
     Block b = Block(textDisplayImpl->game->getCurrentBlock()->getCells());
     vector<vector<shared_ptr<Cell>>> *board = textDisplayImpl->game->getBoard();
 
-    // actually prints the board...         TODO: when the blocks are created, their indices should start at x = 3;
+    // Prints the board
     for (int i = 0; i < textDisplayImpl->game->getHeight(); i++) {
         cout << "|";
         for (int j = 0; j < textDisplayImpl->game->getWidth(); j++) {
@@ -42,12 +36,10 @@ void TextDisplay::notify() {
             for (int k = 0; k < b.getCells().size(); k++) {
                 if ((b.getCells().at(k)->getX() == j) && b.getCells().at(k)->getY() == i) {
                     cout << b.getCells().at(k)->getC();
-                    //b.getCells().erase(b.getCells().begin() + k);
                     printBlock = true;
                     break;
                 }
             }
-            //if (!printBlock) cout << '_';
             if (!printBlock) {
                 if ((*board).at(i).at(j)->getC() == ' ') {
                     cout << '.';
@@ -59,6 +51,7 @@ void TextDisplay::notify() {
         cout << "|" << endl;
     }
 
+    // Prints the next block section
     cout << "-------------" << endl;
     cout << "Next:" << endl;
     Block next = Block(textDisplayImpl->game->getNextBlock()->getCells());
@@ -68,7 +61,6 @@ void TextDisplay::notify() {
             for (int k = 0; k < next.getCells().size(); k++) {
                 if (next.getCells().at(k)->getX() == j && next.getCells().at(k)->getY() == i) {
                     cout << next.getCells().at(k)->getC();
-//                    next.getCells().erase(next.getCells().begin() +k);
                     printBlock = true;
                     break;
                 }
@@ -77,10 +69,6 @@ void TextDisplay::notify() {
         }
         cout << endl;
     }
-}
-
-TextDisplay::~TextDisplay() {
-
 }
 
 void TextDisplay::printTitle() {
@@ -93,4 +81,8 @@ void TextDisplay::printTitle() {
             "| (_\\ \\ || (___) || )   ( || (__/  )| ) \\ \\_____) (___/\\____) |\n"
             "(____\\/_)(_______)|/     \\|(______/ |/   \\__/\\_______/\\_______)\n"
          << endl;
+}
+
+TextDisplay::~TextDisplay() {
+
 }

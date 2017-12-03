@@ -1,13 +1,14 @@
 #include "Level3.h"
 
-
-Level3::Level3() = default;
-
-Level3::~Level3() = default;
+Level3::Level3(const vector<char> &blockSequence) : Level(blockSequence) {}
 
 
 shared_ptr<Block> Level3::makeBlock() {
     shared_ptr<Block> block;
+
+    if (isNoRandom()) {
+        return makeSequenceBlock();
+    }
 
     int num = rand() % 9;
 
@@ -30,9 +31,9 @@ shared_ptr<Block> Level3::makeBlock() {
     return block;
 }
 
-
-
 int Level3::getLevel() {
     return 3;
 }
+
+Level3::~Level3() {};
 

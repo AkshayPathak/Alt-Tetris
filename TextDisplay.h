@@ -8,13 +8,16 @@ using namespace std;
 
 class Game;
 
-// attach to the board... i don't think it can attach itself...
 class TextDisplay : public Observer {
-    struct TextDisplayImpl;
 
+    struct TextDisplayImpl;
     unique_ptr<TextDisplayImpl> textDisplayImpl;
 
+    /**
+     * Prints the Quadris title
+     */
     void printTitle();
+
 public:
 
     explicit TextDisplay(Game *game);

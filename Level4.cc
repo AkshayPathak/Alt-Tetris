@@ -1,11 +1,13 @@
 #include "Level4.h"
 
-Level4::Level4() = default;
-
-Level4::~Level4() = default;
+Level4::Level4(const vector<char> &blockSequence) : Level(blockSequence) {}
 
 shared_ptr<Block> Level4::makeBlock() {
     shared_ptr<Block> block;
+
+    if (isNoRandom()) {
+        return makeSequenceBlock();
+    }
 
     int num = rand() % 9;
 
@@ -28,8 +30,9 @@ shared_ptr<Block> Level4::makeBlock() {
     return block;
 }
 
-
 int Level4::getLevel() {
     return 4;
 }
+
+Level4::~Level4() {}
 

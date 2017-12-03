@@ -6,6 +6,11 @@
 #include "Score.h"
 #include "TextDisplay.h"
 #include "GraphicsDisplay.h"
+#include "Level2.h"
+#include "Level3.h"
+#include "Level4.h"
+#include "Level1.h"
+#include "Interpreter.h"
 #include <iostream>
 #include <fstream>
 
@@ -15,53 +20,65 @@ struct Game::GameImpl {
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
-    unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
-    shared_ptr<Observer> td = nullptr;                 // MUST MAKE TD AND GD AFTER GRID IS INITIALIZED... CAUSE ATTACHING TO IT, so put in initGame?
+    unique_ptr<Interpreter> interpreter = nullptr;
+    shared_ptr<Observer> td = nullptr;
     shared_ptr<Observer> gd = nullptr;
 
     shared_ptr<Block> nextBlock;
+    vector<char> blockSequence;
 };
 
+Game::Game() : gameImpl(make_unique<GameImpl>()) {}
+
 void Game::initInterpreter(int argc, char *argv[]) {
+    gameImpl->interpreter = make_unique<Interpreter>();
     gameImpl->interpreter->init(this, argc, argv);
 }
 
-void Game::initGame(int level, int seed, vector<char> blocksSequence, bool graphicalEnabled) {
+void Game::initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled) {
+
+    gameImpl->blockSequence = blocksSequence;
 
     // making grid and interpreter
     gameImpl->grid = make_unique<Grid>(this);
 
-    // TODO: Implement different levels that you start with
+    // Create the score object
     gameImpl->score = make_unique<Score>();
-    gameImpl->level = make_unique<Level0>(blocksSequence);   // like this just for testing
-    gameImpl->nextBlock = gameImpl->level->makeBlock();   // makes the first block
 
+    // Make the appropriate level
+    switchLevel(level);
+
+    // Create the first next block
+    gameImpl->nextBlock = gameImpl->level->makeBlock();
+
+    // Create the text display
     gameImpl->td = make_shared<TextDisplay>(this);
-    gameImpl->grid->attach(gameImpl->td);    // attaching observers
+
+    // Attach observers
+    gameImpl->grid->attach(gameImpl->td);
 
     if (graphicalEnabled) {
-        gameImpl->gd = make_shared<GraphicsDisplay>(this);                      // TODO: logic for whether or not we even need Graphicsdisplay
+        gameImpl->gd = make_shared<GraphicsDisplay>(this);
         gameImpl->grid->attach(gameImpl->gd);
     }
 
-    gameImpl->grid->init();             // good that this is after make block
-
+    gameImpl->grid->init();
 }
 
 void Game::left() {
-    gameImpl->grid->transformLeft();
+    gameImpl->grid->transformLeft(checkHeavy());
 }
 
 void Game::right() {
-    gameImpl->grid->transformRight();
+    gameImpl->grid->transformRight(checkHeavy());
 }
 
 void Game::clockwise() {
-    gameImpl->grid->transformClockwise();
+    gameImpl->grid->transformClockwise(checkHeavy());
 }
 
 void Game::counterClockwise() {
-    gameImpl->grid->transformCounterClockwise();
+    gameImpl->grid->transformCounterClockwise(checkHeavy());
 }
 
 void Game::down() {
@@ -72,16 +89,36 @@ void Game::drop() {
     gameImpl->grid->transformDrop();
 }
 
+bool Game::checkHeavy() {
+    return gameImpl->level->getLevel() >= 3;
+}
+
 void Game::levelUp() { // Needs Level.h
-    //int newLevel = gameImpl->level->getLevel() + 1;
-    //newLevel = newLevel > 4 ? 4 : newLevel;
-    //gameImpl->level->setLevel(newLevel);
+    switchLevel(gameImpl->level->getLevel() + 1);
 }
 
 void Game::levelDown() {  // Needs Level.h
-    //int newLevel = gameImpl->level->getLevel() - 1;
-    //newLevel = newLevel >= 0 ? newLevel : 0;
-    //gameImpl->level->setLevel(newLevel);
+    switchLevel(gameImpl->level->getLevel() - 1);
+}
+
+void Game::switchLevel(int newLevel) {
+    switch (newLevel) {
+        case 0:
+            gameImpl->level = make_unique<Level0>(gameImpl->blockSequence);
+            break;
+        case 1:
+            gameImpl->level = make_unique<Level1>(gameImpl->blockSequence);
+            break;
+        case 2:
+            gameImpl->level = make_unique<Level2>(gameImpl->blockSequence);
+            break;
+        case 3:
+            gameImpl->level = make_unique<Level3>(gameImpl->blockSequence);
+            break;
+        case 4:
+            gameImpl->level = make_unique<Level4>(gameImpl->blockSequence);
+    }
+    gameImpl->grid->notifyObservers();
 }
 
 void Game::I() {
@@ -156,6 +193,9 @@ void Game::hint() {
 // TODO
 }
 
+void Game::random(bool noRandom) {
+    gameImpl->level->setNoRandom(noRandom);
+}
 void Game::createBlock() {
     gameImpl->nextBlock = gameImpl->level->makeBlock();
 }
@@ -163,11 +203,6 @@ void Game::createBlock() {
 shared_ptr<Block> Game::getNextBlock() const {
     return gameImpl->nextBlock;
 }
-
-Game::~Game() {
-
-}
-// THE 5 GETTERS I GUESS... STILL DUNNO WHY FRIEND DOESNT WORK
 
 int Game::getLevel() {
     return gameImpl->level->getLevel();
@@ -193,14 +228,16 @@ shared_ptr<Block> Game::getCurrentBlock() {
     return gameImpl->grid->getBlock();
 }
 
+
 vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
 }
+
 
 void Game::incrementPointsByLinesDeleted(int numberOfLinesDeleted) {
     gameImpl->score->updateScore((numberOfLinesDeleted + gameImpl->level->getLevel()) *
                                  (numberOfLinesDeleted + gameImpl->level->getLevel()));
 }
 
-Game::Game() : gameImpl(make_unique<GameImpl>()) {}
+Game::~Game() {}
 

@@ -8,9 +8,6 @@ using namespace std;
 
 class Level0 : public Level {
 
-    vector<char> fileSequence;
-    int position = 0;
-
 public:
 
     explicit Level0(vector<char> fileSequence);
