@@ -2,6 +2,7 @@
 #define TEST_LEVEL1_H
 
 #include "Level.h"
+#include <cstdlib>
 
 using namespace std;
 

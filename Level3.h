@@ -8,7 +8,7 @@ class Block;
 class Level3: public Level {
 public:
     Level3();
-    ~Level3();
+    ~Level3() override;
     shared_ptr<Block> makeBlock() override;
     int getLevel() override;
 };
