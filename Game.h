@@ -23,27 +23,77 @@ class Game {
     struct GameImpl;
     unique_ptr<GameImpl> gameImpl;
 
-    // Getters and setter
+    /**
+     * Changes the level to the given integer
+     * @param newLevel
+     */
     void switchLevel(int newLevel);
+
+    /**
+     * Checks if the a heavy operation is supposed to be performed based on the level
+     * @return Returns true if heavy
+     */
+    bool checkHeavy();
 
 public:
 
     Game();
 
+    // Initializer methods
+    /**
+     * Create the interpreter to parse the command line args, and listen to user commands
+     * @param argc The number of command line args
+     * @param argv The array of command line args
+     */
     void initInterpreter(int argc, char *argv[]);
 
+    /**
+     * Initializes all aspects of the game including level and grid
+     * @param level The level to start at
+     * @param seed The seed for the random number generator
+     * @param blocksSequence The sequence of blocks from the file
+     * @param graphicalEnabled True if graphical UI should be shown
+     */
     void initGame(int level, int seed, const vector<char> &blocksSequence, bool graphicalEnabled);
 
     void createBlock();
     // Basic Commands
+    /**
+     * Transforms the current block one unit to the left
+     */
     void left();
+    /**
+     * Transforms the current block one unit to the right
+     */
     void right();
+    /**
+     * Transforms the current block one 90 degrees clockwise
+     */
     void clockwise();
+    /**
+     * Transforms the current block one 90 degrees counterclockwise
+     */
     void counterClockwise();
+    /**
+     * Transforms the current block one unit down
+     */
     void down();
+    /**
+     * Moves the current block down as far as it can go and switches to the next block
+     */
     void drop();
+    /**
+     * Increase the current level by 1
+     */
     void levelUp();
+    /**
+     * Decrease the current level by 1
+     */
     void levelDown();
+
+    /**
+     * Change the current block to the one specified
+     */
     void I();
     void J();
     void L();
@@ -51,27 +101,75 @@ public:
     void S();
     void Z();
     void T();
+
+    /**
+     * Restart the game
+     */
     void restart();
+
+    /**
+     * Set if the block should be randomly generated or read from a file (not applicable for level 0)
+     * @param noRandom True to read from a file, false to randomly generate
+     */
     void random(bool noRandom);
+
+    /**
+     * Increment the current score given the number of lines removed
+     * @param numberOfLinesDeleted
+     */
+    void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
 
     void hint();
 
-    shared_ptr<Block> getNextBlock() const;    // cant be reference or else pointer to the stack
-    //friend class TextDisplay;
-    // getters and setters used by textdisplay
+    /**
+     * Get the current level
+     * @return
+     */
     int getLevel();
+
+    /**
+     * Get the current score
+     * @return
+     */
     int getScore();
+
+    /**
+     * Get the current Hi Score
+     * @return
+     */
     int getHiScore();
+
+    /**
+     * Get the width of the board
+     * @return
+     */
     int getWidth();
+
+    /**
+     * Get the height of the board
+     * @return
+     */
     int getHeight();
-    void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
+
+    /**
+     * Get the current block that is being played
+     * @return
+     */
     shared_ptr<Block> getCurrentBlock();
 
+    /**
+     * Get the next block
+     * @return
+     */
+    shared_ptr<Block> getNextBlock() const;
+
+    /**
+     * Get the board
+     * @return
+     */
     vector<vector<shared_ptr<Cell>>> *getBoard();
 
     virtual ~Game();
-
-    bool checkHeavy();
 };
 
 #endif //TEST_GAME_H

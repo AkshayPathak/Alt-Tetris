@@ -9,6 +9,7 @@
 #include "Level3.h"
 #include "Level4.h"
 #include "Level1.h"
+#include "Interpreter.h"
 #include <iostream>
 #include <fstream>
 
@@ -18,7 +19,7 @@ struct Game::GameImpl {
     unique_ptr<Grid> grid = nullptr;
     unique_ptr<Level> level = nullptr;
     unique_ptr<Score> score = nullptr;
-    unique_ptr<Interpreter> interpreter = make_unique<Interpreter>();
+    unique_ptr<Interpreter> interpreter = nullptr;
     shared_ptr<Observer> td = nullptr;
 //    shared_ptr<Observer> gd = nullptr;
 
@@ -26,7 +27,10 @@ struct Game::GameImpl {
     vector<char> blockSequence;
 };
 
+Game::Game() : gameImpl(make_unique<GameImpl>()) {}
+
 void Game::initInterpreter(int argc, char *argv[]) {
+    gameImpl->interpreter = make_unique<Interpreter>();
     gameImpl->interpreter->init(this, argc, argv);
 }
 
@@ -190,24 +194,16 @@ void Game::hint() {
 // TODO
 }
 
-/**
- * Sets block sequence to either randomly generate or take from sequence file
- * @param noRandom True to make from sequence file, false for random
- */
 void Game::random(bool noRandom) {
     gameImpl->level->setNoRandom(noRandom);
 }
-
 void Game::createBlock() {
     gameImpl->nextBlock = gameImpl->level->makeBlock();
 }
+
 shared_ptr<Block> Game::getNextBlock() const {
     return gameImpl->nextBlock;
 }
-
-Game::~Game() {}
-
-// THE 5 GETTERS I GUESS... STILL DUNNO WHY FRIEND DOESNT WORK
 
 int Game::getLevel() {
     return gameImpl->level->getLevel();
@@ -244,5 +240,5 @@ void Game::incrementPointsByLinesDeleted(int numberOfLinesDeleted) {
                                  (numberOfLinesDeleted + gameImpl->level->getLevel()));
 }
 
-Game::Game() : gameImpl(make_unique<GameImpl>()) {}
+Game::~Game() {}
 
