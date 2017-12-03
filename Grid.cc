@@ -56,34 +56,6 @@ void Grid::init() {
     notifyObservers();
 }
 
-// only drop calls this
-void Grid::setBlock() {
-    // puts currentBlock on the board
-    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-        int x = gridImpl->currentBlock->getCells().at(i)->getX();
-        int y = gridImpl->currentBlock->getCells().at(i)->getY();
-        char c = gridImpl->currentBlock->getCells().at(i)->getC();
-        gridImpl->board.at(y).at(x)->setC(c);
-    }
-    notifyObservers();
-
-    // getting a vector of x values
-    vector<int> y_values(gridImpl->currentBlock->getCells().size());
-    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
-        y_values.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
-    }
-    sort(y_values.begin(), y_values.end());
-    y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
-
-    for(int i = 0; i < y_values.size(); i++) {
-        if (fullRow(y_values.at(i))) shiftBoard(y_values.at(i));
-    }
-
-    gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
-    gridImpl->game->createBlock();      // creates Game's next block
-    notifyObservers();
-}
-
 void Grid::transformLeft() {
     Block copy = Block(gridImpl->currentBlock->getCells());
     copy.transformLeft();
@@ -163,24 +135,31 @@ void Grid::transformDrop() {
     while(keepDropping) {
         Block copy = Block(gridImpl->currentBlock->getCells());
         copy.transformDown();
-        if (invalidInput(copy)) keepDropping = false;
-        if (overlap(copy)) keepDropping = false;
-        gridImpl->currentBlock = make_shared<Block>(Block(copy));
-        notifyObservers();
+        if (invalidInput(copy)) {
+            keepDropping = false;
+            break;
+        }
+        if (overlap(copy)) {
+            keepDropping = false;
+            break;
+        }
+        if (keepDropping) gridImpl->currentBlock = make_shared<Block>(Block(copy));
     }
     setBlock();
 }
 
 //Private
 // row is an index
-bool Grid::fullRow(int row) const {
+bool Grid::fullRow(int row) {
+    bool value = true;
     for(int i = 0; i < gridImpl->x; i++) {
         // if it is space, then there is an empty character there
         if (gridImpl->board.at(row).at(i)->getC() == ' ') {
-            return false;
+            value = false;
+            break;
         }
     }
-    return true;
+    return value;
 }
 
 bool Grid::invalidInput(const Block &copy) {
@@ -204,10 +183,44 @@ bool Grid::overlap(const Block &copy) {
     return false;
 }
 
+// only drop calls this
+void Grid::setBlock() {
+    // puts currentBlock on the board
+    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        int x = gridImpl->currentBlock->getCells().at(i)->getX();
+        int y = gridImpl->currentBlock->getCells().at(i)->getY();
+        char c = gridImpl->currentBlock->getCells().at(i)->getC();
+        gridImpl->board.at(y).at(x)->setC(c);
+    }
+
+    //notifyObservers();   // prints it right after setting it on the board...
+
+    // getting a vector of x values
+    vector<int> y_values(gridImpl->currentBlock->getCells().size());
+    for (int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        y_values.at(i) = gridImpl->currentBlock->getCells().at(i)->getY();
+    }
+    sort(y_values.begin(), y_values.end());
+    y_values.erase(unique( y_values.begin(), y_values.end()), y_values.end());
+
+    for(int i = 0; i < y_values.size(); i++) {
+        if (fullRow(y_values.at(i)) == true) shiftBoard(y_values.at(i));
+    }
+
+    gridImpl->currentBlock = gridImpl->game->getNextBlock();   // changing grid's currentBlock
+    for(int i = 0; i < gridImpl->currentBlock->getCells().size(); i++) {
+        gridImpl->currentBlock->getCells().at(i)->setY(gridImpl->currentBlock->getCells().at(i)->getY() + 3);
+    }
+
+    gridImpl->game->createBlock();      // creates Game's next block
+    notifyObservers();     // prints with the piece at the bottom
+}
+
 // deletes a row, adds top row, changes index of every single Cell up until deleted row
 void Grid::shiftBoard(int row) {
+
     // delete the row that is full
-    gridImpl->board.erase(gridImpl->board.begin() + row - 1);
+    gridImpl->board.erase(gridImpl->board.begin() + row);
 
     // changes all the indexes until hits row
     for (int i = 1; i < row; i++) {
@@ -240,13 +253,13 @@ vector<vector<shared_ptr<Cell>>> *Grid::getBoard() {
     return &(gridImpl->board);
 }
 
-//void Grid::printBoard() {
-//    for (auto &i : gridImpl->board) {
-//        for (auto &j : i) {
-//            cout << '8' << " ";
-//        }
-//        cout << endl;
-//    }
-//}
+void Grid::printBoard() {
+    for (auto &i : gridImpl->board) {
+        for (auto &j : i) {
+            cout << j->getC();
+        }
+        cout << endl;
+    }
+}
 
 

@@ -29,7 +29,6 @@ void TextDisplay::notify() {
     cout << "Hi Score:" << std::right << std::setw(4) << textDisplayImpl->game->getHiScore() << endl;
     cout << "-----------" << endl;
 
-    // all the blocks are being copied around
     Block b = Block(textDisplayImpl->game->getCurrentBlock()->getCells());
     vector<vector<shared_ptr<Cell>>> *board = textDisplayImpl->game->getBoard();
 
@@ -40,13 +39,19 @@ void TextDisplay::notify() {
             for (int k = 0; k < b.getCells().size(); k++) {
                 if ((b.getCells().at(k)->getX() == j) && b.getCells().at(k)->getY() == i) {
                     cout << b.getCells().at(k)->getC();
-//                    b.getCells().erase(b.getCells().begin() + k);
+                    //b.getCells().erase(b.getCells().begin() + k);
                     pb = true;
                     break;
                 }
             }
-            if (!pb) cout << '_';
-            //if (pb == false) cout << (*board).at(i).at(j)->getC();
+            //if (!pb) cout << '_';
+            if (pb == false) {
+                if ((*board).at(i).at(j)->getC() == ' ') {
+                    cout << '.';
+                } else {
+                    cout << (*board).at(i).at(j)->getC();
+                }
+            }
         }
         cout << endl;
     }

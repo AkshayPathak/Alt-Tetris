@@ -53,11 +53,11 @@ private:
 
     bool overlap(const Block &);
 
-    bool fullRow(int row) const;
+    bool fullRow(int row) ;
 
     void shiftBoard(int row);
 
-//    void printBoard();
+    void printBoard();
 };
 
 #endif
