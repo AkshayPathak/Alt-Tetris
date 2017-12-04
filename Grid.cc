@@ -7,7 +7,7 @@
 using namespace std;
 
 struct Grid::GridImpl {
-    Game * game;
+    Game *game;
     int x;
     int y;
     vector<vector<shared_ptr<Cell>>> board;
