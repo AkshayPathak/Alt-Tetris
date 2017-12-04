@@ -191,6 +191,10 @@ void Game::T() {
 
 void Game::restart() {
     gameImpl->score->resetScore();
+    // Reset the blocks sequence to start from beginning
+    gameImpl->level->resetBlockSequence();
+    // Generate new block
+    gameImpl->nextBlock = gameImpl->level->makeBlock();
     gameImpl->grid->init();
 }
 
@@ -233,7 +237,6 @@ shared_ptr<Block> Game::getCurrentBlock() {
 shared_ptr<Block> Game::getABlock() {
     return gameImpl->level->makeABlock();
 }
-
 
 vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();

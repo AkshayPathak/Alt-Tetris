@@ -11,10 +11,10 @@ struct Interpreter::InterpreterImpl {
     int seed = 123;
     int highscore = 0;
     bool graphicsEnabled = true;
+    bool keyboard = false;
     string scriptFileName = "sequence.txt";
     string highScoreFileName = "hiscore.txt";
     vector<char> blockSequence;
-    bool keyboard = false;
 };
 
 Interpreter::Interpreter() : interpreterImpl{make_unique<InterpreterImpl>()} {}
@@ -374,7 +374,6 @@ string Interpreter::matchCommand(const string &cmd) {
         }
     }
 
-
     // If there is only one item, return that
     if (allCommands.size() == 1) {
         return allCommands.at(0);
@@ -402,7 +401,7 @@ void Interpreter::showUsage() {
          "Multiplier                         Use commands such as 10right to move 10 units to the right." << endl <<
          "Minimum Recognizable Commands      Use commands that are the minimum, e.g. 10ri moves 10 units to the right." << endl <<
          "Persistent High Score              Store the high score even when the game is quit completely. Use the quit command to save scores correctly." << endl <<
-         "Keyboard Input                     To play the game with keyboard input, use the -keyboard flag as a command line argument. Make sure to have the terminal selected!"
+         "Keyboard Input                     To play the game with keyboard input, use the -keyboard flag as a command line argument. Make sure to have the terminal selected!" << endl
          << endl <<
          "Command Line Arguments             " << endl <<
          "-text                              Only show the text, no grapical display" << endl <<
@@ -410,6 +409,7 @@ void Interpreter::showUsage() {
          "-scriptfile    [string]            The name of the file to read blocks from" << endl <<
          "-startlevel    [int]               The level to start at" << endl <<
          "-highscorefile [string]            Name of the file from which the highscore should be read from" << endl <<
+         "-keyboard                          Enable keyboard input such as left-arrow, right-arrow, etc" << endl <<
          "-help                              Show usage text" << endl
          << endl <<
          "In-Game Text [KEYBOARD] Commands   " << endl <<
@@ -435,9 +435,5 @@ void Interpreter::showUsage() {
          << endl;
 }
 
-
 Interpreter::~Interpreter() {}
-
-
-
 

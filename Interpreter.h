@@ -64,17 +64,17 @@ class Interpreter {
     void saveHighScoreFile(int score);
 
     /**
+     * Given a command calls the correct command function through game
+     * @param cmd The command to execute
+     * @param game Game pointer
+     * @param multiplier The number of times to call the function
+     */
+    void interpretCommands(string cmd, Game *game, int multiplier = 1);
+
+    /**
      * Show the help text
      */
     void showUsage();
-
-    /**
-     * Given a command calls the correct command function through game
-     * @param cmd
-     * @param game
-     * @param The number of times to call the function
-     */
-    void interpretCommands(string cmd, Game *game, int multiplier = 1);
 
 public:
 

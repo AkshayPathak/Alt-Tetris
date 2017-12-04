@@ -46,6 +46,11 @@ public:
     shared_ptr<Block> makeABlock();
 
     /**
+     * Resets the block sequence to start from the beginning
+     */
+    void resetBlockSequence();
+
+    /**
      * Set if block should be randomly generated or from the sequence file (not applicable for level 0)
      * @param noRandom True if block should be created from file, false if random
      */

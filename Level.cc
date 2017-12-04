@@ -6,7 +6,7 @@ struct Level::LevelImpl {
     int blockPosition = 0;
     bool noRandom = true;
 
-    LevelImpl(const vector<char> &blockSequence) : blockSequence(blockSequence) {}
+    explicit LevelImpl(const vector<char> &blockSequence) : blockSequence(blockSequence) {}
 };
 
 Level::Level(const vector<char> &blockSequence) : levelImpl{make_unique<LevelImpl>(blockSequence)} {}
@@ -93,6 +93,10 @@ shared_ptr<Block> Level::makeABlock() {
     cells.emplace_back(make_shared<Cell>(0, 0, '*'));
 
     return make_shared<Block>(cells);
+}
+
+void Level::resetBlockSequence() {
+    levelImpl->blockPosition = 0;
 }
 
 void Level::setNoRandom(bool noRandom) {
