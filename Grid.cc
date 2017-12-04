@@ -12,6 +12,7 @@ struct Grid::GridImpl {
     int y;
     vector<vector<shared_ptr<Cell>>> board;
     shared_ptr<Block> currentBlock;
+    int counter = 0;
 
     GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y},
         board{vector<vector<shared_ptr<Cell>>>(y)} {};
@@ -222,7 +223,17 @@ void Grid::setBlock() {
             numLinesErased++;
         }
     }
-    if (numLinesErased!= 0) gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
+    if (numLinesErased!= 0) {
+        gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
+        gridImpl->counter = 0;
+    } else {   // erase no lines
+        if (gridImpl->counter == 5 && gridImpl->game->getLevel() == 4) {
+            gridImpl->game->getABlock();
+            numRight(5);
+            transformDrop();
+            gridImpl->counter = 0;
+        }
+    }
 
     // Get the next block from Game
     gridImpl->currentBlock = gridImpl->game->getNextBlock();

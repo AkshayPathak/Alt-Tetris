@@ -75,6 +75,8 @@ void Cell::draw(shared_ptr<Xwindow> w, int x, int y,int width, int height) {
         w->fillRectangle(x, y, width, height, Xwindow::Magenta);
     } else if (cellImpl->c == 'T') {
         w->fillRectangle(x, y, width, height, Xwindow::Orange);
+    } else if (cellImpl->c == '*') {
+        w->fillRectangle(x, y, width, height, Xwindow::Brown);
     }
 }
 
