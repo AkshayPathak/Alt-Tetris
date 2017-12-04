@@ -41,6 +41,11 @@ public:
     vector<shared_ptr<Cell>> makeTBlock();
 
     /**
+     * Creates a block of 1 cell
+     */
+    shared_ptr<Block> makeABlock();
+
+    /**
      * Set if block should be randomly generated or from the sequence file (not applicable for level 0)
      * @param noRandom True if block should be created from file, false if random
      */

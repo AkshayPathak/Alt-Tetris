@@ -194,10 +194,6 @@ void Game::restart() {
     gameImpl->grid->init();
 }
 
-void Game::hint() {
-// TODO
-}
-
 void Game::random(bool noRandom) {
     gameImpl->level->setNoRandom(noRandom);
 }
@@ -234,10 +230,14 @@ shared_ptr<Block> Game::getCurrentBlock() {
 }
 
 
+shared_ptr<Block> Game::getABlock() {
+    return gameImpl->level->makeABlock();
+}
+
+
 vector<vector<shared_ptr<Cell>>> *Game::getBoard() {
     return gameImpl->grid->getBoard();
 }
-
 
 void Game::incrementPointsByLinesDeleted(int numberOfLinesDeleted) {
     gameImpl->score->updateScore((numberOfLinesDeleted + gameImpl->level->getLevel()) *

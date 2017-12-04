@@ -62,5 +62,4 @@ public:
     std::vector<std::shared_ptr<Cell>> getCells() const;
 };
 
-
 #endif //TEST_BLOCK_H

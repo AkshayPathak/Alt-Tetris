@@ -120,8 +120,6 @@ public:
      */
     void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
 
-    void hint();
-
     /**
      * Get the current level
      */
@@ -156,6 +154,11 @@ public:
      * Get the next block
      */
     shared_ptr<Block> getNextBlock() const;
+
+    /**
+     * Get a block that is 1x1
+     */
+    shared_ptr<Block> getABlock();
 
     /**
      * Get the board

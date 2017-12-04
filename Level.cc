@@ -87,6 +87,14 @@ vector<shared_ptr<Cell>> Level::makeTBlock() {
     return cells;
 }
 
+shared_ptr<Block> Level::makeABlock() {
+    vector<shared_ptr<Cell>> cells;
+
+    cells.emplace_back(make_shared<Cell>(0, 0, '*'));
+
+    return make_shared<Block>(cells);
+}
+
 void Level::setNoRandom(bool noRandom) {
     levelImpl->noRandom = noRandom;
 }
