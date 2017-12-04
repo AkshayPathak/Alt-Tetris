@@ -90,6 +90,8 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
             game->restart();
         } else if (cmd == "quit") {
             break;
+        } else if (cmd == "help") {
+            showUsage();
         } else {
             cout << "Invalid command" << endl;
         }
@@ -152,6 +154,9 @@ void Interpreter::interpretCommandLineArgs(int argc, char *const argv[]) {
             } catch (const logic_error &e) {
                 cerr << "Usage for the command line option is: -highscorefile [string]. Skipping." << endl;
             }
+        } else if (commandName == "-help") {
+            showUsage();
+            exit(0);
         } else {
             cerr << "Invalid command line option " << commandName << endl;
         }
@@ -244,7 +249,7 @@ void Interpreter::multiplierFunction(Game *game, int multiplier, GameFunction fu
 string Interpreter::matchCommand(const string &cmd) {
     vector<string> allCommands{"left", "right", "down", "clockwise", "counterclockwise", "drop",
                                "levelup", "leveldown", "norandom", "random", "sequence", "I", "J", "L", "O", "S",
-                               "Z", "T", "restart", "hint", "quit"};
+                               "Z", "T", "restart", "help", "quit"};
 
     // Filter every item that does not start with the given command
     // Don't increment manually since when removing, we don't want to skip element
@@ -275,6 +280,47 @@ string Interpreter::matchCommand(const string &cmd) {
 
     return "ambiguous";
 }
+
+void Interpreter::showUsage() {
+    cout << "Quadris: Created by Stanley Zhang, Brendan Power & Akshay Pathak" << endl <<
+            "Usage: ./quadris [option]" << endl
+            << endl <<
+            "Features" << endl <<
+            "Multiplier                         Use commands such as 10right to move 10 units to the right" << endl <<
+            "Minimum Recognizable Commands      Use commands that are the minimum, e.g. 10ri moves 10 units to the right" << endl <<
+            "Persistent High Score              Store the high score even when the game is quit completely. Use the quit command to save scores correctly" << endl
+            << endl <<
+            "Command Line Arguments             " << endl <<
+            "-text                              Only show the text, no grapical display" << endl <<
+            "-seed          [int]               Seed for the random number generator" << endl <<
+            "-scriptfile    [string]            The name of the file to read blocks from" << endl <<
+            "-startlevel    [int]               The level to start at" << endl <<
+            "-highscorefile [string]            Name of the file from which the highscore should be read from" << endl <<
+            "-help                              Show usage text" << endl
+            << endl <<
+            "In-Game Commands                   " << endl <<
+            "left                               Move the current block one unit left" << endl <<
+            "right                              Move the current block one unit right" << endl <<
+            "down                               Move the current block one unit down" << endl <<
+            "clockwise                          Rotate the current block 90 degrees clockwise" << endl <<
+            "counterclockwise                   Rotate the current block 90 degrees counter-clockwise" << endl <<
+            "drop                               Drop the current block and move on to the next one" << endl <<
+            "levelup                            Increase the current level by one" << endl <<
+            "develdown                          Decrease the current level by one" << endl <<
+            "norandom                           Switch to blocks from the given sequence file (not applicable for level 0)" << endl <<
+            "random                             Switch to generate blocks randomly (not applicable for level 0)" << endl <<
+            "I                                  Switch the current block to an I block" << endl <<
+            "J                                  Switch the current block to an J block" << endl <<
+            "L                                  Switch the current block to an L block" << endl <<
+            "O                                  Switch the current block to an O block" << endl <<
+            "S                                  Switch the current block to an S block" << endl <<
+            "Z                                  Switch the current block to an Z block" << endl <<
+            "T                                  Switch the current block to an T block" << endl <<
+            "restart                            Restart the game" << endl <<
+            "quit                               Quit the game (saves the highscore)" << endl
+         << endl;
+}
+
 
 Interpreter::~Interpreter() {}
 

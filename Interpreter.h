@@ -63,6 +63,11 @@ class Interpreter {
      */
     void saveHighScoreFile(int score);
 
+    /**
+     * Show the help text
+     */
+    void showUsage();
+
 public:
 
     Interpreter();
