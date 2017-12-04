@@ -90,7 +90,7 @@ vector<shared_ptr<Cell>> Level::makeTBlock() {
 shared_ptr<Block> Level::makeABlock() {
     vector<shared_ptr<Cell>> cells;
 
-    cells.emplace_back(make_shared<Cell>(0, 0, 'A'));
+    cells.emplace_back(make_shared<Cell>(0, 0, '*'));
 
     return make_shared<Block>(cells);
 }

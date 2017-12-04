@@ -120,8 +120,6 @@ public:
      */
     void incrementPointsByLinesDeleted(int numberOfLinesDeleted);
 
-    void hint();
-
     /**
      * Get the current level
      */

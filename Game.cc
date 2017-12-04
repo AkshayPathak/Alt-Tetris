@@ -194,10 +194,6 @@ void Game::restart() {
     gameImpl->grid->init();
 }
 
-void Game::hint() {
-// TODO
-}
-
 void Game::random(bool noRandom) {
     gameImpl->level->setNoRandom(noRandom);
 }

@@ -88,8 +88,6 @@ void Interpreter::init(Game *game, int argc, char *argv[]) {
             game->T();
         } else if (cmd == "restart") {
             game->restart();
-        } else if (cmd == "hint") {
-            game->hint();
         } else if (cmd == "quit") {
             break;
         } else {
