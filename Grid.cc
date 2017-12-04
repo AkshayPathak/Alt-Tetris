@@ -12,7 +12,7 @@ struct Grid::GridImpl {
     int y;
     vector<vector<shared_ptr<Cell>>> board;
     shared_ptr<Block> currentBlock;
-    int counter = 0;
+    int lvl4Counter = 0;
 
     GridImpl(Game *game, int x, int y) :game{game}, x{x}, y{y},
         board{vector<vector<shared_ptr<Cell>>>(y)} {};
@@ -27,6 +27,8 @@ Grid::Grid(Game *game, int x, int y) : gridImpl{make_unique<GridImpl>(game, x, y
     }
 }
 void Grid::init() {
+    gridImpl->lvl4Counter = 0;
+
     // Clears the board first
     for (int i = 0; i < gridImpl->board.size(); i++) {
         gridImpl->board.at(i).clear();
@@ -225,13 +227,18 @@ void Grid::setBlock() {
     }
     if (numLinesErased!= 0) {
         gridImpl->game->incrementPointsByLinesDeleted(numLinesErased);
-        gridImpl->counter = 0;
+        gridImpl->lvl4Counter = 0;
     } else {   // erase no lines
-        if (gridImpl->counter == 5 && gridImpl->game->getLevel() == 4) {
-            gridImpl->game->getABlock();
+        if (gridImpl->currentBlock->getCells().size() == 1) {
+             return;
+        }
+        gridImpl->lvl4Counter += 1;
+        if (gridImpl->lvl4Counter == 5 && gridImpl->game->getLevel() == 4) {
+            setCurrentBlock(gridImpl->game->getABlock());
             numRight(5);
+            numDown(3);
             transformDrop();
-            gridImpl->counter = 0;
+            gridImpl->lvl4Counter = 0;
         }
     }
 
