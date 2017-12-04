@@ -60,6 +60,7 @@ Cell::Cell(const Cell &c) : cellImpl{make_unique<CellImpl>()} {
     setX(c.getX());
     setY(c.getY());
     setC(c.getC());
+    setPivot(c.isPivot());
 }
 
 // for Graphics
