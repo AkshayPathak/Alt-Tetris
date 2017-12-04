@@ -15,7 +15,7 @@ vector<shared_ptr<Cell>> Level::makeIBlock() {
     vector<shared_ptr<Cell>> cells;
 
     cells.emplace_back(make_shared<Cell>(0, 0, 'I'));
-    cells.emplace_back(make_shared<Cell>(1, 0, 'I'));
+    cells.emplace_back(make_shared<Cell>(1, 0, 'I', true));
     cells.emplace_back(make_shared<Cell>(2, 0, 'I'));
     cells.emplace_back(make_shared<Cell>(3, 0, 'I'));
 
@@ -26,7 +26,7 @@ vector<shared_ptr<Cell>> Level::makeJBlock() {
     vector<shared_ptr<Cell>> cells;
 
     cells.emplace_back(make_shared<Cell>(0, 1, 'J'));
-    cells.emplace_back(make_shared<Cell>(1, 1, 'J'));
+    cells.emplace_back(make_shared<Cell>(1, 1, 'J', true));
     cells.emplace_back(make_shared<Cell>(2, 1, 'J'));
     cells.emplace_back(make_shared<Cell>(2, 0, 'J'));
 
@@ -38,7 +38,7 @@ vector<shared_ptr<Cell>> Level::makeLBlock() {
 
     cells.emplace_back(make_shared<Cell>(0, 0, 'L'));
     cells.emplace_back(make_shared<Cell>(0, 1, 'L'));
-    cells.emplace_back(make_shared<Cell>(1, 1, 'L'));
+    cells.emplace_back(make_shared<Cell>(1, 1, 'L', true));
     cells.emplace_back(make_shared<Cell>(2, 1, 'L'));
 
     return cells;
@@ -59,7 +59,7 @@ vector<shared_ptr<Cell>> Level::makeSBlock() {
 
     cells.emplace_back(make_shared<Cell>(2, 0, 'S'));
     cells.emplace_back(make_shared<Cell>(1, 0, 'S'));
-    cells.emplace_back(make_shared<Cell>(1, 1, 'S'));
+    cells.emplace_back(make_shared<Cell>(1, 1, 'S', true));
     cells.emplace_back(make_shared<Cell>(0, 1, 'S'));
 
     return cells;
@@ -70,7 +70,7 @@ vector<shared_ptr<Cell>> Level::makeZBlock() {
 
     cells.emplace_back(make_shared<Cell>(0, 0, 'Z'));
     cells.emplace_back(make_shared<Cell>(1, 0, 'Z'));
-    cells.emplace_back(make_shared<Cell>(1, 1, 'Z'));
+    cells.emplace_back(make_shared<Cell>(1, 1, 'Z', true));
     cells.emplace_back(make_shared<Cell>(2, 1, 'Z'));
 
     return cells;
@@ -80,7 +80,7 @@ vector<shared_ptr<Cell>> Level::makeTBlock() {
     vector<shared_ptr<Cell>> cells;
 
     cells.emplace_back(make_shared<Cell>(0, 0, 'T'));
-    cells.emplace_back(make_shared<Cell>(1, 0, 'T'));
+    cells.emplace_back(make_shared<Cell>(1, 0, 'T', true));
     cells.emplace_back(make_shared<Cell>(2, 0, 'T'));
     cells.emplace_back(make_shared<Cell>(1, 1, 'T'));
 

@@ -7,8 +7,6 @@
 #include "window.h"
 #include <memory>
 
-
-
 class Cell {
 
     struct CellImpl;
@@ -16,7 +14,7 @@ class Cell {
 
 public:
 
-    Cell(int x, int y, char c = ' ');
+    Cell(int x, int y, char c = ' ', bool pivot = false);
 
     Cell(const Cell &);
 
@@ -34,9 +32,11 @@ public:
 
     void setC(char c);
 
-    void draw(std::shared_ptr<Xwindow> w, int x, int y, int width, int height);
+    bool isPivot() const;
 
-    // undraw function??
+    void setPivot(bool pivot);
+
+    void draw(std::shared_ptr<Xwindow> w, int x, int y, int width, int height);
 
     friend std::ostream &operator<<(std::ostream &os, const Cell &cell);
 

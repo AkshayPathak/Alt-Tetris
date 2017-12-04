@@ -5,19 +5,12 @@
 #include <memory>
 
 class Cell;
-struct Posn;
 
 class Block {
 
     std::vector<std::shared_ptr<Cell>> cells;
 
     void swap(Block &other);
-
-    // For transform Clockwise
-    Posn lowerLeft();
-
-    // For transform Clockwise
-    Posn upperRight();
 
 public:
 

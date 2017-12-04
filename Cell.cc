@@ -7,13 +7,14 @@ struct Cell::CellImpl {
     int x;
     int y;
     char c;
+    bool pivot;
 
-    CellImpl() : x{0}, y{0}, c{' '} {}
+    CellImpl() : x{0}, y{0}, c{' '}, pivot{false} {}
 
-    CellImpl(int x, int y, char c) : x{x}, y{y}, c{c} {}
+    CellImpl(int x, int y, char c, bool pivot) : x{x}, y{y}, c{c}, pivot{pivot} {}
 };
 
-Cell::Cell(int x, int y, char c /* = ' ' */) : cellImpl{std::make_unique<CellImpl>(x, y, c)} {}
+Cell::Cell(int x, int y, char c, bool pivot) : cellImpl{std::make_unique<CellImpl>(x, y, c, pivot)} {}
 
 Cell::Cell() : cellImpl{std::make_unique<CellImpl>()} {}
 
@@ -41,13 +42,17 @@ void Cell::setC(char c) {
     cellImpl->c = c;
 }
 
+bool Cell::isPivot() const {
+    return cellImpl->pivot;
+}
+
+void Cell::setPivot(bool pivot) {
+    cellImpl->pivot = pivot;
+}
+
 std::ostream &operator<<(std::ostream &os, const Cell &cell) {
     os << cell.cellImpl->c;
     return os;
-}
-
-Cell::~Cell() {
-
 }
 
 // copy ctor
@@ -80,4 +85,4 @@ void Cell::draw(shared_ptr<Xwindow> w, int x, int y,int width, int height) {
     }
 }
 
-// undraw function?
+Cell::~Cell() {}
