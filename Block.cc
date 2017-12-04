@@ -84,6 +84,13 @@ Posn Block::upperRight() {
 
 
 void Block::transformClockwise() {
+    transformClockwise();
+    transformClockwise();
+    transformClockwise();
+}
+
+
+void Block::transformCounterClockwise() {
     Posn bottomLeft = lowerLeft();
     Posn topRight = upperRight();
     int len = cells.size();
@@ -99,13 +106,6 @@ void Block::transformClockwise() {
         cells.at(i)->setY(cells.at(i)->getY()+shift_up);
         //std::cout << "(" << cells.at(i)->getX() << "," << cells.at(i)->getY() << ")" << std::endl;
     }
-}
-
-
-void Block::transformCounterClockwise() {
-    transformClockwise();
-    transformClockwise();
-    transformClockwise();
 }
 
 std::vector<std::shared_ptr<Cell>> Block::getCells() const{
