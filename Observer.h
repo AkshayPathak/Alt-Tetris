@@ -1,5 +1,5 @@
-#ifndef TEST_OBSERVER_H
-#define TEST_OBSERVER_H
+#ifndef QUADRIS_OBSERVER_H
+#define QUADRIS_OBSERVER_H
 
 class Observer {
 
@@ -9,4 +9,4 @@ public:
     virtual ~Observer();
 };
 
-#endif //TEST_OBSERVER_H
+#endif //QUADRIS_OBSERVER_H

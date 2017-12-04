@@ -1,5 +1,5 @@
-#ifndef TEST_LEVEL5_H
-#define TEST_LEVEL5_H
+#ifndef QUADRIS_LEVEL5_H
+#define QUADRIS_LEVEL5_H
 
 #include "Level.h"
 
@@ -16,4 +16,4 @@ public:
 
     ~Level1() override;
 };
-#endif //TEST_LEVEL5_H
+#endif //QUADRIS_LEVEL5_H

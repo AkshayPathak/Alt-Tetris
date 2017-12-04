@@ -1,5 +1,5 @@
-#ifndef TEST_TEXTDISPLAY_H
-#define TEST_TEXTDISPLAY_H
+#ifndef QUADRIS_TEXTDISPLAY_H
+#define QUADRIS_TEXTDISPLAY_H
 
 #include "Observer.h"
 #include <memory>
@@ -27,4 +27,4 @@ public:
     void notify() override;
 };
 
-#endif //TEST_TEXTDISPLAY_H
+#endif //QUADRIS_TEXTDISPLAY_H

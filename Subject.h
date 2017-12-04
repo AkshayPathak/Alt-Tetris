@@ -1,5 +1,5 @@
-#ifndef TEST_SUBJECT_H
-#define TEST_SUBJECT_H
+#ifndef QUADRIS_SUBJECT_H
+#define QUADRIS_SUBJECT_H
 
 #include <vector>
 #include <memory>
@@ -23,4 +23,4 @@ public:
 
 };
 
-#endif //TEST_SUBJECT_H
+#endif //QUADRIS_SUBJECT_H

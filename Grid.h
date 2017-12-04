@@ -1,5 +1,5 @@
-#ifndef TEST_GRID_H
-#define TEST_GRID_H
+#ifndef QUADRIS_GRID_H
+#define QUADRIS_GRID_H
 
 #include <iostream>
 #include <vector>

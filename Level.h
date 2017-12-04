@@ -1,5 +1,5 @@
-#ifndef TEST_LEVEL_H
-#define TEST_LEVEL_H
+#ifndef QUADRIS_LEVEL_H
+#define QUADRIS_LEVEL_H
 
 #include <iostream>
 #include <memory>
@@ -67,4 +67,4 @@ public:
 
 };
 
-#endif //TEST_LEVEL_H
+#endif //QUADRIS_LEVEL_H

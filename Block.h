@@ -1,5 +1,5 @@
-#ifndef TEST_BLOCK_H
-#define TEST_BLOCK_H
+#ifndef QUADRIS_BLOCK_H
+#define QUADRIS_BLOCK_H
 
 #include <vector>
 #include <memory>
@@ -62,4 +62,4 @@ public:
     std::vector<std::shared_ptr<Cell>> getCells() const;
 };
 
-#endif //TEST_BLOCK_H
+#endif //QUADRIS_BLOCK_H

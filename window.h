@@ -1,5 +1,5 @@
-#ifndef TEST_WINDOW_H
-#define TEST_WINDOW_H
+#ifndef QUADRIS_WINDOW_H
+#define QUADRIS_WINDOW_H
 
 #include <X11/Xlib.h>
 #include <iostream>
@@ -36,4 +36,4 @@ public:
 
 
 
-#endif //TEST_WINDOW_H
+#endif //QUADRIS_WINDOW_H

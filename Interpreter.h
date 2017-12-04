@@ -1,5 +1,5 @@
-#ifndef TEST_INTERPRETER_H
-#define TEST_INTERPRETER_H
+#ifndef QUADRIS_INTERPRETER_H
+#define QUADRIS_INTERPRETER_H
 
 #include <iostream>
 #include <vector>
@@ -78,4 +78,4 @@ public:
     virtual ~Interpreter();
 };
 
-#endif //TEST_INTERPRETER_H
+#endif //QUADRIS_INTERPRETER_H

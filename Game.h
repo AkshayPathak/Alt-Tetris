@@ -1,5 +1,5 @@
-#ifndef TEST_GAME_H
-#define TEST_GAME_H
+#ifndef QUADRIS_GAME_H
+#define QUADRIS_GAME_H
 
 #include <memory>
 #include <iostream>
@@ -168,4 +168,4 @@ public:
     virtual ~Game();
 };
 
-#endif //TEST_GAME_H
+#endif //QUADRIS_GAME_H

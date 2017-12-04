@@ -1,5 +1,5 @@
-#ifndef TEST_LEVEL3_H
-#define TEST_LEVEL3_H
+#ifndef QUADRIS_LEVEL3_H
+#define QUADRIS_LEVEL3_H
 
 #include "Level.h"
 
@@ -19,4 +19,4 @@ public:
 };
 
 
-#endif //TEST_LEVEL3_H
+#endif //QUADRIS_LEVEL3_H

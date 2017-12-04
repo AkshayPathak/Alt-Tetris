@@ -1,5 +1,5 @@
-#ifndef TEST_SCORE_H
-#define TEST_SCORE_H
+#ifndef QUADRIS_SCORE_H
+#define QUADRIS_SCORE_H
 
 #include <memory>
 
@@ -40,4 +40,4 @@ public:
 
 };
 
-#endif //TEST_SCORE_H
+#endif //QUADRIS_SCORE_H

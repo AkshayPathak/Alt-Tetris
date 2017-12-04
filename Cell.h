@@ -1,5 +1,5 @@
-#ifndef TEST_CELL_H
-#define TEST_CELL_H
+#ifndef QUADRIS_CELL_H
+#define QUADRIS_CELL_H
 
 #include <ostream>
 #include "Observer.h"
@@ -44,4 +44,4 @@ public:
 
 };
 
-#endif //TEST_CELL_H
+#endif //QUADRIS_CELL_H

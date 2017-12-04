@@ -1,5 +1,5 @@
-#ifndef TEST_GRAPHICSDISPLAY_H
-#define TEST_GRAPHICSDISPLAY_H
+#ifndef QUADRIS_GRAPHICSDISPLAY_H
+#define QUADRIS_GRAPHICSDISPLAY_H
 
 #include "Observer.h"
 #include <iostream>
@@ -23,4 +23,4 @@ public:
 };
 
 
-#endif //TEST_GRAPHICSDISPLAY_H
+#endif //QUADRIS_GRAPHICSDISPLAY_H
