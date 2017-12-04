@@ -291,6 +291,7 @@ void Interpreter::parseSequenceFile() {
         // Otherwise default to the following list
         interpreterImpl->blockSequence.emplace_back('I');
         interpreterImpl->blockSequence.emplace_back('J');
+        interpreterImpl->blockSequence.emplace_back('L');
         interpreterImpl->blockSequence.emplace_back('S');
         interpreterImpl->blockSequence.emplace_back('Z');
         interpreterImpl->blockSequence.emplace_back('T');
