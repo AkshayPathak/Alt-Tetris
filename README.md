@@ -9,11 +9,11 @@ Help text:
 ```
 Usage: ./quadris [option]
 
-         Features << endl <<
-         Multiplier                         Use commands such as 10right to move 10 units to the right
-         Minimum Recognizable Commands      Use commands that are the minimum, e.g. 10ri moves 10 units to the right
-         Persistent High Score              Store the high score even when the game is quit completely. Use the quit command to save scores correctly
-         Keyboard Input                     To play the game with keyboard input, use the -keyboard flag as a command line argument. Make sure to have the terminal selected!
+Features << endl <<
+Multiplier                         Use commands such as 10right to move 10 units to the right
+Minimum Recognizable Commands      Use commands that are the minimum, e.g. 10ri moves 10 units to the right
+Persistent High Score              Store the high score even when the game is quit completely. Use the quit command to save scores correctly
+Keyboard Input                     To play the game with keyboard input, use the -keyboard flag as a command line argument. Make sure to have the terminal selected!
          
 Command Line Arguments             
 -text                              Only show the text, no grapical display
