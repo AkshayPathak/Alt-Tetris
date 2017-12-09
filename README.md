@@ -9,7 +9,7 @@ Help text:
 ```
 Usage: ./quadris [option]
 
-Features << endl <<
+Features
 Multiplier                         Use commands such as 10right to move 10 units to the right
 Minimum Recognizable Commands      Use commands that are the minimum, e.g. 10ri moves 10 units to the right
 Persistent High Score              Store the high score even when the game is quit completely. Use the quit command to save scores correctly
@@ -25,7 +25,6 @@ Command Line Arguments
 -help                              Show usage text
          
 In-Game Text [KEYBOARD] Commands  
-         
 left               [LEFT-ARROW]    Move the current block one unit left
 right              [RIGHT-ARROW]   Move the current block one unit right
 down               [DOWN-ARROW]    Move the current block one unit down
