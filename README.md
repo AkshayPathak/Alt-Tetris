@@ -1,4 +1,4 @@
-# CS246 Quadris
+# Alt-Tetris
 
 By: Stanley Zhang, Brendan Power & Akshay Pathak
 
@@ -7,7 +7,7 @@ To build this game run the command `make`
 Help text:
 
 ```
-Usage: ./quadris [option]
+Usage: ./alt-tetris [option]
 
 Features
 Multiplier                         Use commands such as 10right to move 10 units to the right
